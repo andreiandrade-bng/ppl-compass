@@ -4,41 +4,43 @@
 /*!
  * ppl-compass — fontes self-hospedadas
  *
- * Três arquivos, não oito. O que o Google Fonts entrega para estas famílias é
- * FONTE VARIÁVEL: um único .woff2 cobre a faixa inteira de pesos. Baixar
- * "urbanist-400", "urbanist-500", "urbanist-600" e "urbanist-700" trazia
- * quatro cópias byte a byte idênticas do mesmo arquivo — 245 KB no lugar de 96.
- * Por isso cada @font-face declara uma FAIXA (`font-weight: 400 700`) em vez de
- * um peso fixo: é assim que o navegador sabe interpolar em vez de pedir outro
+ * Três arquivos, não doze. O que o Google Fonts entrega para estas famílias é
+ * FONTE VARIÁVEL: um único .woff2 cobre a faixa inteira de pesos. Por isso
+ * cada @font-face declara uma FAIXA (`font-weight: 100 800`) em vez de um
+ * peso fixo: é assim que o navegador sabe interpolar em vez de pedir outro
  * arquivo.
  *
  * Subset latin. Nenhuma requisição a CDN de fonte de terceiro em runtime: os
  * arquivos são servidos pela mesma origem do CSS.
  *
+ * Por que Sora + Manrope (design-system.md §2.3): o calor da identidade vem de
+ * tamanho, peso e espaço numa família geométrica humanista — uma saudação
+ * grande em Sora acolhe sem parecer revista. Sem serifa, sem itálico. É o
+ * mesmo par do quadro Kanban publicado: a marca fala uma voz só.
+ *
  * Licença: as três famílias são SIL OFL 1.1 — ver NOTICE.md. A OFL permite
  * redistribuir, e exige que o aviso acompanhe os arquivos.
  */
 
-/* UI — toda a interface. */
+/* Títulos — saudação, título de página, de card, de sucesso, headline. */
 @font-face {
-  font-family: "Urbanist";
+  font-family: "Sora";
   font-style: normal;
-  font-weight: 400 700;
+  font-weight: 100 800;
   font-display: swap;
-  src: url("fonts/urbanist-var.woff2") format("woff2");
+  src: url("fonts/sora-var.woff2") format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
                  U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
                  U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
-/* Display humano — só saudação, sucesso e hero. Só existe em itálico aqui
-   porque é o único corte que o design system usa. */
+/* UI — tudo o mais: corpo, rótulos, botões, tabelas, chrome. */
 @font-face {
-  font-family: "Playfair Display";
-  font-style: italic;
-  font-weight: 400 700;
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 200 800;
   font-display: swap;
-  src: url("fonts/playfair-display-italic-var.woff2") format("woff2");
+  src: url("fonts/manrope-var.woff2") format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
                  U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
                  U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
@@ -48,7 +50,7 @@
 @font-face {
   font-family: "JetBrains Mono";
   font-style: normal;
-  font-weight: 400 700;
+  font-weight: 100 800;
   font-display: swap;
   src: url("fonts/jetbrains-mono-var.woff2") format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
@@ -61,14 +63,21 @@
    ────────────────────────────────────────────────────────────────────── */
 /*!
  * ppl-compass — tokens
- * Identidade v5 do BNG People: azul royal + acento dourado.
+ * Identidade v6B "Alvorada" do BNG People: roxo #8100FF como luz que vai da
+ * noite ao dia, pêssego #FFB899 como luz do horizonte.
  *
  * Trocar ESTE arquivo troca a marca inteira. As receitas de componente não
  * conhecem nenhum valor: só referenciam token.
  *
- * Nomes desenhados do zero (nada herdado). Vocabulário:
- *   ink      texto        surface  fundo        border   linha
- *   blue-*   escala de marca       gold-*   acento quente (raro)
+ * Filosofia (design-system.md §2.1): cor é LUZ, não tinta. Sete paradas da
+ * noite ao dia; três são estruturais e aparecem em toda tela (noite, roxo,
+ * dia). O roxo é a única cor de ação. O pêssego é a única luz quente e obedece
+ * à física da alvorada: só é visível contra a noite. Não há arco-íris de
+ * estados.
+ *
+ * Vocabulário:
+ *   ink       texto          surface   fundo         border   linha
+ *   violet-*  rampa de luz   peach     luz quente    grad-*   só onde há céu
  */
 
 /* ── Reset mínimo ────────────────────────────────────────────────────────── */
@@ -85,97 +94,140 @@ legend { padding: 0; }
 img, svg { display: block; max-width: 100%; }
 [hidden] { display: none !important; }
 
-:root,
-[data-brand="people"] {
-  /* ══ Marca ══════════════════════════════════════════════════════════════ */
-  --ppl-blue-50:  #f0f4fc;   /* hover de linha, fundo de chip                */
-  --ppl-blue-100: #e6edfc;   /* seleção, badge frio, tile de ícone           */
-  --ppl-blue-200: #d2dbec;
-  --ppl-blue-300: #a9bff2;
-  --ppl-blue-400: #6c93ec;   /* azul-céu: avatar, gradiente de destaque      */
-  --ppl-blue-500: #2f5ad0;   /* PRIMÁRIA                                     */
-  --ppl-blue-600: #254bb4;   /* hover da primária                            */
-  --ppl-blue-700: #1e4193;   /* topo do degradê da navegação                 */
-  --ppl-blue-800: #12305f;
-  --ppl-blue-900: #0d2551;   /* base do degradê                              */
+/* Só em :root. Um seletor extra no <body> (o antigo `[data-brand]`) venceria o
+   tema escuro herdado do <html> e a noite nunca chegaria ao conteúdo. */
+:root {
+  /* ══ A rampa de luz ════════════════════════════════════════════════════ */
+  --ppl-violet-50:  #f9f5ff;   /* fundo tonal mais leve, hover de linha       */
+  --ppl-violet-100: #f1e8ff;   /* seleção, badge "admitido", tile de ícone     */
+  --ppl-violet-200: #e3d0ff;   /* faixa "cessões", badge transferido, seleção  */
+  --ppl-violet-300: #cdaeff;   /* lilás-suave: rótulo sobre escuro              */
+  --ppl-violet-400: #b48aff;   /* lilás: primário do tema escuro                */
+  --ppl-violet-500: #9a4dff;   /* hover de item sobre escuro                    */
+  --ppl-violet-600: #8100ff;   /* PRIMÁRIA — a cor da palavra "People"          */
+  --ppl-violet-700: #6600cc;   /* texto forte sobre tonal                       */
+  --ppl-violet-800: #3e1585;   /* base da sidebar                               */
+  --ppl-violet-900: #25104f;   /* madrugada: toast, faixa mais urgente          */
+  --ppl-violet-950: #130d22;   /* noite: topo da sidebar, fundo do tema escuro  */
 
-  --ppl-primary:       var(--ppl-blue-500);
-  --ppl-primary-hover: var(--ppl-blue-600);
+  /* ══ Marca e interação ═════════════════════════════════════════════════ */
+  --ppl-primary:       var(--ppl-violet-600);
+  --ppl-primary-hover: #6e00db;
   --ppl-primary-fg:    #ffffff;
+  --ppl-primary-soft:  var(--ppl-violet-100);   /* seleção, badge, stepper concluído */
+  --ppl-primary-tint:  var(--ppl-violet-200);   /* borda de ênfase, seleção de texto */
+  --ppl-link:          #6a00d6;                 /* links em texto corrido (7,7:1)    */
+  --ppl-strong:        var(--ppl-violet-700);   /* texto de badge sobre tonal        */
+  --ppl-nav-base:      var(--ppl-violet-800);   /* base da sidebar ("base" é duração) */
+  --ppl-dawn:          var(--ppl-violet-900);
+  --ppl-night:         var(--ppl-violet-950);
+  --ppl-lilac:         var(--ppl-violet-400);
+  --ppl-lilac-soft:    var(--ppl-violet-300);
 
-  /* ══ Acento quente — NO MÁXIMO UM ELEMENTO DOURADO POR TELA ════════════ */
-  --ppl-gold:      #f3c63f;
-  --ppl-gold-deep: #e4b52c;
-  --ppl-gold-soft: #fbefbe;
-
-  /* ══ Neutros (viés azul) ═══════════════════════════════════════════════ */
-  --ppl-ink:            #132c63;  /* título e ênfase                        */
-  --ppl-ink-soft:       #5a6486;  /* texto secundário — o mais usado        */
-  --ppl-ink-faint:      #8492b2;  /* rótulo, placeholder, metadado          */
-  --ppl-surface:        #ffffff;  /* superfície dominante                   */
-  --ppl-surface-sunk:   #f2f5fc;  /* fundo de página, cabeçalho de tabela   */
-  --ppl-surface-mute:   #eef1fa;  /* painel, linha alternada                */
-  --ppl-surface-head:   #e7edf8;
-  --ppl-border:         #e2e8f4;
-  --ppl-border-strong:  #d2dbec;
-
-  /* ══ Semânticas ════════════════════════════════════════════════════════ */
-  --ppl-success:      #0e8a4f;
-  --ppl-warning:      #b5892c;   /* atenção                                 */
-  --ppl-warning-soft: #f7edd4;
-  --ppl-danger:       #c0392b;   /* SÓ erro e ação destrutiva               */
-  --ppl-info:         #3c6fe0;   /* link e anel de foco                     */
-
-  /* ══ Texto sobre superfície azul ═══════════════════════════════════════ */
-  --ppl-on-dark:      #ffffff;
-  --ppl-on-dark-soft: #aec2ec;
-
-  /* ══ Gradientes — lista fechada ════════════════════════════════════════
-   * Permitidos só em: navegação/hero, botão de destaque, marca e selo.
-   * Em nenhum outro lugar.
+  /* ══ Luz quente — SÓ SOBRE SUPERFÍCIES ESCURAS, texto sempre tinta ═════
+   * Pêssego mede 1,6:1 sobre o dia: ali ele não existe. De dia, o acento é o
+   * próprio roxo cheio. Rosa e orquídea são paradas de degradê e NUNCA
+   * carregam texto (branco sobre orquídea mede 3,6:1).
    * ─────────────────────────────────────────────────────────────────────── */
-  --ppl-grad-nav:     linear-gradient(180deg, #1e4193 0%, #12305f 55%, #0d2551 100%);
-  --ppl-grad-primary: linear-gradient(135deg, #3560d9 0%, #2a4ebb 100%);
-  --ppl-grad-gold:    linear-gradient(135deg, #f7d451 0%, #efc02c 100%);
-  --ppl-grad-seal:    radial-gradient(circle at 40% 35%, #fdf3cc 0%, #f6de86 100%);
+  --ppl-peach:      #ffb899;
+  --ppl-peach-soft: #ffe3d3;
+  --ppl-rose:       #f27bb8;
+  --ppl-orchid:     #c24dff;
 
-  /* ══ Sombras — profundidade por sombra difusa + hairline, nunca borda pesada */
-  --ppl-shadow-color: 19 44 99;
-  --ppl-shadow-sm: 0 1px 2px rgb(var(--ppl-shadow-color) / .06),
-                   0 1px 3px rgb(var(--ppl-shadow-color) / .05);
-  --ppl-shadow-lg: 0 12px 34px rgb(var(--ppl-shadow-color) / .12),
-                   0 3px 8px  rgb(var(--ppl-shadow-color) / .06);
+  /* ══ Texto (dia) ═══════════════════════════════════════════════════════ */
+  --ppl-ink:          #1e1826;  /* títulos (16,5:1 sobre o dia)              */
+  --ppl-ink-body:     #433c4d;  /* corpo (10:1)                              */
+  --ppl-ink-soft:     #6c6577;  /* rótulos, descrições (5,3:1)               */
+  --ppl-ink-faint:    #736c86;  /* legendas, metadados (4,7:1)               */
+  --ppl-ink-disabled: #a79fbd;  /* campos travados; nunca informação necessária */
+  --ppl-on-dark:      #ffffff;
+  --ppl-on-dark-soft: var(--ppl-violet-300);
+
+  /* ══ Superfícies (dia) ═════════════════════════════════════════════════ */
+  --ppl-surface:        #ffffff;  /* cards, tabelas, formulários, pílula ativa */
+  --ppl-surface-app:    #fbf9f7;  /* o dia: fundo do shell e do app            */
+  --ppl-surface-subtle: #f4f1f6;  /* painéis, linhas alternadas                */
+  --ppl-surface-muted:  #ece7f0;  /* cabeçalho de tabela, painel secundário    */
+  --ppl-surface-dark:   var(--ppl-violet-900);   /* toast: independe do tema  */
+  --ppl-border:         #e6e1ea;
+  --ppl-border-strong:  #cfc8da;
+
+  /* ══ Semânticas — texto sobre claro usa a variante -strong ═════════════ */
+  --ppl-success:        #0e8a4f;   /* ícone e ponto (4,2:1 sobre o dia)       */
+  --ppl-success-soft:   #e6f5ee;
+  --ppl-success-strong: #0a6b3d;   /* texto (6,6:1)                           */
+  --ppl-warning:        #b5892c;   /* ícone e ponto                            */
+  --ppl-warning-soft:   #f7edd4;
+  --ppl-warning-strong: #866521;   /* texto (5,4:1)                           */
+  --ppl-danger:         #c0392b;   /* SÓ erro e ação destrutiva                */
+  --ppl-danger-soft:    #fbeae7;
+  --ppl-danger-strong:  #bb372a;
+  --ppl-neutral:        #5e5775;   /* estado apagado (desligado)               */
+  --ppl-neutral-soft:   #e9e4ee;
+  --ppl-success-on-dark: #7ed9a9;  /* ícone de sucesso sobre a noite           */
+  --ppl-danger-on-dark:  #f08a7e;  /* texto de erro sobre a noite              */
+
+  /* ══ Luz — degradês, lista fechada ═════════════════════════════════════
+   * Só onde há céu: login e porta do app (sky), sidebar (nav), app à noite
+   * (night), selo de conquista (seal) e o fundo quase plano do dia (day).
+   * Nunca em botão, texto, tabela ou card.
+   * ─────────────────────────────────────────────────────────────────────── */
+  --ppl-grad-sky:
+    radial-gradient(60% 70% at 50% 110%, rgb(255 184 153 / .95) 0%, rgb(242 123 184 / .55) 38%, rgb(194 77 255 / .25) 62%, transparent 80%),
+    linear-gradient(180deg, #130d22 0%, #25104f 34%, #3e1585 52%, #8100ff 72%, #c24dff 84%, #f27bb8 92%, #ffb899 100%);
+  --ppl-grad-nav:
+    radial-gradient(240px 130px at 50% 106%, rgb(255 184 153 / .62) 0%, rgb(242 123 184 / .30) 45%, transparent 72%),
+    linear-gradient(180deg, #130d22 0%, #25104f 48%, #3e1585 100%);
+  --ppl-grad-seal:
+    radial-gradient(circle at 40% 30%, #ffe3d3 0%, #ffb899 45%, #f27bb8 78%, #c24dff 100%);
+  --ppl-grad-night:
+    radial-gradient(70% 34% at 50% 100%, rgb(255 184 153 / .85) 0%, rgb(242 123 184 / .45) 40%, rgb(129 0 255 / .22) 70%, transparent 90%),
+    linear-gradient(180deg, #130d22 0%, #1a1030 60%, #25104f 100%);
+  --ppl-grad-day:
+    radial-gradient(360px 220px at 100% -10%, rgb(129 0 255 / .10), transparent 60%),
+    var(--ppl-surface-app);
+  /* O fundo do console: o dia com névoa de dia; à noite, PLANO — o horizonte
+     do app (`--ppl-grad-night`) é do Colaborador, não da operação. */
+  --ppl-canvas-bg: var(--ppl-grad-day);
+
+  /* ══ Sombra — só em flutuantes reais, sempre com offset em y ═══════════
+   * Card em repouso tem linha de 1px e NENHUMA sombra. Sombra é sinal de que
+   * algo está solto da página: FAB, toast, modal, dropdown, card do login.
+   * ─────────────────────────────────────────────────────────────────────── */
+  --ppl-shadow-color: 62 21 133;
+  --ppl-shadow-float: 0 10px 24px -10px rgb(var(--ppl-shadow-color) / .22);
+  --ppl-scrim:        rgb(19 13 34 / .50);
 
   /* ══ Tipografia ════════════════════════════════════════════════════════
-   * sans    = toda a interface
-   * display = superfície humana: saudação, sucesso, hero. NUNCA formulário,
-   *           tabela ou chrome operacional.
-   * data    = TODO dado de folha e ponto, com tabular-nums.
+   * display = Sora: saudação, título de página, de card, de sucesso, headline.
+   *           Sem itálico, sem serifa. O calor vem de tamanho, peso e espaço.
+   * sans    = Manrope: tudo o mais — corpo, rótulos, botões, tabelas, chrome.
+   * data    = JetBrains Mono: TODO dado de folha e ponto, com tabular-nums.
    * ─────────────────────────────────────────────────────────────────────── */
-  --ppl-font-sans:    "Urbanist", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --ppl-font-display: "Playfair Display", Georgia, "Times New Roman", serif;
+  --ppl-font-sans:    "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --ppl-font-display: "Sora", system-ui, -apple-system, "Segoe UI", sans-serif;
   --ppl-font-data:    "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
-  --ppl-text-eyebrow: 11px;    /* caixa alta, 700, tracking .15em            */
-  --ppl-text-xs:      12px;
+  --ppl-text-2xs:     11px;    /* rótulo de grupo, badge, legenda da logo    */
+  --ppl-text-xs:      12px;    /* caption, metadado                          */
   --ppl-text-sm:      12.5px;
-  --ppl-text-base:    14px;
+  --ppl-text-base:    14px;    /* corpo                                      */
   --ppl-text-md:      15px;
-  --ppl-text-lg:      18px;
-  --ppl-text-h1:      24px;
-  --ppl-text-display: 28px;
+  --ppl-text-lg:      18px;    /* título de seção e de card (Sora 600)       */
+  --ppl-text-h1:      24px;    /* título de página (Sora 700)                */
+  --ppl-text-display: 32px;    /* headline emocional: 1 por tela             */
+  --ppl-text-hero-number: 40px;/* relógio, saldo — mono                      */
   --ppl-leading-tight: 1.15;
   --ppl-leading-body:  1.5;
 
-  /* ══ Forma ═════════════════════════════════════════════════════════════ */
+  /* ══ Forma — cantos de ferramenta: DP é operação ═══════════════════════ */
   --ppl-radius-sm:      4px;
   --ppl-radius-md:      8px;
-  --ppl-radius-control: 12px;   /* input, botão, tile                       */
-  --ppl-radius-card:    16px;
-  --ppl-radius-card-lg: 18px;
+  --ppl-radius-control: 8px;    /* input, botão, chip, item de sidebar       */
+  --ppl-radius-card:    12px;   /* card, diálogo, card do login              */
   --ppl-radius-pill:    999px;
 
-  /* ══ Espaço ════════════════════════════════════════════════════════════ */
+  /* ══ Espaço — escala 8pt ═══════════════════════════════════════════════ */
   --ppl-space-1: 4px;
   --ppl-space-2: 8px;
   --ppl-space-3: 12px;
@@ -183,11 +235,13 @@ img, svg { display: block; max-width: 100%; }
   --ppl-space-5: 20px;
   --ppl-space-6: 24px;
   --ppl-space-8: 32px;
+  --ppl-space-12: 48px;
 
-  /* ══ Movimento ═════════════════════════════════════════════════════════ */
-  --ppl-fast: 120ms;
-  --ppl-base: 180ms;
-  --ppl-slow: 300ms;
+  /* ══ Movimento — mudança de estado é mudança de luz, nunca deslocamento ═ */
+  --ppl-fast:  120ms;
+  --ppl-base:  200ms;
+  --ppl-slow:  300ms;
+  --ppl-raise: 900ms;           /* o brilho do horizonte sobe uma vez         */
   --ppl-ease:       cubic-bezier(.16, 1, .3, 1);
   --ppl-ease-inout: cubic-bezier(.65, 0, .35, 1);
 
@@ -199,96 +253,118 @@ img, svg { display: block; max-width: 100%; }
 
   /* ══ Acessibilidade — requisito, não preferência ═══════════════════════ */
   --ppl-touch: 44px;              /* alvo mínimo em toque (WCAG 2.5.5)      */
-  --ppl-focus-ring: var(--ppl-info);
+  --ppl-focus-ring: var(--ppl-primary);
 
   /* ══ Layout ════════════════════════════════════════════════════════════ */
-  --ppl-nav-w:       238px;
-  --ppl-content-max: 1152px;
+  --ppl-nav-w:       242px;
+  --ppl-content-max: 1200px;
+
+  /* ══ Dependentes de tema ═══════════════════════════════════════════════
+   * O botão de bater ponto é roxo de dia e PÊSSEGO à noite; a aba ativa da
+   * tabbar idem. Quem escreve a tela usa uma classe só — a luz muda sozinha.
+   * ─────────────────────────────────────────────────────────────────────── */
+  --ppl-punch-bg:   var(--ppl-primary);
+  --ppl-punch-fg:   var(--ppl-primary-fg);
+  --ppl-tab-active: var(--ppl-primary);
+  --ppl-tab-pill:   var(--ppl-primary-soft);
+  --ppl-tabbar-bg:  rgb(255 255 255 / .92);
+
+  color-scheme: light;
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
- * Landing pública — o ÚNICO lugar com tema escuro.
+ * Tema escuro — "noite". Primeira classe: vale no shell inteiro.
  *
- * Conjunto separado (`--ppl-lp-*`) de propósito: assim o `prefers-color-scheme`
- * não re-tematiza o shell autenticado, que é claro-only.
+ * O roxo #8100FF NÃO atinge AA como texto sobre a noite — por isso o escuro
+ * usa o lilás #B48AFF como primário (texto tinta por cima, 6,6:1) e o
+ * lilás-suave #CDAEFF para links (9,3:1). A sidebar é sempre noite nos dois
+ * temas, então ela não muda aqui.
+ *
+ * Preferência do sistema, a menos que o usuário force claro; a escolha
+ * explícita (`data-theme`) vence a do sistema nos dois sentidos.
  * ═══════════════════════════════════════════════════════════════════════ */
-:root {
-  --ppl-lp-bg:            #f4f7fd;
-  --ppl-lp-surface:       #ffffff;
-  --ppl-lp-border:        #e2e8f4;
-  --ppl-lp-border-strong: #d2dbec;
-  --ppl-lp-ink:           #132c63;
-  --ppl-lp-ink-soft:      #5a6486;
-  --ppl-lp-accent:        #2f5ad0;
-  --ppl-lp-accent-strong: #1e4193;
-  --ppl-lp-accent-soft:   #e6edfc;
-  --ppl-lp-on-accent:     #ffffff;
-  --ppl-lp-glass:         rgb(255 255 255 / .72);
-  --ppl-lp-glass-border:  rgb(255 255 255 / .62);
-  --ppl-lp-glass-shadow:  0 24px 60px -24px rgb(19 44 99 / .28);
-  --ppl-lp-card:          rgb(255 255 255 / .78);
-  --ppl-lp-sheet:         rgb(255 255 255 / .97);
-  --ppl-lp-mesh-1:        rgb(47 90 208 / .14);
-  --ppl-lp-mesh-2:        rgb(108 147 236 / .14);
-  --ppl-lp-mesh-3:        rgb(30 65 147 / .10);
-  --ppl-lp-dot:           rgb(47 90 208 / .08);
-  --ppl-lp-grad:          linear-gradient(135deg, #2f5ad0 0%, #0d2551 100%);
-}
-
-/* Escuro por preferência do sistema, a menos que o usuário force claro.
- *
- * O azul royal #2F5AD0 NÃO atinge AA como texto sobre fundo escuro — por isso
- * o escuro usa #6C93EC para superfície e #A9C4F5 para texto. Pares verificados:
- *   #E9EEF9 sobre #0B1830 = 14,8:1   ·   #A9B6D3 sobre #122448 = 7,1:1
- *   #0B1830 sobre #6C93EC =  5,7:1   ·   #A9C4F5 sobre #0B1830 = 9,5:1
- */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --ppl-lp-bg:            #0b1830;
-    --ppl-lp-surface:       #122448;
-    --ppl-lp-border:        rgb(255 255 255 / .12);
-    --ppl-lp-border-strong: rgb(255 255 255 / .24);
-    --ppl-lp-ink:           #e9eef9;
-    --ppl-lp-ink-soft:      #a9b6d3;
-    --ppl-lp-accent:        #6c93ec;
-    --ppl-lp-accent-strong: #a9c4f5;
-    --ppl-lp-accent-soft:   rgb(108 147 236 / .18);
-    --ppl-lp-on-accent:     #0b1830;
-    --ppl-lp-glass:         rgb(18 36 72 / .72);
-    --ppl-lp-glass-border:  rgb(255 255 255 / .10);
-    --ppl-lp-glass-shadow:  0 24px 60px -24px rgb(0 0 0 / .6);
-    --ppl-lp-card:          rgb(24 48 94 / .72);
-    --ppl-lp-sheet:         rgb(18 36 72 / .97);
-    --ppl-lp-mesh-1:        rgb(47 90 208 / .35);
-    --ppl-lp-mesh-2:        rgb(108 147 236 / .24);
-    --ppl-lp-mesh-3:        rgb(13 37 81 / .40);
-    --ppl-lp-dot:           rgb(169 196 245 / .10);
-    --ppl-lp-grad:          linear-gradient(135deg, #6c93ec 0%, #1e4193 100%);
+    --ppl-surface:        #1c1530;
+    --ppl-surface-app:    #130d22;
+    --ppl-surface-subtle: #241b3c;
+    --ppl-surface-muted:  #2a2044;
+    --ppl-border:         #342a4f;
+    --ppl-border-strong:  #4a3d6b;
+    --ppl-ink:            #f3eff8;
+    --ppl-ink-body:       #cfc7dc;
+    --ppl-ink-soft:       #bdb4d0;
+    --ppl-ink-faint:      #afa6c6;
+    --ppl-ink-disabled:   #6f6688;
+    --ppl-primary:        #b48aff;
+    --ppl-primary-hover:  #cdaeff;
+    --ppl-primary-fg:     #1e1826;
+    --ppl-primary-soft:   #241b3c;
+    --ppl-primary-tint:   #3e1585;
+    --ppl-link:           #cdaeff;
+    --ppl-strong:         #cdaeff;
+    --ppl-success-strong: #7ed9a9;
+    --ppl-warning-strong: #e3b85a;
+    --ppl-danger-strong:  #f08a7e;
+    --ppl-neutral:        #b5abcf;
+    --ppl-neutral-soft:   #2a2044;
+    --ppl-success-soft:   #16352a;
+    --ppl-warning-soft:   #3a2f18;
+    --ppl-danger-soft:    #3d1f22;
+    --ppl-shadow-color:   0 0 0;
+    --ppl-shadow-float:   0 10px 24px -10px rgb(0 0 0 / .45);
+    --ppl-scrim:          rgb(0 0 0 / .60);
+    --ppl-grad-day:       var(--ppl-grad-night);
+    --ppl-canvas-bg:      var(--ppl-surface-app);
+    --ppl-focus-ring:     var(--ppl-lilac);
+    --ppl-punch-bg:       var(--ppl-peach);
+    --ppl-punch-fg:       #1e1826;
+    --ppl-tab-active:     var(--ppl-peach);
+    --ppl-tab-pill:       rgb(255 184 153 / .18);
+    --ppl-tabbar-bg:      rgb(19 13 34 / .86);
+    color-scheme: dark;
   }
 }
 
-/* Escolha explícita do usuário vence a do sistema nos dois sentidos. */
 :root[data-theme="dark"] {
-  --ppl-lp-bg:            #0b1830;
-  --ppl-lp-surface:       #122448;
-  --ppl-lp-border:        rgb(255 255 255 / .12);
-  --ppl-lp-border-strong: rgb(255 255 255 / .24);
-  --ppl-lp-ink:           #e9eef9;
-  --ppl-lp-ink-soft:      #a9b6d3;
-  --ppl-lp-accent:        #6c93ec;
-  --ppl-lp-accent-strong: #a9c4f5;
-  --ppl-lp-accent-soft:   rgb(108 147 236 / .18);
-  --ppl-lp-on-accent:     #0b1830;
-  --ppl-lp-glass:         rgb(18 36 72 / .72);
-  --ppl-lp-glass-border:  rgb(255 255 255 / .10);
-  --ppl-lp-glass-shadow:  0 24px 60px -24px rgb(0 0 0 / .6);
-  --ppl-lp-card:          rgb(24 48 94 / .72);
-  --ppl-lp-sheet:         rgb(18 36 72 / .97);
-  --ppl-lp-mesh-1:        rgb(47 90 208 / .35);
-  --ppl-lp-mesh-2:        rgb(108 147 236 / .24);
-  --ppl-lp-mesh-3:        rgb(13 37 81 / .40);
-  --ppl-lp-dot:           rgb(169 196 245 / .10);
-  --ppl-lp-grad:          linear-gradient(135deg, #6c93ec 0%, #1e4193 100%);
+  --ppl-surface:        #1c1530;
+  --ppl-surface-app:    #130d22;
+  --ppl-surface-subtle: #241b3c;
+  --ppl-surface-muted:  #2a2044;
+  --ppl-border:         #342a4f;
+  --ppl-border-strong:  #4a3d6b;
+  --ppl-ink:            #f3eff8;
+  --ppl-ink-body:       #cfc7dc;
+  --ppl-ink-soft:       #bdb4d0;
+  --ppl-ink-faint:      #afa6c6;
+  --ppl-ink-disabled:   #6f6688;
+  --ppl-primary:        #b48aff;
+  --ppl-primary-hover:  #cdaeff;
+  --ppl-primary-fg:     #1e1826;
+  --ppl-primary-soft:   #241b3c;
+  --ppl-primary-tint:   #3e1585;
+  --ppl-link:           #cdaeff;
+  --ppl-strong:         #cdaeff;
+  --ppl-success-strong: #7ed9a9;
+  --ppl-warning-strong: #e3b85a;
+  --ppl-danger-strong:  #f08a7e;
+  --ppl-neutral:        #b5abcf;
+  --ppl-neutral-soft:   #2a2044;
+  --ppl-success-soft:   #16352a;
+  --ppl-warning-soft:   #3a2f18;
+  --ppl-danger-soft:    #3d1f22;
+  --ppl-shadow-color:   0 0 0;
+  --ppl-shadow-float:   0 10px 24px -10px rgb(0 0 0 / .45);
+  --ppl-scrim:          rgb(0 0 0 / .60);
+  --ppl-grad-day:       var(--ppl-grad-night);
+  --ppl-canvas-bg:      var(--ppl-surface-app);
+  --ppl-focus-ring:     var(--ppl-lilac);
+  --ppl-punch-bg:       var(--ppl-peach);
+  --ppl-punch-fg:       #1e1826;
+  --ppl-tab-active:     var(--ppl-peach);
+  --ppl-tab-pill:       rgb(255 184 153 / .18);
+  --ppl-tabbar-bg:      rgb(19 13 34 / .86);
+  color-scheme: dark;
 }
 
 /* ══ Base do documento ═════════════════════════════════════════════════ */
@@ -296,11 +372,16 @@ body {
   font-family: var(--ppl-font-sans);
   font-size: var(--ppl-text-base);
   line-height: var(--ppl-leading-body);
-  color: var(--ppl-ink);
-  background: var(--ppl-surface-sunk);
+  color: var(--ppl-ink-body);
+  background: var(--ppl-surface-app);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
+h1, h2, h3, h4 { color: var(--ppl-ink); }
+
+/* Superfícies do navegador tematizadas: seleção e barra de rolagem. */
+::selection { background: var(--ppl-primary-tint); color: #1e1826; }
+html { scrollbar-color: var(--ppl-primary) var(--ppl-surface-app); }
 
 /* Foco visível global (WCAG 2.4.7). Nunca remover sem substituto. */
 *:focus-visible {
@@ -329,7 +410,11 @@ body {
  * acessibilidade que a sustenta. Estes comentários SÃO a documentação: é por
  * isso que o pacote é servido sem minificar.
  *
- * Nomes desenhados do zero. Nada herdado do console — ver o README.
+ * Identidade v6B "Alvorada" (design-system.md): a operação é plana e clara;
+ * a luz (degradê) só existe onde há céu — login, sidebar, app à noite, selo.
+ * Mudança de estado é mudança de luz (background/opacity, 200ms), nunca
+ * deslocamento.
+ *
  * Requer: tokens.css
  */
 
@@ -337,98 +422,137 @@ body {
  * 1 · SUPERFÍCIES
  * ═══════════════════════════════════════════════════════════════════════ */
 
-/* Fundo do shell autenticado. (console: `.people-mesh`) */
+/* Fundo do shell autenticado: o dia, com uma névoa roxa quase invisível no
+   canto — de propósito. À noite é plano: o horizonte é do app, não do console. */
 .ppl-canvas {
   position: relative;
   isolation: isolate;
-  background:
-    radial-gradient(1100px 560px at 12% -8%, #dce6fa 0, transparent 60%),
-    radial-gradient(900px 480px at 100% 0%, #e7eefb 0, transparent 55%),
-    var(--ppl-surface-mute);
+  background: var(--ppl-canvas-bg);
 }
 
-/* CARD — o componente mais usado do sistema (233 ocorrências no console).
-   Hover sobe 2px e a borda assume o azul de marca. (console: `.people-bento`)
-   O nome "bento" ficou para trás junto com a grade que ele descrevia. */
+/* CARD — o componente mais usado do sistema. Em repouso: linha de 1px e
+   NENHUMA sombra; sombra é sinal de algo solto da página, e um card não está.
+   Hover do clicável muda a LUZ (fundo e borda), não a posição. */
 .ppl-card {
   background: var(--ppl-surface);
   border: 1px solid var(--ppl-border);
   border-radius: var(--ppl-radius-card);
-  box-shadow: var(--ppl-shadow-sm);
-  transition: transform var(--ppl-base) ease,
-              box-shadow var(--ppl-base) ease,
+  transition: background-color var(--ppl-base) ease,
               border-color var(--ppl-base) ease;
 }
-/* Só levanta o que é clicável. Painel estático que sobe no hover mente sobre
-   ser interativo. */
+/* Só reage ao hover o que é clicável. Painel estático que muda no hover mente
+   sobre ser interativo. */
 .ppl-card:is(a, button):hover,
 .ppl-card--interactive:hover {
-  transform: translateY(-2px);
+  background: var(--ppl-surface-subtle);
   border-color: var(--ppl-primary);
-  box-shadow: var(--ppl-shadow-lg);
 }
 
-/* Barra fixa de topo. (console: `.people-glass` — de vidro não tem mais nada:
-   é branco a 92% com hairline. O nome antigo descrevia um glassmorphism que a
-   identidade v5 removeu da operação.) */
+/* Barra fixa de topo: sólida, com hairline. O vidro saiu — era decoração numa
+   barra sob a qual nada rola. */
 .ppl-bar {
-  background: rgb(255 255 255 / .92);
+  background: var(--ppl-surface);
   border-bottom: 1px solid var(--ppl-border);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);   /* Safari exige o prefixo */
-  box-shadow: var(--ppl-shadow-sm);
 }
 
 /* ── Tipografia de papel ────────────────────────────────────────────────── */
 
-/* Display humano. SÓ em superfície emocional: saudação, sucesso, hero.
-   NUNCA em formulário, tabela ou chrome. (console: `.people-serif`) */
+/* Título em Sora. Saudação, título de página, de card, de sucesso, headline.
+   Sem itálico, sem serifa: o calor vem de tamanho, peso e espaço. */
 .ppl-display {
   font-family: var(--ppl-font-display);
-  font-style: italic;
-}
-/* Saudação da Home e headline de sucesso: o display no tamanho de abertura. */
-.ppl-display--hero {
-  font-size: var(--ppl-text-display);
   font-weight: 600;
-  line-height: var(--ppl-leading-tight);
+  letter-spacing: -.02em;
   color: var(--ppl-ink);
+}
+/* Headline emocional — saudação da Home, sucesso, login. UMA por tela. */
+.ppl-display--hero {
+  font-size: clamp(var(--ppl-text-display), 4vw, 40px);
+  line-height: var(--ppl-leading-tight);
+  text-wrap: balance;
 }
 
 /* Dado de folha e ponto. Obrigatório: matrícula, CPF/CNPJ, NSR, competência e
-   todo valor em tabela. `tabular-nums` impede a coluna de "dançar".
-   (console: `.people-mono`) */
+   todo valor em tabela. `tabular-nums` impede a coluna de "dançar". */
 .ppl-data {
   font-family: var(--ppl-font-data);
   font-variant-numeric: tabular-nums;
 }
 
-/* Rótulo de contexto. 11px / 700 / caixa alta / tracking largo. Zero emoji. */
-.ppl-eyebrow {
-  font-size: var(--ppl-text-eyebrow);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .15em;
+/* Número-herói do app do Colaborador: relógio, saldo. Mono, grande, apertado. */
+.ppl-hero-number {
+  font-family: var(--ppl-font-data);
+  font-variant-numeric: tabular-nums;
+  font-size: clamp(var(--ppl-text-hero-number), 6vw, 48px);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -.03em;
+  color: var(--ppl-ink);
+}
+
+/* Caption: contexto e data ficam ABAIXO do título, em 12px suave. O eyebrow
+   em caixa alta acima do título foi abolido na v6B — a única caixa alta
+   rastreada do sistema é o rótulo de grupo da sidebar. */
+.ppl-caption {
+  font-size: var(--ppl-text-xs);
   color: var(--ppl-ink-faint);
 }
 
+/* Rótulo de grupo: 11 / 700 / .14em / caixa alta / lilás-suave. SÓ na sidebar
+   (ESTRUTURA, FOLHA…). Cabeçalho de tabela é caixa baixa. */
+.ppl-group-label {
+  font-size: var(--ppl-text-2xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  color: var(--ppl-on-dark-soft);
+}
+
+/* Chip de código: mono em pílula subtle. Matrícula, NSR, ID de evento. */
+.ppl-chip-code {
+  display: inline-flex; align-items: center;
+  border: 1px solid var(--ppl-border);
+  border-radius: var(--ppl-radius-pill);
+  background: var(--ppl-surface-subtle);
+  padding: 1px 8px;
+  font-family: var(--ppl-font-data);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--ppl-text-xs);
+  color: var(--ppl-ink);
+}
+
+/* Link em texto corrido: o roxo escuro que mede 7,7:1 sobre o dia. */
+.ppl-link {
+  color: var(--ppl-link);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+.ppl-link:hover { text-decoration-thickness: 2px; }
+
 /* ── Movimento ──────────────────────────────────────────────────────────── */
-@keyframes ppl-enter { from { opacity: 0; transform: translateY(10px); } }
-.ppl-enter { animation: ppl-enter .5s var(--ppl-ease) both; }
+@keyframes ppl-enter { from { opacity: 0; } }
+.ppl-enter { animation: ppl-enter .4s var(--ppl-ease) both; }
 
 @keyframes ppl-slide-in { from { opacity: 0; transform: translateX(12px); } }
 @keyframes ppl-spin { to { transform: rotate(360deg); } }
 @keyframes ppl-pulse { 50% { opacity: .45; } }
 
+/* O RAISE — o único momento autoral: ao carregar o céu, o brilho do horizonte
+   sobe uma vez. 900ms, ease de saída longa, escala em y + opacidade. */
+@keyframes ppl-raise {
+  from { opacity: 0; transform: scaleY(.6); }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .ppl-enter, .ppl-skeleton, .ppl-spinner { animation: none; }
+  .ppl-enter, .ppl-skeleton, .ppl-spinner, .ppl-sky__glow { animation: none; }
   .ppl-card { transition: none; }
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
  * 2 · BOTÕES
  * Um CTA primário sólido por tela. Rótulo verbo-primeiro ("Concluir
- * admissão"), nunca "OK".
+ * admissão"), nunca "OK". Botões são PLANOS: sem degradê, sem sombra.
  * ═══════════════════════════════════════════════════════════════════════ */
 .ppl-btn {
   display: inline-flex;
@@ -436,7 +560,7 @@ body {
   gap: var(--ppl-space-2);
   border: 1px solid transparent;
   border-radius: var(--ppl-radius-control);
-  padding: 10px var(--ppl-space-4);
+  padding: 9px var(--ppl-space-4);
   font-size: var(--ppl-text-base);
   font-weight: 600;
   line-height: 1.2;
@@ -452,72 +576,114 @@ body {
 .ppl-btn--primary { background: var(--ppl-primary); color: var(--ppl-primary-fg); }
 .ppl-btn--primary:hover:not(:disabled) { background: var(--ppl-primary-hover); }
 
-/* Gradiente só no CTA de destaque — a lista de gradientes é fechada. */
-.ppl-btn--hero { background: var(--ppl-grad-primary); color: var(--ppl-primary-fg); }
-
+/* Vazado: borda forte, texto roxo. É o par da primária ("Admitir outro"). */
 .ppl-btn--secondary {
-  border-color: var(--ppl-border);
+  border-color: var(--ppl-border-strong);
   background: var(--ppl-surface);
-  color: var(--ppl-ink-soft);
+  color: var(--ppl-primary);
 }
 .ppl-btn--secondary:hover:not(:disabled) {
   border-color: var(--ppl-primary);
-  color: var(--ppl-primary);
+  background: var(--ppl-violet-50);
+}
+/* No escuro o vazado assenta sobre a superfície escura, não sobre branco. */
+:root[data-theme="dark"] .ppl-btn--secondary:hover:not(:disabled) { background: var(--ppl-primary-soft); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .ppl-btn--secondary:hover:not(:disabled) { background: var(--ppl-primary-soft); }
 }
 
 .ppl-btn--ghost { color: var(--ppl-primary); }
-.ppl-btn--ghost:hover:not(:disabled) { background: var(--ppl-blue-50); }
+.ppl-btn--ghost:hover:not(:disabled) { background: var(--ppl-primary-soft); }
 
 /* Vermelho é só erro e ação destrutiva. Nunca "chamar atenção". */
 .ppl-btn--danger { background: var(--ppl-danger); color: #fff; }
 
-/* O acento quente. No máximo um elemento dourado por tela. */
-.ppl-btn--gold { background: var(--ppl-grad-gold); color: var(--ppl-ink); }
+/* BATER PONTO — a ação do app do Colaborador. Roxo cheio de dia; à noite vira
+   PÊSSEGO com texto tinta (10,5:1). Uma classe: a luz muda com o tema. */
+.ppl-btn--punch { background: var(--ppl-punch-bg); color: var(--ppl-punch-fg); }
+.ppl-btn--punch:hover:not(:disabled) { filter: brightness(1.06); }
 
 /* Botão de alternância marcado. Sem isto o `aria-pressed` conta ao leitor de
    tela o que a tela não mostra a ninguém — e quem enxerga fica sem saber qual
    das quatro opções está valendo. */
 .ppl-btn[aria-pressed="true"] {
   border-color: var(--ppl-primary);
-  background: var(--ppl-blue-50);
+  background: var(--ppl-primary-soft);
   color: var(--ppl-primary);
 }
 
-.ppl-btn--sm    { padding: 6px var(--ppl-space-3); font-size: var(--ppl-text-xs);
-                  border-radius: var(--ppl-radius-md); }
-.ppl-btn--icon  { padding: var(--ppl-space-2); border-radius: var(--ppl-radius-md); }
+.ppl-btn--sm    { padding: 6px var(--ppl-space-3); font-size: var(--ppl-text-xs); }
+.ppl-btn--icon  { padding: var(--ppl-space-2); }
 .ppl-btn--touch { min-height: var(--ppl-touch); }   /* obrigatório em toque */
 
+/* FAB — ação-destaque flutuante ("+ Admitir"): pílula roxa cheia com sombra,
+   canto inferior direito das listas sem ação primária no cabeçalho. Um por
+   contexto. NÃO é pêssego: o pêssego não vive sobre o dia. */
+.ppl-fab {
+  position: fixed; right: var(--ppl-space-6); bottom: var(--ppl-space-6);
+  z-index: var(--ppl-z-bar);
+  display: inline-flex; align-items: center; gap: var(--ppl-space-2);
+  min-height: var(--ppl-touch);
+  border-radius: var(--ppl-radius-pill);
+  padding: 12px var(--ppl-space-5);
+  background: var(--ppl-primary);
+  color: var(--ppl-primary-fg);
+  font-weight: 700;
+  box-shadow: var(--ppl-shadow-float);
+  transition: background-color var(--ppl-fast) ease;
+}
+.ppl-fab:hover { background: var(--ppl-primary-hover); }
+
 /* ══════════════════════════════════════════════════════════════════════════
- * 3 · BADGE
- * Estado NUNCA só por cor: sempre ícone + texto (WCAG 1.4.1).
+ * 3 · BADGE — fases do dia, monocromático + forma
+ * Estado NUNCA só por cor: ponto cheio / vazado / tracejado + texto sempre.
+ * Em tabelas de DP com centenas de linhas, matizes novos competem com
+ * âmbar, vermelho e verde — a diferença vem da FASE (intensidade) e da forma.
  * ═══════════════════════════════════════════════════════════════════════ */
 .ppl-badge {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   white-space: nowrap;
+  border: 1px solid transparent;
   border-radius: var(--ppl-radius-pill);
   padding: 2px 10px;
-  font-size: var(--ppl-text-eyebrow);
+  font-size: var(--ppl-text-2xs);
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: .03em;
-  background: rgb(90 100 134 / .10);
-  color: var(--ppl-ink-soft);
+  letter-spacing: .01em;
+  background: var(--ppl-neutral-soft);
+  color: var(--ppl-neutral);
 }
-.ppl-badge--info    { background: var(--ppl-blue-100);          color: var(--ppl-blue-700); }
-.ppl-badge--success { background: rgb(14 138 79 / .12);         color: var(--ppl-success); }
-.ppl-badge--warning { background: rgb(181 137 44 / .14);        color: var(--ppl-warning); }
-.ppl-badge--danger  { background: rgb(192 57 43 / .10);         color: var(--ppl-danger); }
-.ppl-badge--muted   { background: rgb(90 100 134 / .10);        color: var(--ppl-ink-faint); }
-.ppl-badge--gold    { background: rgb(243 198 63 / .18);        color: var(--ppl-gold-deep); }
+/* Primeira luz — admitido: tonal, ponto vazado. */
+.ppl-badge--dawn,
+.ppl-badge--info    { background: var(--ppl-primary-soft); color: var(--ppl-strong); }
+/* Dia — ativo: branco, borda e texto roxos, ponto cheio. É o estado "pronto". */
+.ppl-badge--day     { background: var(--ppl-surface); border-color: var(--ppl-primary); color: var(--ppl-primary); }
+/* Em trânsito — transferido, cessão agendada: lilás, ponto tracejado. */
+.ppl-badge--transit { background: var(--ppl-primary-tint); color: var(--ppl-strong); }
+:root[data-theme="dark"] .ppl-badge--transit { color: var(--ppl-on-dark); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .ppl-badge--transit { color: var(--ppl-on-dark); }
+}
+.ppl-badge--success { background: var(--ppl-success-soft); color: var(--ppl-success-strong); }
+.ppl-badge--warning { background: var(--ppl-warning-soft); color: var(--ppl-warning-strong); }
+.ppl-badge--danger  { background: var(--ppl-danger-soft);  color: var(--ppl-danger-strong); }
+/* Apagado — desligado. */
+.ppl-badge--muted   { background: var(--ppl-neutral-soft); color: var(--ppl-neutral); }
+
+/* O ponto que carrega a forma. */
+.ppl-badge__dot {
+  width: 7px; height: 7px; flex: none;
+  border-radius: 50%;
+  background: currentColor;
+}
+.ppl-badge__dot--hollow { background: transparent; border: 1.5px solid currentColor; }
+.ppl-badge__dot--dashed { background: transparent; border: 1.5px dashed currentColor; }
 
 /* Contador: número real com separador de milhar, nunca "99+". */
 .ppl-badge--count {
   font-family: var(--ppl-font-data);
   font-variant-numeric: tabular-nums;
-  text-transform: none;
   letter-spacing: 0;
 }
 
@@ -530,12 +696,12 @@ body {
   flex: none;
   width: 36px; height: 36px;
   border-radius: var(--ppl-radius-control);
-  background: var(--ppl-blue-100);
+  background: var(--ppl-primary-soft);
   color: var(--ppl-primary);
 }
 .ppl-icon-tile--lg   { width: 42px; height: 42px; }
-.ppl-icon-tile--sm   { width: 32px; height: 32px; border-radius: var(--ppl-radius-md); }
-.ppl-icon-tile--gold { background: var(--ppl-gold-soft); color: var(--ppl-gold-deep); }
+.ppl-icon-tile--sm   { width: 32px; height: 32px; }
+.ppl-icon-tile--warn { background: var(--ppl-warning-soft); color: var(--ppl-warning-strong); }
 .ppl-icon-tile--dark { background: rgb(255 255 255 / .20); color: #fff; }
 
 /* ══════════════════════════════════════════════════════════════════════════
@@ -546,37 +712,43 @@ body {
  * ═══════════════════════════════════════════════════════════════════════ */
 .ppl-field { display: flex; flex-direction: column; gap: 6px; }
 
+/* Rótulo 13 / 600 em caixa baixa. */
 .ppl-field__label {
-  font-size: var(--ppl-text-xs);
+  font-size: 13px;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: .03em;
-  color: var(--ppl-ink-soft);
+  color: var(--ppl-ink);
 }
-.ppl-field__label .ppl-optional { text-transform: none; font-weight: 400; }
+.ppl-field__label .ppl-optional { font-weight: 400; color: var(--ppl-ink-faint); }
 
 .ppl-input, .ppl-select, .ppl-textarea {
   width: 100%;
-  border: 1px solid var(--ppl-border);
+  min-height: 40px;
+  border: 1px solid var(--ppl-border-strong);
   border-radius: var(--ppl-radius-control);
   background: var(--ppl-surface);
-  padding: 10px var(--ppl-space-4);
+  padding: 9px var(--ppl-space-3);
   font-size: var(--ppl-text-base);
   color: var(--ppl-ink);
   outline: none;
-  transition: border-color var(--ppl-fast) ease;
+  transition: border-color var(--ppl-fast) ease, box-shadow var(--ppl-fast) ease;
 }
 .ppl-input::placeholder, .ppl-textarea::placeholder { color: var(--ppl-ink-faint); }
-.ppl-input:focus, .ppl-select:focus, .ppl-textarea:focus { border-color: var(--ppl-primary); }
+.ppl-input:focus, .ppl-select:focus, .ppl-textarea:focus {
+  border-color: var(--ppl-primary);
+  box-shadow: 0 0 0 3px var(--ppl-primary-soft);
+}
 .ppl-input:disabled, .ppl-select:disabled, .ppl-textarea:disabled {
-  background: var(--ppl-surface-sunk);
-  opacity: .7;
+  background: var(--ppl-surface-subtle);
+  color: var(--ppl-ink-disabled);
   cursor: not-allowed;
 }
+.ppl-input[aria-invalid="true"] { border-color: var(--ppl-danger); }
 /* CPF, CNPJ, matrícula, competência, valor. */
-.ppl-input--data { font-family: var(--ppl-font-data); }
+.ppl-input--data { font-family: var(--ppl-font-data); font-variant-numeric: tabular-nums; }
+/* Campo do app: alvo de toque. */
+.ppl-input--touch { min-height: var(--ppl-touch); }
 
-.ppl-field__error { margin-top: var(--ppl-space-1); font-size: var(--ppl-text-xs); color: #b91c1c; }
+.ppl-field__error { margin-top: var(--ppl-space-1); font-size: var(--ppl-text-xs); color: var(--ppl-danger-strong); }
 .ppl-field__hint  { margin-top: var(--ppl-space-1); font-size: var(--ppl-text-xs); color: var(--ppl-ink-faint); }
 
 .ppl-check {
@@ -598,6 +770,7 @@ body {
   pointer-events: none;
   color: var(--ppl-ink-faint);
 }
+/* A lista é um flutuante de verdade: aqui a sombra é legítima. */
 .ppl-combo__list {
   position: absolute; z-index: 30;
   margin-top: var(--ppl-space-1);
@@ -608,7 +781,7 @@ body {
   border-radius: var(--ppl-radius-control);
   background: var(--ppl-surface);
   padding: var(--ppl-space-1) 0;
-  box-shadow: var(--ppl-shadow-lg);
+  box-shadow: var(--ppl-shadow-float);
 }
 .ppl-combo__option {
   display: flex; width: 100%;
@@ -619,7 +792,7 @@ body {
   color: var(--ppl-ink);
 }
 .ppl-combo__list li[aria-selected="true"] .ppl-combo__option,
-.ppl-combo__option:hover { background: var(--ppl-surface-sunk); }
+.ppl-combo__option:hover { background: var(--ppl-primary-soft); }
 .ppl-combo__hint { display: block; font-size: var(--ppl-text-xs); color: var(--ppl-ink-faint); }
 
 /* A lista da busca global mora DENTRO do diálogo: não flutua, não repete a
@@ -641,14 +814,16 @@ body {
   border-radius: var(--ppl-radius-control);
   padding: 10px var(--ppl-space-4);
   font-size: var(--ppl-text-base);
+  color: var(--ppl-ink-body);
 }
-.ppl-alert--danger  { border-color: #fecaca; background: #fef2f2; color: #b91c1c; }
-.ppl-alert--warning { border-color: #f0dcae; background: var(--ppl-warning-soft); color: #8a6318; }
-.ppl-alert--info    { border-color: var(--ppl-blue-200); background: var(--ppl-blue-50); color: var(--ppl-blue-700); }
-.ppl-alert--success { border-color: #b8e0cb; background: #e7f5ee; color: #0a6b3d; }
+.ppl-alert--danger  { border-color: transparent; background: var(--ppl-danger-soft);  color: var(--ppl-danger-strong); }
+.ppl-alert--warning { border-color: transparent; background: var(--ppl-warning-soft); color: var(--ppl-warning-strong); }
+.ppl-alert--info    { border-color: transparent; background: var(--ppl-primary-soft); color: var(--ppl-strong); }
+.ppl-alert--success { border-color: transparent; background: var(--ppl-success-soft); color: var(--ppl-success-strong); }
+.ppl-alert a { font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
 
 /* ══════════════════════════════════════════════════════════════════════════
- * 7 · TOAST
+ * 7 · TOAST — sobre a madrugada, nos dois temas
  * Sucesso some sozinho; ERRO é persistente e traz ação de recuperação.
  * O toast nunca é o único registro do estado — a tela também muda.
  * ═══════════════════════════════════════════════════════════════════════ */
@@ -662,21 +837,24 @@ body {
 .ppl-toast {
   pointer-events: auto;
   display: flex; align-items: flex-start; gap: var(--ppl-space-3);
-  border: 1px solid;
   border-radius: var(--ppl-radius-card);
   padding: var(--ppl-space-3) var(--ppl-space-4);
-  box-shadow: 0 8px 30px -8px rgb(var(--ppl-shadow-color) / .25);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  background: var(--ppl-surface-dark);
+  color: var(--ppl-on-dark);
+  box-shadow: var(--ppl-shadow-float);
   animation: ppl-slide-in .24s ease-out;
   font-size: var(--ppl-text-base);
   font-weight: 500;
 }
-.ppl-toast--success { border-color: rgb(167 243 208 / .7); background: rgb(236 253 245 / .92); color: #064e3b; }
-.ppl-toast--error   { border-color: rgb(253 164 175 / .7); background: rgb(255 241 242 / .92); color: #881337; }
-.ppl-toast--info    { border-color: var(--ppl-blue-200);   background: rgb(240 244 252 / .92); color: var(--ppl-blue-900); }
+/* A variante colore o ÍCONE, não o fundo: o toast é sempre madrugada. */
+.ppl-toast--success > svg:first-child { color: var(--ppl-success-on-dark); }
+.ppl-toast--error   > svg:first-child { color: var(--ppl-danger-on-dark); }
+.ppl-toast--info    > svg:first-child { color: var(--ppl-lilac-soft); }
+.ppl-toast > svg:first-child { flex: none; margin-top: 2px; }
 .ppl-toast__body  { flex: 1; }
-.ppl-toast__close { margin-left: auto; opacity: .5; }
+.ppl-toast__body .ppl-btn--ghost { color: var(--ppl-peach); padding: 2px 6px; margin-top: 4px; }
+.ppl-toast__body .ppl-btn--ghost:hover:not(:disabled) { background: rgb(255 255 255 / .10); }
+.ppl-toast__close { margin-left: auto; color: var(--ppl-on-dark); opacity: .6; }
 .ppl-toast__close:hover { opacity: 1; }
 
 /* ══════════════════════════════════════════════════════════════════════════
@@ -689,9 +867,7 @@ body {
 
 .ppl-drawer__scrim {
   position: absolute; inset: 0;
-  background: rgb(19 44 99 / .40);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  background: var(--ppl-scrim);
   opacity: 0;
   transition: opacity var(--ppl-slow) ease;
 }
@@ -702,10 +878,8 @@ body {
   display: flex; flex-direction: column;
   width: 100%; max-width: 448px;
   border-left: 1px solid var(--ppl-border);
-  background: rgb(255 255 255 / .96);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  box-shadow: -20px 0 60px -15px rgb(var(--ppl-shadow-color) / .35);
+  background: var(--ppl-surface);
+  box-shadow: -12px 0 32px -12px rgb(var(--ppl-shadow-color) / .30);
   outline: none;
   transform: translateX(100%);
   transition: transform var(--ppl-slow) var(--ppl-ease);
@@ -717,7 +891,7 @@ body {
   border-bottom: 1px solid var(--ppl-border);
   padding: var(--ppl-space-5) var(--ppl-space-6);
 }
-.ppl-drawer__title { font-size: var(--ppl-text-lg); font-weight: 600; color: var(--ppl-ink); }
+.ppl-drawer__title { font-family: var(--ppl-font-display); font-size: var(--ppl-text-lg); font-weight: 600; color: var(--ppl-ink); }
 .ppl-drawer__desc  { margin-top: var(--ppl-space-1); font-size: var(--ppl-text-base); color: var(--ppl-ink-soft); }
 .ppl-drawer__body  { flex: 1; overflow-y: auto; padding: var(--ppl-space-5) var(--ppl-space-6); }
 .ppl-drawer__foot  { display: flex; align-items: center; justify-content: flex-end; gap: 10px; }
@@ -732,7 +906,7 @@ body {
   position: fixed; inset: 0; z-index: var(--ppl-z-overlay);
   display: flex; align-items: flex-start; justify-content: center;
   padding: 96px var(--ppl-space-4) var(--ppl-space-4);
-  background: rgb(0 0 0 / .30);
+  background: var(--ppl-scrim);
 }
 .ppl-dialog {
   width: 100%; max-width: 512px;
@@ -740,19 +914,17 @@ body {
   border-radius: var(--ppl-radius-card);
   background: var(--ppl-surface);
   padding: var(--ppl-space-5);
-  box-shadow: 0 25px 50px -12px rgb(var(--ppl-shadow-color) / .35);
+  box-shadow: var(--ppl-shadow-float);
 }
 .ppl-dialog--wide  { max-width: 672px; }
 .ppl-dialog__head  { display: flex; align-items: center; justify-content: space-between;
                      gap: var(--ppl-space-3); margin-bottom: var(--ppl-space-3); }
-.ppl-dialog__title { font-size: var(--ppl-text-md); font-weight: 600; color: var(--ppl-ink); }
+.ppl-dialog__title { font-family: var(--ppl-font-display); font-size: var(--ppl-text-lg); font-weight: 600; color: var(--ppl-ink); }
 /* A frase que o operador precisa digitar no R3. `text-transform: none` NÃO é
-   detalhe: o rótulo em volta é caixa-alta, e a frase herdaria isso — mostrando
-   "JOSÉ DA SILVA" onde o que se pede é "José da Silva". Texto exato exibido
-   diferente do que é não é texto exato. */
+   detalhe: texto exato exibido diferente do que é não é texto exato. */
 .ppl-dialog__phrase {
   border-radius: var(--ppl-radius-sm);
-  background: var(--ppl-blue-50);
+  background: var(--ppl-primary-soft);
   padding: 2px 6px;
   font-family: var(--ppl-font-data);
   text-transform: none;
@@ -760,18 +932,18 @@ body {
   color: var(--ppl-ink);
 }
 
-.ppl-dialog__body { display: flex; flex-direction: column; gap: var(--ppl-space-4); }
+.ppl-dialog__body { display: flex; flex-direction: column; gap: var(--ppl-space-4); color: var(--ppl-ink-body); }
 .ppl-dialog__foot { display: flex; align-items: center; justify-content: flex-end; gap: 10px; }
 
 /* O ALVO da ação, sempre visível. Sem ele o operador confirma o diálogo, não a
    operação — e "excluir dependente" some do texto quando três abas depois ele
-   não lembra mais QUAL dependente. A barra azul à esquerda existe para o olho
+   não lembra mais QUAL dependente. A barra roxa à esquerda existe para o olho
    achar o bloco antes de ler o título. */
 .ppl-dialog__alvo {
   border: 1px solid var(--ppl-border);
   border-left: 3px solid var(--ppl-primary);
   border-radius: var(--ppl-radius-md);
-  background: var(--ppl-surface-sunk);
+  background: var(--ppl-surface-subtle);
   padding: var(--ppl-space-3) var(--ppl-space-4);
   font-size: var(--ppl-text-base);
   color: var(--ppl-ink);
@@ -786,7 +958,7 @@ body {
 
 .ppl-kbd {
   border: 1px solid var(--ppl-border);
-  border-radius: var(--ppl-radius-md);
+  border-radius: var(--ppl-radius-sm);
   padding: 2px var(--ppl-space-2);
   font-family: var(--ppl-font-data);
   font-size: var(--ppl-text-xs);
@@ -794,34 +966,30 @@ body {
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
- * 10 · NAV — navegação principal, degradê azul, 238px
- * Item ativo carrega `aria-current="page"` e ganha a BARRA-ACENTO DOURADA.
- * Grupos nascem recolhidos, exceto o que contém a rota ativa.
+ * 10 · NAV — a sidebar em ciclorama, 242px, SEMPRE NOITE
+ * Noite no topo, base embaixo, brilho pêssego sob o rodapé. Idêntica nos dois
+ * temas. Item ativo carrega `aria-current="page"` e vira a PÍLULA DO DIA:
+ * fundo branco, texto e ícone roxos, sem barra lateral — o branco do dia é o
+ * estado ativo. Grupos nascem recolhidos, exceto o que contém a rota ativa.
  * ═══════════════════════════════════════════════════════════════════════ */
 .ppl-nav {
   display: flex; flex-direction: column; gap: 6px;
   width: var(--ppl-nav-w);
   height: 100vh;
   overflow-y: auto;
-  padding: var(--ppl-space-5) var(--ppl-space-4);
+  padding: var(--ppl-space-4);
   background: var(--ppl-grad-nav);
+  color: var(--ppl-on-dark);
   position: sticky; top: 0; flex: none;
+  color-scheme: dark;
 }
-.ppl-nav__brand { display: flex; align-items: center; gap: 10px; padding: 0 4px var(--ppl-space-4); }
-.ppl-nav__mark {
-  display: grid; place-items: center; flex: none;
-  width: 36px; height: 36px;
-  border-radius: 10px;
-  background: var(--ppl-grad-gold);
-  color: var(--ppl-ink);
-  font-size: 20px; font-weight: 700;
-}
-.ppl-nav__name { display: block; font-size: var(--ppl-text-md); font-weight: 700; color: #fff; }
-.ppl-nav__tag {
-  display: block; font-size: 10px; font-weight: 500;
-  text-transform: uppercase; letter-spacing: .15em;
-  color: var(--ppl-on-dark-soft);
-}
+.ppl-nav__brand { display: flex; flex-direction: column; gap: 6px; padding: 4px 4px var(--ppl-space-4); }
+/* Logotipo horizontal branco, 150px. Nunca recolorido, nunca menor que 120px. */
+.ppl-nav__logo { display: block; width: 150px; min-width: 120px; height: auto; color: #fff; }
+.ppl-nav__logo svg { width: 100%; height: auto; }
+.ppl-nav__name { display: block; font-family: var(--ppl-font-display); font-size: var(--ppl-text-md); font-weight: 700; color: #fff; }
+/* Legenda "Depto. Pessoal": 11 / 500 em caixa BAIXA. */
+.ppl-nav__tag { display: block; font-size: var(--ppl-text-2xs); font-weight: 500; color: var(--ppl-on-dark-soft); }
 
 /* A estrutura que `PplCompass.nav(json)` desenha. Existe como receita para que
    a navegação gerada não carregue estilo embutido no JavaScript — o que sai do
@@ -830,50 +998,61 @@ body {
 .ppl-nav__menu,
 .ppl-nav__list  { display: flex; flex-direction: column; gap: 2px; }
 .ppl-nav__block { padding-top: 6px; }
-.ppl-nav__count { margin-left: auto; }
 
 .ppl-chevron { display: inline-flex; }
 
 .ppl-nav__group {
   display: flex; width: 100%; align-items: center; gap: var(--ppl-space-2);
   border-radius: var(--ppl-radius-md);
-  padding: 6px var(--ppl-space-3);
-  font-size: 10.5px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: .12em;
+  padding: 8px var(--ppl-space-3) 6px;
+  text-align: left;
+  font-size: var(--ppl-text-2xs); font-weight: 700;
+  text-transform: uppercase; letter-spacing: .14em;
   color: var(--ppl-on-dark-soft);
-  transition: background-color var(--ppl-fast) ease;
+  transition: background-color var(--ppl-base) ease;
 }
-.ppl-nav__group:hover { background: rgb(255 255 255 / .05); }
+.ppl-nav__group:hover { background: rgb(255 255 255 / .06); }
 .ppl-nav__group .ppl-chevron { margin-left: auto; transition: transform var(--ppl-fast) ease; }
 .ppl-nav__group[aria-expanded="false"] .ppl-chevron { transform: rotate(-90deg); }
 
 .ppl-nav__item {
   position: relative;
   display: flex; align-items: center; gap: 10px;
-  border-radius: 11px;
-  padding: var(--ppl-space-2) var(--ppl-space-3);
+  border-radius: var(--ppl-radius-control);
+  padding: 9px var(--ppl-space-3);
   font-size: 13px; font-weight: 600;
-  color: var(--ppl-on-dark-soft);
-  transition: background-color var(--ppl-fast) ease, color var(--ppl-fast) ease;
+  color: rgb(255 255 255 / .88);
+  transition: background-color var(--ppl-base) ease, color var(--ppl-base) ease;
 }
-.ppl-nav__item:hover { background: rgb(255 255 255 / .05); color: #fff; }
-.ppl-nav__item[aria-current="page"] { background: rgb(255 255 255 / .10); color: #fff; }
-/* O único dourado permanente do shell. */
-.ppl-nav__item[aria-current="page"]::before {
-  content: "";
-  position: absolute; left: calc(var(--ppl-space-4) * -1); top: var(--ppl-space-2); bottom: var(--ppl-space-2);
-  width: 4px;
-  border-radius: 0 4px 4px 0;
-  background: var(--ppl-gold);
+.ppl-nav__item > svg { opacity: .85; }
+.ppl-nav__item:hover { background: rgb(255 255 255 / .10); color: #fff; }
+/* A pílula do dia. Literais de propósito: a sidebar é sempre noite, e o item
+   ativo é sempre o branco do dia com o roxo cheio — nos dois temas. */
+.ppl-nav__item[aria-current="page"] { background: #ffffff; color: var(--ppl-violet-600); }
+.ppl-nav__item[aria-current="page"] > svg { opacity: 1; }
+/* Sobre a sidebar o foco é lilás: o roxo cheio some contra a base. */
+.ppl-nav *:focus-visible { outline-color: var(--ppl-lilac); }
+
+/* O CONTADOR PÊSSEGO: pílula `--ppl-peach`, número mono em tinta. Só sobre a
+   sidebar — é o único pêssego do console. Sobre a pílula branca do item
+   ativo ele vira tonal, porque pêssego nunca vive sobre o claro. */
+.ppl-nav__count {
+  margin-left: auto;
+  background: var(--ppl-peach);
+  color: #1e1826;
+  font-size: var(--ppl-text-2xs);
+  padding: 3px 8px;
 }
+.ppl-nav__item[aria-current="page"] .ppl-nav__count { background: var(--ppl-violet-100); color: var(--ppl-violet-700); }
+
 .ppl-nav__foot {
   margin-top: var(--ppl-space-2);
   display: flex; align-items: center; gap: 10px;
-  border-top: 1px solid rgb(255 255 255 / .12);
+  border-top: 1px solid rgb(255 255 255 / .18);
   padding-top: var(--ppl-space-3);
 }
 .ppl-nav__who  { min-width: 0; flex: 1; }
-/* O e-mail trunca em vez de quebrar: o rodapé tem 238px e o endereço não
+/* O e-mail trunca em vez de quebrar: o rodapé tem 242px e o endereço não
    pode empurrar o botão de sair para fora da navegação. */
 .ppl-nav__mail {
   display: block;
@@ -881,35 +1060,53 @@ body {
   font-size: var(--ppl-text-sm); font-weight: 600;
   color: var(--ppl-on-dark);
 }
-.ppl-nav__role { display: block; font-size: var(--ppl-text-eyebrow); color: var(--ppl-on-dark-soft); }
+.ppl-nav__role { display: block; font-size: var(--ppl-text-2xs); color: var(--ppl-on-dark-soft); }
 .ppl-nav__exit { color: rgb(255 255 255 / .7); }
-.ppl-nav__exit:hover { color: var(--ppl-on-dark); }
+.ppl-nav__exit:hover { color: var(--ppl-on-dark); background: rgb(255 255 255 / .10); }
 
+/* Avatar: branco com iniciais roxas sobre a sidebar; tonal sobre o dia. */
 .ppl-avatar {
   display: grid; place-items: center; flex: none;
   width: 34px; height: 34px;
   border-radius: var(--ppl-radius-pill);
-  background: var(--ppl-blue-400);
-  color: #fff; font-size: 13px; font-weight: 700;
+  background: var(--ppl-primary-soft);
+  color: var(--ppl-primary);
+  font-size: 13px; font-weight: 700;
 }
+.ppl-nav .ppl-avatar { background: #fff; color: var(--ppl-violet-600); }
 
 /* ══════════════════════════════════════════════════════════════════════════
  * 11 · TOPO — só chrome. A navegação NÃO mora aqui.
+ * Sólido, com hairline. O chip tonal diz qual grupo está ativo (o eyebrow
+ * "Grupo Boas Novas" virou este chip).
  * ═══════════════════════════════════════════════════════════════════════ */
 .ppl-topbar { position: sticky; top: 0; z-index: var(--ppl-z-bar); }
 .ppl-topbar__row { display: flex; align-items: center; gap: var(--ppl-space-3);
-                   padding: 10px var(--ppl-space-6); }
+                   min-height: 60px; padding: 10px var(--ppl-space-6); }
+.ppl-topbar__chip {
+  display: inline-flex; align-items: center; gap: 8px;
+  height: 38px; padding: 0 var(--ppl-space-3);
+  border-radius: var(--ppl-radius-control);
+  background: var(--ppl-primary-soft);
+  color: var(--ppl-ink);
+  font-size: 13px; font-weight: 700;
+}
+.ppl-topbar__chip::before {
+  content: ""; width: 8px; height: 8px; border-radius: 50%;
+  background: var(--ppl-primary);
+}
 .ppl-topbar__crumb {
   display: inline-flex; align-items: center; gap: 6px;
   font-size: var(--ppl-text-base); font-weight: 500;
   color: var(--ppl-ink-soft);
 }
+.ppl-topbar__crumb > svg { color: var(--ppl-primary); }
 .ppl-topbar__actions { margin-left: auto; display: flex; align-items: center; gap: var(--ppl-space-3); }
 
 /* ══════════════════════════════════════════════════════════════════════════
  * 12 · CABEÇALHO DE PÁGINA
  * O contexto que decide (quem, qual CNPJ, qual competência) fica visível do
- * início ao fim do fluxo.
+ * início ao fim do fluxo — em caption ABAIXO do título, nunca em eyebrow.
  * ═══════════════════════════════════════════════════════════════════════ */
 .ppl-page-head {
   display: flex; flex-direction: column; gap: var(--ppl-space-4);
@@ -921,11 +1118,12 @@ body {
   .ppl-page-head { flex-direction: row; align-items: flex-end; justify-content: space-between; }
 }
 /* O bloco de identificação encolhe; as ações, não. */
-.ppl-page-head__id    { min-width: 0; }
-.ppl-page-head__meta  { margin-bottom: var(--ppl-space-2); }
-.ppl-page-head__title { font-size: var(--ppl-text-h1); font-weight: 600;
-                        color: var(--ppl-ink); line-height: var(--ppl-leading-tight); }
-.ppl-page-head__desc  { margin-top: var(--ppl-space-1); max-width: 48rem;
+.ppl-page-head__id    { min-width: 0; display: flex; flex-direction: column; }
+.ppl-page-head__title { font-family: var(--ppl-font-display); font-size: var(--ppl-text-h1); font-weight: 700;
+                        letter-spacing: -.02em; color: var(--ppl-ink); line-height: var(--ppl-leading-tight); }
+/* A meta vem DEPOIS do título no fluxo visual, seja onde for que esteja no HTML. */
+.ppl-page-head__meta  { order: 2; margin-top: 6px; font-size: var(--ppl-text-xs); color: var(--ppl-ink-faint); }
+.ppl-page-head__desc  { order: 3; margin-top: var(--ppl-space-2); max-width: 48rem;
                         font-size: var(--ppl-text-base); color: var(--ppl-ink-soft); }
 .ppl-page-head__actions { display: flex; flex-shrink: 0; flex-wrap: wrap;
                           align-items: center; gap: var(--ppl-space-2); }
@@ -939,12 +1137,13 @@ body {
                    justify-content: space-between; gap: var(--ppl-space-3);
                    margin-bottom: var(--ppl-space-4); }
 .ppl-panel__id    { display: flex; align-items: center; gap: 10px; }
-.ppl-panel__title { font-size: var(--ppl-text-base); font-weight: 600; color: var(--ppl-ink); }
+.ppl-panel__title { font-family: var(--ppl-font-display); font-size: 16px; font-weight: 600; color: var(--ppl-ink); }
 .ppl-panel__sub   { font-size: var(--ppl-text-xs); color: var(--ppl-ink-soft); }
 
 /* ══════════════════════════════════════════════════════════════════════════
  * 14 · CHOICE — decisão de caminho em cards grandes, não dropdown escondido
- * Alvo ≥ 160px no desktop. SÓ UM card por tela recebe o dourado.
+ * Alvo ≥ 150px no desktop. Nenhum card é "dourado": o destaque é ordem e
+ * tamanho (`--wide`), não cor.
  * ═══════════════════════════════════════════════════════════════════════ */
 .ppl-choice-grid { display: grid; gap: var(--ppl-space-4); grid-template-columns: 1fr; }
 @media (min-width: 640px)  { .ppl-choice-grid { grid-template-columns: repeat(2, 1fr); } }
@@ -952,10 +1151,11 @@ body {
 
 .ppl-choice {
   display: flex; flex-direction: column; gap: var(--ppl-space-1);
-  border-radius: var(--ppl-radius-card-lg);
+  border-radius: var(--ppl-radius-card);
   padding: var(--ppl-space-5);
-  min-height: 160px;
+  min-height: 150px;
 }
+.ppl-choice .ppl-icon-tile { margin-bottom: var(--ppl-space-2); }
 @media (min-width: 640px) { .ppl-choice--wide { grid-column: span 2; } }
 .ppl-choice__title { font-size: var(--ppl-text-md); font-weight: 700; color: var(--ppl-ink); }
 .ppl-choice__line  { font-size: var(--ppl-text-sm); color: var(--ppl-ink-soft); }
@@ -963,68 +1163,59 @@ body {
                      font-size: var(--ppl-text-xs); color: var(--ppl-ink-faint); }
 
 /* ══════════════════════════════════════════════════════════════════════════
- * 15 · STAT — número grande
- * Todo valor em `--ppl-font-data` com tabular-nums.
+ * 15 · STAT — número grande, PLANO
+ * Todo valor em `--ppl-font-data` com tabular-nums. O número-herói do app é
+ * `.ppl-hero-number` dentro de um card: sem degradê em card, nunca.
  * ═══════════════════════════════════════════════════════════════════════ */
-.ppl-stat-hero {
-  display: flex; flex-direction: column; gap: var(--ppl-space-2);
-  border: none;
-  border-radius: var(--ppl-radius-card);
-  padding: var(--ppl-space-5);
-  background: linear-gradient(135deg, var(--ppl-primary), var(--ppl-blue-400));
-  color: #fff;
-}
-.ppl-stat-hero__value {
-  font-family: var(--ppl-font-data);
-  font-variant-numeric: tabular-nums;
-  font-size: 30px; font-weight: 600;
-}
-.ppl-stat-hero__label { font-size: var(--ppl-text-xs); font-weight: 600;
-                        text-transform: uppercase; letter-spacing: .03em;
-                        color: rgb(255 255 255 / .8); }
-
-.ppl-stat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--ppl-space-3); }
-@media (min-width: 640px) { .ppl-stat-grid { grid-template-columns: repeat(4, 1fr); } }
+/* `auto-fit` com mínimo: quatro colunas onde cabem, menos onde não cabem —
+   "R$ 1.610.220,10" em mono não pode quebrar em duas linhas. */
+.ppl-stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: var(--ppl-space-3); }
 .ppl-stat { display: flex; flex-direction: column; gap: var(--ppl-space-2);
             padding: var(--ppl-space-4); border-radius: var(--ppl-radius-card); }
 .ppl-stat__value {
   font-family: var(--ppl-font-data);
   font-variant-numeric: tabular-nums;
-  font-size: var(--ppl-text-base); font-weight: 600;
+  font-size: var(--ppl-text-lg); font-weight: 600;
+  white-space: nowrap;
   color: var(--ppl-ink);
 }
 .ppl-stat__label { font-size: var(--ppl-text-xs); color: var(--ppl-ink-soft); }
 
 /* ══════════════════════════════════════════════════════════════════════════
  * 16 · TABELA
- * Cabeçalho em superfície rebaixada · linha com hover azul · scroll horizontal
- * no wrapper · coluna de valor em `--ppl-font-data`.
+ * Cabeçalho em superfície rebaixada, 12 / 700 em caixa BAIXA · linha com
+ * hover tonal · scroll horizontal no wrapper · coluna de valor em mono.
  * ═══════════════════════════════════════════════════════════════════════ */
 .ppl-table-wrap {
   overflow-x: auto;
   border: 1px solid var(--ppl-border);
-  border-radius: var(--ppl-radius-control);
+  border-radius: var(--ppl-radius-card);
+  background: var(--ppl-surface);
 }
 .ppl-table { width: 100%; min-width: 720px; border-collapse: collapse;
              text-align: left; font-size: var(--ppl-text-base); }
-.ppl-table thead tr { background: var(--ppl-surface-sunk); }
+.ppl-table thead tr { background: var(--ppl-surface-muted); }
 .ppl-table th {
   white-space: nowrap;
   padding: 10px var(--ppl-space-4);
-  font-size: var(--ppl-text-xs); font-weight: 600;
-  text-transform: uppercase; letter-spacing: .03em;
+  font-size: var(--ppl-text-xs); font-weight: 700;
   color: var(--ppl-ink-soft);
 }
-.ppl-table td { padding: 10px var(--ppl-space-4); color: var(--ppl-ink);
+.ppl-table td { padding: 10px var(--ppl-space-4); color: var(--ppl-ink-body);
                 border-top: 1px solid var(--ppl-border); }
 .ppl-table tbody tr { transition: background-color var(--ppl-fast) ease; }
-.ppl-table tbody tr:hover { background: var(--ppl-blue-50); }
+.ppl-table tbody tr:hover { background: var(--ppl-violet-50); }
+:root[data-theme="dark"] .ppl-table tbody tr:hover { background: var(--ppl-surface-subtle); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .ppl-table tbody tr:hover { background: var(--ppl-surface-subtle); }
+}
 .ppl-table tbody tr[data-href] { cursor: pointer; }
 .ppl-table .ppl-td-data,
 .ppl-table .ppl-td-num {
   font-family: var(--ppl-font-data);
   font-variant-numeric: tabular-nums;
   font-size: var(--ppl-text-xs);
+  color: var(--ppl-ink);
 }
 .ppl-table .ppl-td-num  { text-align: right; }
 .ppl-table td.ppl-td-mute { font-size: var(--ppl-text-xs); color: var(--ppl-ink-soft); }
@@ -1037,7 +1228,7 @@ body {
 .ppl-state {
   display: flex; flex-direction: column; align-items: center; gap: var(--ppl-space-3);
   border: 1px solid var(--ppl-border);
-  border-radius: var(--ppl-radius-control);
+  border-radius: var(--ppl-radius-card);
   padding: 40px var(--ppl-space-4);
   text-align: center;
   font-size: var(--ppl-text-base);
@@ -1050,7 +1241,7 @@ body {
 .ppl-skeleton {
   height: 48px;
   border-radius: var(--ppl-radius-control);
-  background: var(--ppl-surface-sunk);
+  background: var(--ppl-surface-muted);
   animation: ppl-pulse 1.6s ease-in-out infinite;
 }
 
@@ -1059,13 +1250,13 @@ body {
   border-radius: var(--ppl-radius-pill);
   border: 2px solid transparent;
   border-top-color: var(--ppl-primary);
-  border-right-color: var(--ppl-blue-200);
+  border-right-color: var(--ppl-primary-tint);
   animation: ppl-spin .8s linear infinite;
 }
 .ppl-spinner--sm { width: 16px; height: 16px; }
 
 .ppl-progress { height: 8px; width: 100%; border-radius: var(--ppl-radius-pill);
-                background: var(--ppl-border); overflow: hidden; }
+                background: var(--ppl-surface-muted); overflow: hidden; }
 .ppl-progress__bar { height: 100%; background: var(--ppl-primary);
                      transition: width var(--ppl-slow) ease; }
 
@@ -1107,6 +1298,7 @@ body {
  * Uma decisão por etapa · avançar sempre valida · voltar é direito do
  * operador · saltar para frente é bloqueado · fluxo de efeito jurídico ou
  * financeiro TERMINA em revisão · conclusão traz ID e UM próximo passo.
+ * O passo ATUAL é invertido (roxo cheio): o ativo é o que está aceso.
  * ═══════════════════════════════════════════════════════════════════════ */
 .ppl-steps { display: grid; gap: var(--ppl-space-2); list-style: none; }
 @media (min-width: 768px) {
@@ -1116,38 +1308,49 @@ body {
   display: flex; align-items: center; gap: var(--ppl-space-2);
   width: 100%; min-height: var(--ppl-touch);
   border: 1px solid var(--ppl-border);
-  border-radius: var(--ppl-radius-md);
+  border-radius: var(--ppl-radius-control);
   background: var(--ppl-surface);
   padding: var(--ppl-space-2) var(--ppl-space-3);
   text-align: left;
   font-size: var(--ppl-text-base);
   color: var(--ppl-ink);
+  transition: background-color var(--ppl-base) ease, color var(--ppl-base) ease;
 }
 .ppl-steps__item:disabled { opacity: .6; cursor: not-allowed; }
 .ppl-steps__item[aria-current="step"] {
   border-color: var(--ppl-primary);
-  background: var(--ppl-blue-50);
-  color: var(--ppl-primary);
+  background: var(--ppl-primary);
+  color: var(--ppl-primary-fg);
+}
+.ppl-steps__item--done {
+  border-color: transparent;
+  background: var(--ppl-primary-soft);
 }
 .ppl-steps__num {
   display: flex; flex: none; align-items: center; justify-content: center;
   width: 24px; height: 24px;
-  border: 1px solid var(--ppl-border);
+  border: 1px solid var(--ppl-border-strong);
   border-radius: var(--ppl-radius-pill);
   background: var(--ppl-surface);
+  font-family: var(--ppl-font-data);
   font-size: 11px; font-weight: 600;
   color: var(--ppl-ink-soft);
+}
+.ppl-steps__item[aria-current="step"] .ppl-steps__num {
+  border-color: rgb(255 255 255 / .5);
+  background: transparent;
+  color: var(--ppl-primary-fg);
 }
 .ppl-steps__item--done .ppl-steps__num {
   border-color: var(--ppl-primary);
   background: var(--ppl-primary);
-  color: #fff;
+  color: var(--ppl-primary-fg);
 }
 .ppl-steps__label { font-weight: 500; overflow: hidden;
                     text-overflow: ellipsis; white-space: nowrap; }
 
-.ppl-wizard__panel { border: 1px solid var(--ppl-border); border-radius: var(--ppl-radius-md);
-                     background: var(--ppl-surface); padding: var(--ppl-space-4); }
+.ppl-wizard__panel { border: 1px solid var(--ppl-border); border-radius: var(--ppl-radius-card);
+                     background: var(--ppl-surface); padding: var(--ppl-space-5); }
 .ppl-wizard__nav { display: flex; align-items: center; justify-content: space-between;
                    gap: var(--ppl-space-3); }
 
@@ -1171,23 +1374,26 @@ body {
 .ppl-disclosure__btn {
   display: flex; width: 100%;
   align-items: center; justify-content: space-between; gap: var(--ppl-space-3);
-  border-radius: var(--ppl-radius-md);
+  border-radius: var(--ppl-radius-card);
   padding: var(--ppl-space-5);
   text-align: left;
   /* O gatilho vive dentro de um <h2> por causa do padrão ARIA; sem fixar o
      tamanho ele herda o do navegador e a seção fica maior que o título da
      página, invertendo a hierarquia. */
-  font-size: var(--ppl-text-md);
+  font-family: var(--ppl-font-display);
+  font-size: 16px;
   font-weight: 600;
   color: var(--ppl-ink);
   transition: background-color var(--ppl-fast) ease;
 }
+.ppl-disclosure__btn:hover { background: var(--ppl-surface-subtle); }
 .ppl-disclosure__btn .ppl-chevron { transition: transform var(--ppl-fast) ease; }
 .ppl-disclosure__btn[aria-expanded="true"] .ppl-chevron { transform: rotate(180deg); }
 .ppl-disclosure__count {
   font-family: var(--ppl-font-data);
   font-variant-numeric: tabular-nums;
   font-size: var(--ppl-text-xs);
+  font-weight: 400;
   color: var(--ppl-ink-soft);
 }
 .ppl-disclosure__body { padding: 0 var(--ppl-space-5) var(--ppl-space-5); }
@@ -1196,14 +1402,14 @@ body {
  * 20 · TABBAR — navegação mobile
  * MÁXIMO 5 itens. O alvo de toque é o link inteiro, ≥ 44px — não a pílula.
  * O grid é dirigido pela contagem: `grid-cols-N` fixo quebra em silêncio ao
- * incluir uma aba.
+ * incluir uma aba. À noite o item ativo é PÊSSEGO.
  * ═══════════════════════════════════════════════════════════════════════ */
 .ppl-tabbar {
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: 1fr;
   border-top: 1px solid var(--ppl-border);
-  background: rgb(255 255 255 / .90);
+  background: var(--ppl-tabbar-bg);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   padding: var(--ppl-space-2) var(--ppl-space-2) calc(env(safe-area-inset-bottom) + .4rem);
@@ -1216,171 +1422,218 @@ body {
   font-size: 11px; font-weight: 600;
   color: var(--ppl-ink-faint);
 }
-.ppl-tabbar__item[aria-current="page"] { color: var(--ppl-primary); }
+.ppl-tabbar__item[aria-current="page"] { color: var(--ppl-tab-active); }
 .ppl-tabbar__pill {
   display: flex; align-items: center; justify-content: center;
   width: 64px; height: 36px;
   border-radius: var(--ppl-radius-pill);
   transition: background-color var(--ppl-fast) ease;
 }
-.ppl-tabbar__item[aria-current="page"] .ppl-tabbar__pill { background: var(--ppl-blue-100); }
+.ppl-tabbar__item[aria-current="page"] .ppl-tabbar__pill { background: var(--ppl-tab-pill); }
 
 /* Molde do aplicativo: cabeçalho, conteúdo rolável e tabbar colada no rodapé.
    `dvh` depois de `vh` porque a barra do navegador móvel entra e sai da conta;
    quem não entende a segunda declaração fica com a primeira, que já serve. */
-.ppl-app       { display: flex; flex-direction: column; min-height: 100vh; min-height: 100dvh; }
+/* O app tem o próprio céu: névoa de dia, horizonte à noite (`--ppl-grad-day`
+   muda com o tema). Fixo ao viewport para o brilho não rolar com a lista. */
+.ppl-app       { display: flex; flex-direction: column; min-height: 100vh; min-height: 100dvh;
+                 background: var(--ppl-grad-day); background-attachment: fixed; }
 .ppl-app__head { position: sticky; top: 0; z-index: var(--ppl-z-bar); }
 .ppl-app__body { flex: 1; padding: var(--ppl-space-4); }
 .ppl-app__foot { position: sticky; bottom: 0; z-index: var(--ppl-z-bar); }
+/* Card de jornada à noite: superfície escura a 72% sobre o horizonte. */
+.ppl-app .ppl-card--veil { background: color-mix(in srgb, var(--ppl-surface) 72%, transparent); }
 
 /* ══════════════════════════════════════════════════════════════════════════
- * 21 · LANDING — a única superfície com vidro e tema escuro
+ * 21 · CÉU — ciclorama, selo, horizonte (design-system.md §2.5)
+ * Os únicos lugares com degradê. Login, primeiro acesso, porta do app, capa
+ * de relatório: tela ou faixa em `--ppl-grad-sky`, logo branca no canto,
+ * headline branca na METADE SUPERIOR (sobre madrugada e base, nunca sobre o
+ * roxo claro ou o horizonte), card branco apoiado no horizonte.
  * ═══════════════════════════════════════════════════════════════════════ */
+.ppl-sky {
+  position: relative; isolation: isolate;
+  min-height: 100vh; min-height: 100dvh;
+  display: flex; flex-direction: column;
+  padding: var(--ppl-space-6);
+  background: var(--ppl-grad-sky);
+  color: var(--ppl-on-dark);
+  color-scheme: dark;
+  overflow: hidden;
+}
+/* Faixa: a versão curta do céu — topo de uma página externa ou do celular.
+   Usa o degradê da sidebar (noite → base, brilho no rodapé): comprimir o
+   ciclorama inteiro em 150px poria o subtítulo sobre o rosa. */
+.ppl-sky--band { min-height: 0; padding: var(--ppl-space-5) var(--ppl-space-6); background: var(--ppl-grad-nav); }
+.ppl-sky--band .ppl-sky__head { padding-top: var(--ppl-space-4); }
+.ppl-sky--band .ppl-sky__glow { display: none; }
+/* O brilho do horizonte, animado uma vez (o Raise). Um elemento separado para
+   que a animação escale só a luz, não o texto. */
+.ppl-sky__glow {
+  position: absolute; inset: auto 0 0 0; z-index: -1;
+  height: 60%;
+  transform-origin: 50% 100%;
+  background: radial-gradient(60% 70% at 50% 110%, rgb(255 184 153 / .55) 0%, rgb(242 123 184 / .30) 40%, transparent 75%);
+  animation: ppl-raise var(--ppl-raise) var(--ppl-ease) both;
+  pointer-events: none;
+}
+.ppl-sky__logo { width: 150px; color: #fff; }
+.ppl-sky__logo svg { width: 100%; height: auto; }
+.ppl-sky__logo--vertical { width: 190px; margin-inline: auto; }
+.ppl-sky__head { display: flex; flex-direction: column; gap: var(--ppl-space-2); padding-top: var(--ppl-space-8); max-width: 40rem; }
+.ppl-sky__title { font-family: var(--ppl-font-display); font-weight: 600; letter-spacing: -.02em;
+                  font-size: clamp(28px, 4vw, 40px); line-height: var(--ppl-leading-tight); color: #fff; text-wrap: balance; }
+.ppl-sky__sub   { font-size: var(--ppl-text-md); color: var(--ppl-on-dark-soft); max-width: 48ch; }
+/* O card branco apoiado no horizonte: aqui a sombra é legítima — ele flutua
+   sobre o céu. Dentro dele tudo volta a ser dia, em qualquer tema. */
+.ppl-sky__card {
+  margin-top: auto;
+  width: 100%; max-width: 420px;
+  border-radius: var(--ppl-radius-card);
+  background: #ffffff;
+  color: #433c4d;
+  padding: var(--ppl-space-6);
+  box-shadow: 0 24px 48px -16px rgb(19 13 34 / .45);
+  color-scheme: light;
+  --ppl-surface: #ffffff; --ppl-surface-subtle: #f4f1f6; --ppl-surface-muted: #ece7f0;
+  --ppl-border: #e6e1ea; --ppl-border-strong: #cfc8da;
+  --ppl-ink: #1e1826; --ppl-ink-body: #433c4d; --ppl-ink-soft: #6c6577; --ppl-ink-faint: #736c86;
+  --ppl-primary: #8100ff; --ppl-primary-hover: #6e00db; --ppl-primary-fg: #ffffff;
+  --ppl-primary-soft: #f1e8ff; --ppl-link: #6a00d6; --ppl-strong: #6600cc; --ppl-focus-ring: #8100ff;
+}
+/* Desktop: card à direita, texto à esquerda, os dois sobre a metade de cima. */
+@media (min-width: 900px) {
+  .ppl-sky--split { display: grid; grid-template-columns: 1fr minmax(360px, 440px); align-items: start;
+                    column-gap: var(--ppl-space-12); padding: var(--ppl-space-8) clamp(var(--ppl-space-6), 6vw, 96px); }
+  .ppl-sky--split .ppl-sky__logo { grid-column: 1 / -1; }
+  .ppl-sky--split .ppl-sky__card { margin-top: var(--ppl-space-8); }
+}
+
+/* SELO DE ALVORADA — conquista, sucesso, boas-vindas. Círculo com o degradê
+   do selo, check em tinta, anel roxo de 1px. Um raio de alvorada numa tela de
+   dia: o resto da tela não muda de luz. */
+.ppl-seal {
+  display: grid; place-items: center; flex: none;
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: var(--ppl-grad-seal);
+  color: #1e1826;
+  box-shadow: 0 0 0 1px rgb(129 0 255 / .18);
+}
+.ppl-seal--lg { width: 72px; height: 72px; }
+
+/* HORIZONTE DO DIA — a fila consolidada de pendências lida por consequência.
+   Quatro segmentos de larguras iguais, da madrugada ao dia: escuro é
+   urgência, branco é pronto. Rótulo e contagem são OBRIGATÓRIOS — a cor só
+   ordena. Cada segmento é clicável e filtra a fila. */
+.ppl-horizon {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  border: 1px solid var(--ppl-border);
+  border-radius: var(--ppl-radius-card);
+  overflow: hidden;
+  background: var(--ppl-surface);
+}
+.ppl-horizon__seg {
+  display: flex; flex-direction: column; gap: 4px;
+  min-height: 72px;
+  padding: 14px var(--ppl-space-4);
+  transition: filter var(--ppl-base) ease;
+}
+.ppl-horizon__seg:hover { filter: brightness(1.06); }
+.ppl-horizon__label { font-size: var(--ppl-text-xs); font-weight: 600; line-height: 1.2; }
+.ppl-horizon__count { font-family: var(--ppl-font-data); font-variant-numeric: tabular-nums;
+                      font-size: 22px; font-weight: 600; line-height: 1.1; }
+/* Da madrugada ao dia. Valores literais de propósito: a faixa é um dispositivo
+   de marca, e os pares foram medidos um a um (12,7:1 · 6,2:1 · 9,1:1 · 7,6:1). */
+.ppl-horizon__seg--1 { background: #25104f; color: #fff; }
+.ppl-horizon__seg--2 { background: #6600cc; color: #fff; }
+.ppl-horizon__seg--3 { background: #e3d0ff; color: #1e1826; }
+.ppl-horizon__seg--4 { background: var(--ppl-surface); color: var(--ppl-primary); }
+.ppl-horizon__seg--4 .ppl-horizon__label { color: var(--ppl-ink-soft); }
+/* Tema escuro: a rampa da noite na mesma ordem. A faixa clara continua sendo a
+   que está pronta. */
+:root[data-theme="dark"] .ppl-horizon__seg--1 { background: #3e1585; }
+:root[data-theme="dark"] .ppl-horizon__seg--2 { background: #8100ff; }
+:root[data-theme="dark"] .ppl-horizon__seg--3 { background: #cdaeff; }
+:root[data-theme="dark"] .ppl-horizon__seg--4 { background: #f3eff8; color: #6600cc; }
+:root[data-theme="dark"] .ppl-horizon__seg--4 .ppl-horizon__label { color: #6c6577; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .ppl-horizon__seg--1 { background: #3e1585; }
+  :root:not([data-theme="light"]) .ppl-horizon__seg--2 { background: #8100ff; }
+  :root:not([data-theme="light"]) .ppl-horizon__seg--3 { background: #cdaeff; }
+  :root:not([data-theme="light"]) .ppl-horizon__seg--4 { background: #f3eff8; color: #6600cc; }
+  :root:not([data-theme="light"]) .ppl-horizon__seg--4 .ppl-horizon__label { color: #6c6577; }
+}
+@media (max-width: 640px) {
+  .ppl-horizon { grid-template-columns: 1fr 1fr; }
+  .ppl-horizon__seg--3, .ppl-horizon__seg--4 { border-top: 1px solid var(--ppl-border); }
+  .ppl-horizon__seg--4 { border-left: 1px solid var(--ppl-border); }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+ * 22 · LANDING — o portal externo é DIA FRIO
+ * Sem selo, sem pêssego, sem ciclorama de tela inteira: plana, sobre o fundo
+ * do dia. O céu aparece só na faixa da marca (`.ppl-sky--band`). Segue o tema
+ * do aparelho como o resto do sistema.
+ * ═══════════════════════════════════════════════════════════════════════ */
+/* `--ppl-canvas-bg`, não `--ppl-grad-day`: à noite o portal fica PLANO — o
+   horizonte pêssego é do app do Colaborador, e o externo não tem pêssego. */
 .ppl-landing {
   position: relative; isolation: isolate;
   min-height: 100vh;
-  color-scheme: light;
-  background: var(--ppl-lp-bg);
-  color: var(--ppl-lp-ink);
-}
-:root[data-theme="dark"] .ppl-landing { color-scheme: dark; }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .ppl-landing { color-scheme: dark; }
+  background: var(--ppl-canvas-bg);
+  color: var(--ppl-ink-body);
 }
 
-.ppl-landing__mesh {
-  background:
-    radial-gradient(58% 48% at 10% 4%,   var(--ppl-lp-mesh-1), transparent 62%),
-    radial-gradient(46% 42% at 92% 12%,  var(--ppl-lp-mesh-2), transparent 62%),
-    radial-gradient(60% 55% at 50% 102%, var(--ppl-lp-mesh-3), transparent 66%),
-    var(--ppl-lp-bg);
-}
-.ppl-landing__mesh::before {
-  content: "";
-  position: absolute; inset: 0; z-index: -1;
-  pointer-events: none;
-  background-image: radial-gradient(var(--ppl-lp-dot) 1px, transparent 1px);
-  background-size: 22px 22px;
-  mask-image: radial-gradient(74% 68% at 50% 26%, black, transparent);
-  -webkit-mask-image: radial-gradient(74% 68% at 50% 26%, black, transparent);
-}
-
-.ppl-glass {
-  background: var(--ppl-lp-glass);
-  border: 1px solid var(--ppl-lp-glass-border);
-  box-shadow: var(--ppl-lp-glass-shadow);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-}
-/* Dentro da landing, toda receita passa a resolver na paleta pública.
- *
- * Sem isto, um componente reusado aqui aparece meio certo: `.ppl-choice__title`
- * pede `--ppl-ink`, que é o azul-marinho do shell autenticado e NÃO vira no
- * escuro — título azul-marinho sobre fundo azul-marinho some, e some em
- * silêncio, que é o pior jeito de sumir.
- *
- * O remapeamento cobre tinta, borda e superfície. NÃO cobre `--ppl-primary`
- * nem `--ppl-primary-fg`: no escuro o azul de marca perde contraste como
- * TEXTO (é por isso que `--ppl-lp-accent` clareia), mas continua sendo o fundo
- * certo para texto branco. Trocar os dois juntos consertaria o link e quebraria
- * o botão sólido. O que é texto é tratado uma linha abaixo, um a um. */
-.ppl-landing {
-  --ppl-ink:           var(--ppl-lp-ink);
-  --ppl-ink-soft:      var(--ppl-lp-ink-soft);
-  --ppl-ink-faint:     var(--ppl-lp-ink-soft);
-  --ppl-border:        var(--ppl-lp-border);
-  --ppl-border-strong: var(--ppl-lp-border-strong);
-  --ppl-surface:       var(--ppl-lp-surface);
-  --ppl-surface-sunk:  var(--ppl-lp-accent-soft);
-  --ppl-surface-mute:  var(--ppl-lp-accent-soft);
-}
-
-/* Os textos que pediam o azul de marca. */
-.ppl-landing .ppl-btn--ghost,
-.ppl-landing .ppl-state__action { color: var(--ppl-lp-accent-strong); }
-.ppl-landing .ppl-btn--ghost:hover:not(:disabled) { background: var(--ppl-lp-accent-soft); }
-.ppl-landing .ppl-btn--secondary:hover:not(:disabled) {
-  border-color: var(--ppl-lp-accent);
-  color: var(--ppl-lp-accent-strong);
-}
-
-.ppl-landing .ppl-card { background: var(--ppl-lp-card); border-color: var(--ppl-lp-border); }
-.ppl-landing .ppl-card:is(a, button):hover {
-  border-color: var(--ppl-lp-accent);
-  box-shadow: 0 20px 40px -18px var(--ppl-lp-accent-soft);
-}
-.ppl-landing *:focus-visible { outline: 2px solid var(--ppl-lp-accent); outline-offset: 2px; }
-
-/* Eyebrow editorial: serifa itálica no azul de marca. */
-.ppl-landing .ppl-eyebrow {
-  font-family: var(--ppl-font-display);
-  font-style: italic;
-  font-weight: 500;
-  font-size: inherit;
-  text-transform: none;
-  letter-spacing: .005em;
-  color: var(--ppl-lp-accent-strong);
-}
-
-/* Fallback sólido antes do background-clip: o texto nunca some. */
-.ppl-grad-text {
-  color: var(--ppl-lp-accent-strong);
-  background: var(--ppl-lp-grad);
-  -webkit-background-clip: text;
-  background-clip: text;
-}
-@supports (-webkit-background-clip: text) or (background-clip: text) {
-  .ppl-grad-text { color: transparent; }
-}
-
-/* Sem vidro quando o usuário pede menos transparência. */
-@media (prefers-reduced-transparency: reduce) {
-  .ppl-glass, .ppl-landing .ppl-card {
-    background: var(--ppl-lp-surface);
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-  }
-}
-
-/* Barra de vidro do topo público. Não é `.ppl-bar`: aquela é branca a 92% e
-   pertence ao shell autenticado. */
+/* Barra do topo público: a faixa de céu com a logo branca e as ações. */
 .ppl-landing__bar {
-  display: flex; align-items: center; justify-content: space-between;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;
   gap: var(--ppl-space-3);
   border-radius: var(--ppl-radius-card);
   padding: var(--ppl-space-3) var(--ppl-space-5);
+  background: var(--ppl-grad-nav);
+  color: var(--ppl-on-dark);
+  color-scheme: dark;
 }
+.ppl-landing__bar .ppl-btn--ghost { color: #fff; }
+.ppl-landing__bar .ppl-btn--ghost:hover:not(:disabled) { background: rgb(255 255 255 / .10); }
+.ppl-landing__bar .ppl-btn--secondary { background: transparent; border-color: rgb(255 255 255 / .35); color: #fff; }
+.ppl-landing__bar .ppl-btn--secondary:hover:not(:disabled) { background: rgb(255 255 255 / .10); border-color: #fff; }
+.ppl-landing__bar *:focus-visible { outline-color: var(--ppl-lilac); }
+.ppl-landing__logo { width: 140px; color: #fff; }
+.ppl-landing__logo svg { width: 100%; height: auto; }
 
-/* Hero: eyebrow em serifa, headline, uma linha de apoio e os CTAs. A largura
-   da linha é limitada em `ch` — medida de leitura, não de viewport. */
+/* Hero: headline Sora, uma linha de apoio e os CTAs. A largura da linha é
+   limitada em `ch` — medida de leitura, não de viewport. */
 .ppl-hero {
   display: flex; flex-direction: column; align-items: center;
   gap: var(--ppl-space-4);
-  padding: var(--ppl-space-8) 0;
+  padding: var(--ppl-space-12) 0 var(--ppl-space-8);
   text-align: center;
 }
 .ppl-hero__title {
+  font-family: var(--ppl-font-display);
   font-size: clamp(32px, 5vw, 52px);
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: -.025em;
   line-height: var(--ppl-leading-tight);
-  color: var(--ppl-lp-ink);
-  text-wrap: balance;                 /* melhoria progressiva; §5.5 */
+  color: var(--ppl-ink);
+  text-wrap: balance;                 /* melhoria progressiva */
 }
-.ppl-hero__line { max-width: 56ch; font-size: var(--ppl-text-md); color: var(--ppl-lp-ink-soft); }
+.ppl-hero__title em { font-style: normal; color: var(--ppl-primary); }
+.ppl-hero__line { max-width: 56ch; font-size: var(--ppl-text-md); color: var(--ppl-ink-soft); }
 .ppl-hero__cta  { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--ppl-space-3); }
 
-/* Folha de consentimento: quase opaca de propósito — texto jurídico precisa
-   manter contraste sobre QUALQUER conteúdo que role por baixo. */
+/* Folha de consentimento: sólida de propósito — texto jurídico precisa manter
+   contraste sobre QUALQUER conteúdo que role por baixo. */
 .ppl-sheet {
-  background: var(--ppl-lp-sheet);
-  border: 1px solid var(--ppl-lp-border);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  box-shadow: var(--ppl-lp-glass-shadow);
+  background: var(--ppl-surface);
+  border: 1px solid var(--ppl-border);
+  box-shadow: var(--ppl-shadow-float);
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
- * 22 · IMPRESSÃO — holerite, relatório de conferência
+ * 23 · IMPRESSÃO — holerite, relatório de conferência
  * `absolute` e não `fixed`: deixa o conteúdo paginar em várias folhas A4.
  * ═══════════════════════════════════════════════════════════════════════ */
 @media print {
@@ -1391,7 +1644,7 @@ body {
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
- * 23 · LAYOUT — o mínimo para compor tela
+ * 24 · LAYOUT — o mínimo para compor tela
  * Sem utilitários atômicos: se a tela precisa de dez classes, falta componente.
  * ═══════════════════════════════════════════════════════════════════════ */
 .ppl-shell      { display: flex; min-height: 100vh; align-items: stretch; }

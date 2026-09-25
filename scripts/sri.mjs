@@ -19,8 +19,8 @@ import { fileURLToPath } from 'node:url';
 const raiz = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = join(raiz, 'dist');
 
-const OWNER = process.env.PPL_OWNER ?? 'FelipeSilveiraBNG';
-const TAG = process.env.PPL_TAG ?? 'v0.1.0';
+const OWNER = process.env.PPL_OWNER ?? 'andreiandrade-bng';
+const TAG = process.env.PPL_TAG ?? 'v0.5.0';
 const versao = TAG.replace(/^v/, '');
 
 async function arquivos(dir, base = dir) {

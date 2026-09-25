@@ -5,16 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mariana Souza — BNG People</title>
 <link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/FelipeSilveiraBNG/ppl-compass@0.4.2/dist/ppl-compass.css"
-      integrity="sha384-E/qBbSGDbYr5hi+Q+4F1wUy5uXO+0q56bzlXkG86ngrjw1upmDRUvA3d1m/MBjhT"
+      href="https://cdn.jsdelivr.net/gh/andreiandrade-bng/ppl-compass@0.5.0/dist/ppl-compass.css"
+      integrity="sha384-GtiX78xFYEvnHF3D6PbfEwl0OQsFnkaZk2usuHomx/JyFUtN4JfSQgI7T/iZREoh"
       crossorigin="anonymous">
 </head>
-<body data-brand="people">
+<body>
 
 <!-- DETALHE — cabeçalho de contexto, números e seções colapsáveis.
      Fechada, cada seção continua dizendo o que importa: contagem e resumo no
      próprio cabeçalho. Disclosure que esconde a informação de decisão obriga
-     a abrir tudo para conferir qualquer coisa. -->
+     a abrir tudo para conferir qualquer coisa.
+
+     O vínculo é dito como fase do dia: "Ativa" é o dia (branco, borda roxa,
+     ponto cheio); um evento na fila está em trânsito (lilás, ponto tracejado).
+     Estado nunca só por cor — o ponto carrega a forma, o texto vai sempre. -->
 
 <div class="ppl-shell">
 
@@ -22,9 +26,9 @@
     <script type="application/json">
     {
       "rotaAtiva": "/colaboradores",
-      "marca":  { "sigla": "b", "nome": "BNG People", "tag": "Depto. Pessoal" },
+      "marca":  { "logo": "people", "nome": "BNG People", "tag": "Depto. Pessoal", "href": "/" },
       "itens": [
-        { "label": "Início",     "icone": "house",         "href": "/" },
+        { "label": "Início",     "icone": "house",        "href": "/" },
         { "label": "Pendências", "icone": "circle-alert", "href": "/pendencias", "contador": 184368 },
         { "grupo": "Estrutura", "itens": [
           { "label": "Empresas",      "icone": "building", "href": "/empresas" },
@@ -34,12 +38,12 @@
         { "grupo": "Folha", "itens": [
           { "label": "Rubricas",  "icone": "list",       "href": "/rubricas" },
           { "label": "Folha",     "icone": "wallet",     "href": "/folha" },
-          { "label": "Férias",    "icone": "tree-palm",       "href": "/ferias" },
+          { "label": "Férias",    "icone": "tree-palm",  "href": "/ferias" },
           { "label": "Rescisões", "icone": "calendar-x", "href": "/rescisoes" }
         ]},
         { "grupo": "Ponto", "itens": [
           { "label": "Espelho",   "icone": "calendar",     "href": "/ponto" },
-          { "label": "Correções", "icone": "clock-fading", "href": "/correcoes", "contador": 42 }
+          { "label": "Correções", "icone": "clock-fading", "href": "/correcoes" }
         ]},
         { "grupo": "Obrigações", "itens": [
           { "label": "eSocial",    "icone": "send", "href": "/esocial" },
@@ -60,7 +64,7 @@
 
     <header class="ppl-topbar ppl-bar">
       <div class="ppl-topbar__row">
-        <span class="ppl-eyebrow">Grupo Boas Novas</span>
+        <span class="ppl-topbar__chip">Grupo Boas Novas</span>
         <span class="ppl-topbar__crumb"><i data-ppl-icon="users" data-ppl-size="15"></i>Colaboradores</span>
         <div class="ppl-topbar__actions">
           <button class="ppl-btn ppl-btn--icon ppl-btn--secondary" aria-label="Produtos">
@@ -68,6 +72,9 @@
           </button>
           <button class="ppl-btn ppl-btn--icon ppl-btn--secondary" aria-label="Buscar" data-ppl-search-open>
             <i data-ppl-icon="search" data-ppl-size="16"></i>
+          </button>
+          <button class="ppl-btn ppl-btn--icon ppl-btn--secondary" data-ppl-theme-toggle aria-label="Alternar tema">
+            <i data-ppl-icon="moon" data-ppl-size="16"></i>
           </button>
         </div>
       </div>
@@ -77,15 +84,17 @@
 
       <div class="ppl-page-head">
         <div class="ppl-page-head__id">
-          <div class="ppl-page-head__meta ppl-eyebrow">Matrícula 2026-0042 · Gestão Hospitalar Ltda</div>
           <h1 class="ppl-page-head__title">Mariana Souza</h1>
+          <!-- Matrícula em chip de código: é identificador, e identificador
+               é mono. -->
+          <div class="ppl-page-head__meta">Matrícula <span class="ppl-chip-code">2026-0042</span> · Gestão Hospitalar Ltda</div>
           <p class="ppl-page-head__desc">
             Enfermeira · UTI Adulto · admitida em 01/09/2026 ·
             CPF <span class="ppl-data">111.222.333-44</span>
           </p>
         </div>
         <div class="ppl-page-head__actions">
-          <span class="ppl-badge ppl-badge--success"><i data-ppl-icon="check" data-ppl-size="12"></i>Ativa</span>
+          <span class="ppl-badge ppl-badge--day"><span class="ppl-badge__dot"></span>Ativa</span>
           <button class="ppl-btn ppl-btn--secondary ppl-btn--sm"><i data-ppl-icon="square-pen" data-ppl-size="15"></i>Editar</button>
           <button class="ppl-btn ppl-btn--primary ppl-btn--sm">Gerar holerite</button>
         </div>
@@ -94,9 +103,12 @@
       <div class="ppl-stack">
 
         <div class="ppl-cols-2">
-          <div class="ppl-stat-hero">
-            <span class="ppl-stat-hero__label">Líquido de 2026-08</span>
-            <span class="ppl-stat-hero__value">R$ 4.812,37</span>
+          <!-- O número-herói mora num card plano: sem degradê em card, nunca.
+               Caption em cima diz o quê, caption embaixo diz o quando. -->
+          <div class="ppl-card ppl-panel">
+            <p class="ppl-caption">Líquido de 2026-08</p>
+            <p class="ppl-hero-number">R$ 4.812,37</p>
+            <p class="ppl-caption">Apurado em 25/08/2026 · holerite a partir do fechamento</p>
           </div>
           <div class="ppl-stat-grid">
             <div class="ppl-card ppl-stat"><span class="ppl-stat__value">R$ 6.120,00</span><span class="ppl-stat__label">Proventos</span></div>
@@ -166,11 +178,11 @@
             <div class="ppl-stack ppl-stack--tight">
               <div class="ppl-row">
                 <span class="ppl-badge ppl-badge--success"><i data-ppl-icon="circle-check" data-ppl-size="12"></i>Aceito</span>
-                <span class="ppl-data">S-2200</span><span class="ppl-muted">Admissão · transmitido em 01/09/2026</span>
+                <span class="ppl-chip-code">S-2200</span><span class="ppl-muted">Admissão · transmitido em 01/09/2026</span>
               </div>
               <div class="ppl-row">
-                <span class="ppl-badge ppl-badge--muted"><i data-ppl-icon="clock" data-ppl-size="12"></i>Na fila</span>
-                <span class="ppl-data">S-1200</span><span class="ppl-muted">Remuneração 2026-08 · aguardando o fechamento</span>
+                <span class="ppl-badge ppl-badge--transit"><span class="ppl-badge__dot ppl-badge__dot--dashed"></span>Na fila</span>
+                <span class="ppl-chip-code">S-1200</span><span class="ppl-muted">Remuneração 2026-08 · aguardando o fechamento</span>
               </div>
             </div>
           </div>
@@ -187,7 +199,7 @@
         <section class="ppl-card ppl-panel">
           <div class="ppl-panel__head">
             <div class="ppl-panel__id">
-              <span class="ppl-icon-tile"><i data-ppl-icon="triangle-alert" data-ppl-size="18"></i></span>
+              <span class="ppl-icon-tile ppl-icon-tile--warn"><i data-ppl-icon="triangle-alert" data-ppl-size="18"></i></span>
               <div>
                 <div class="ppl-panel__title">Ações que mudam o contrato</div>
                 <div class="ppl-panel__sub">Cada uma pede uma confirmação proporcional ao risco.</div>
@@ -226,10 +238,10 @@
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/gh/FelipeSilveiraBNG/ppl-compass@0.4.2/dist/ppl-compass-icons.js"
+<script src="https://cdn.jsdelivr.net/gh/andreiandrade-bng/ppl-compass@0.5.0/dist/ppl-compass-icons.js"
         integrity="sha384-K7HJQ+0th6kgYPtM02Ac4GpT4x/2JVA8oI33rClJ/XEdNIkGmSK+Z4IkMfyJqcHb" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/gh/FelipeSilveiraBNG/ppl-compass@0.4.2/dist/ppl-compass.js"
-        integrity="sha384-1F/GpCbAI2O7OJGomGl1FNHYcFgTr+QVb7zhhngOvDhVGWieyhUBoYN6wRzUpTBT" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/gh/andreiandrade-bng/ppl-compass@0.5.0/dist/ppl-compass.js"
+        integrity="sha384-I1G8vAmXzfvEHSYLoCYHp0xUu3aWq2EIv8WBNscMn68emHFPkI1mPdDgoua8PYGO" crossorigin="anonymous"></script>
 <script>addEventListener('DOMContentLoaded', () => PplCompass.init());</script>
 </body>
 </html>

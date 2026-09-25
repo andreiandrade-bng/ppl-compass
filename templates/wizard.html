@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Admitir colaborador — BNG People</title>
 <link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/FelipeSilveiraBNG/ppl-compass@0.4.2/dist/ppl-compass.css"
-      integrity="sha384-E/qBbSGDbYr5hi+Q+4F1wUy5uXO+0q56bzlXkG86ngrjw1upmDRUvA3d1m/MBjhT"
+      href="https://cdn.jsdelivr.net/gh/andreiandrade-bng/ppl-compass@0.5.0/dist/ppl-compass.css"
+      integrity="sha384-GtiX78xFYEvnHF3D6PbfEwl0OQsFnkaZk2usuHomx/JyFUtN4JfSQgI7T/iZREoh"
       crossorigin="anonymous">
 </head>
-<body data-brand="people">
+<body>
 
 <!-- WIZARD — fluxo numerado com revisão e conclusão.
      Avançar SEMPRE valida a etapa corrente. Voltar é direito do operador;
@@ -20,7 +20,11 @@
      Este é o único template com um <script> de configuração: os passos, a
      validação e a conclusão são dados do fluxo, não marcação. Note o limite
      de não haver estado (decisão Q12): voltar uma etapa redesenha o
-     formulário, então o que foi digitado se perde. -->
+     formulário, então o que foi digitado se perde.
+
+     A conclusão é o único lugar do console onde entra um raio de alvorada: o
+     selo (`.ppl-seal`) ao lado da headline Sora. O resto da tela não muda de
+     luz — conquista é um ponto, não um banho. -->
 
 <div class="ppl-shell">
 
@@ -28,9 +32,9 @@
     <script type="application/json">
     {
       "rotaAtiva": "/colaboradores",
-      "marca":  { "sigla": "b", "nome": "BNG People", "tag": "Depto. Pessoal" },
+      "marca":  { "logo": "people", "nome": "BNG People", "tag": "Depto. Pessoal", "href": "/" },
       "itens": [
-        { "label": "Início",     "icone": "house",         "href": "/" },
+        { "label": "Início",     "icone": "house",        "href": "/" },
         { "label": "Pendências", "icone": "circle-alert", "href": "/pendencias", "contador": 184368 },
         { "grupo": "Estrutura", "itens": [
           { "label": "Empresas",      "icone": "building", "href": "/empresas" },
@@ -40,12 +44,12 @@
         { "grupo": "Folha", "itens": [
           { "label": "Rubricas",  "icone": "list",       "href": "/rubricas" },
           { "label": "Folha",     "icone": "wallet",     "href": "/folha" },
-          { "label": "Férias",    "icone": "tree-palm",       "href": "/ferias" },
+          { "label": "Férias",    "icone": "tree-palm",  "href": "/ferias" },
           { "label": "Rescisões", "icone": "calendar-x", "href": "/rescisoes" }
         ]},
         { "grupo": "Ponto", "itens": [
           { "label": "Espelho",   "icone": "calendar",     "href": "/ponto" },
-          { "label": "Correções", "icone": "clock-fading", "href": "/correcoes", "contador": 42 }
+          { "label": "Correções", "icone": "clock-fading", "href": "/correcoes" }
         ]},
         { "grupo": "Obrigações", "itens": [
           { "label": "eSocial",    "icone": "send", "href": "/esocial" },
@@ -66,7 +70,7 @@
 
     <header class="ppl-topbar ppl-bar">
       <div class="ppl-topbar__row">
-        <span class="ppl-eyebrow">Grupo Boas Novas</span>
+        <span class="ppl-topbar__chip">Grupo Boas Novas</span>
         <span class="ppl-topbar__crumb"><i data-ppl-icon="users" data-ppl-size="15"></i>Colaboradores</span>
         <div class="ppl-topbar__actions">
           <button class="ppl-btn ppl-btn--icon ppl-btn--secondary" aria-label="Produtos">
@@ -74,6 +78,9 @@
           </button>
           <button class="ppl-btn ppl-btn--icon ppl-btn--secondary" aria-label="Buscar" data-ppl-search-open>
             <i data-ppl-icon="search" data-ppl-size="16"></i>
+          </button>
+          <button class="ppl-btn ppl-btn--icon ppl-btn--secondary" data-ppl-theme-toggle aria-label="Alternar tema">
+            <i data-ppl-icon="moon" data-ppl-size="16"></i>
           </button>
         </div>
       </div>
@@ -83,8 +90,8 @@
 
       <div class="ppl-page-head">
         <div class="ppl-page-head__id">
-          <div class="ppl-page-head__meta ppl-eyebrow">Gestão Hospitalar Ltda · 12.345.678/0001-90</div>
           <h1 class="ppl-page-head__title">Admitir colaborador</h1>
+          <div class="ppl-page-head__meta">Gestão Hospitalar Ltda · 12.345.678/0001-90</div>
           <p class="ppl-page-head__desc">Dados pessoais, contrato e jornada. A conclusão gera o S-2200.</p>
         </div>
         <div class="ppl-page-head__actions">
@@ -100,10 +107,10 @@
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/gh/FelipeSilveiraBNG/ppl-compass@0.4.2/dist/ppl-compass-icons.js"
+<script src="https://cdn.jsdelivr.net/gh/andreiandrade-bng/ppl-compass@0.5.0/dist/ppl-compass-icons.js"
         integrity="sha384-K7HJQ+0th6kgYPtM02Ac4GpT4x/2JVA8oI33rClJ/XEdNIkGmSK+Z4IkMfyJqcHb" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/gh/FelipeSilveiraBNG/ppl-compass@0.4.2/dist/ppl-compass.js"
-        integrity="sha384-1F/GpCbAI2O7OJGomGl1FNHYcFgTr+QVb7zhhngOvDhVGWieyhUBoYN6wRzUpTBT" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/gh/andreiandrade-bng/ppl-compass@0.5.0/dist/ppl-compass.js"
+        integrity="sha384-I1G8vAmXzfvEHSYLoCYHp0xUu3aWq2EIv8WBNscMn68emHFPkI1mPdDgoua8PYGO" crossorigin="anonymous"></script>
 <script>
 addEventListener('DOMContentLoaded', () => {
   PplCompass.init();
@@ -158,6 +165,40 @@ addEventListener('DOMContentLoaded', () => {
       Concluir gera o evento S-2200 do eSocial. Depois de transmitido, corrigir exige retificação.
     </div>`;
 
+  /* A CONCLUSÃO: selo de alvorada ao lado da headline, o identificador em
+     chip de código, a lista do que aconteceu (com ícone, porque cada item é
+     um sistema diferente que foi tocado) e até DUAS ações — a primária leva
+     ao registro criado, a secundária repete o fluxo. Uma tela de sucesso com
+     quatro botões devolve ao operador a decisão que ela deveria tomar. */
+  const CONCLUSAO = `
+    <div class="ppl-stack">
+      <div class="ppl-row">
+        <span class="ppl-seal"><i data-ppl-icon="check" data-ppl-size="24"></i></span>
+        <div>
+          <p class="ppl-display ppl-display--hero">Admissão concluída</p>
+          <p class="ppl-caption">Matrícula <span class="ppl-chip-code">2026-0042</span> · Gestão Hospitalar Ltda</p>
+        </div>
+      </div>
+      <div class="ppl-stack ppl-stack--tight" role="list">
+        <div class="ppl-row" role="listitem">
+          <span class="ppl-icon-tile ppl-icon-tile--sm"><i data-ppl-icon="id-card" data-ppl-size="15"></i></span>
+          <span>Mariana Souza cadastrada como enfermeira na UTI Adulto.</span>
+        </div>
+        <div class="ppl-row" role="listitem">
+          <span class="ppl-icon-tile ppl-icon-tile--sm"><i data-ppl-icon="calendar-check-2" data-ppl-size="15"></i></span>
+          <span>Jornada 12x36 diurna a partir de 01/09/2026.</span>
+        </div>
+        <div class="ppl-row" role="listitem">
+          <span class="ppl-icon-tile ppl-icon-tile--sm"><i data-ppl-icon="send" data-ppl-size="15"></i></span>
+          <span>O S-2200 entrou na fila do eSocial.</span>
+        </div>
+      </div>
+      <div class="ppl-row">
+        <a class="ppl-btn ppl-btn--primary ppl-btn--touch" href="/colaboradores/2026-0042">Ver ficha do colaborador</a>
+        <a class="ppl-btn ppl-btn--secondary ppl-btn--touch" href="/colaboradores/novo">Admitir outro</a>
+      </div>
+    </div>`;
+
   const raiz = document.getElementById('wizard');
 
   new PplCompass.Wizard({
@@ -180,16 +221,8 @@ addEventListener('DOMContentLoaded', () => {
       corpo.innerHTML = passo.id === 'revisao' ? RESUMO : PASSOS[passo.id];
       PplCompass.init();                       // hidrata os ícones da etapa
     },
-    /* Conclusão traz o IDENTIFICADOR e UM próximo passo. Uma tela de sucesso
-       com quatro botões devolve ao operador a decisão que ela deveria tomar. */
     onConcluir: () => {
-      raiz.innerHTML = `
-        <div class="ppl-state">
-          <span class="ppl-icon-tile ppl-icon-tile--lg"><i data-ppl-icon="circle-check" data-ppl-size="22"></i></span>
-          <p class="ppl-display ppl-display--hero">Admissão concluída</p>
-          <p>Matrícula <span class="ppl-data">2026-0042</span> criada. O S-2200 entrou na fila do eSocial.</p>
-          <a class="ppl-btn ppl-btn--primary ppl-btn--touch" href="/colaboradores">Ver a colaboradora</a>
-        </div>`;
+      raiz.innerHTML = CONCLUSAO;
       PplCompass.init();
       PplCompass.toast.success('Admissão concluída — matrícula 2026-0042 criada.');
     }

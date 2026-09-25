@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entrar — BNG People</title>
+<link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/andreiandrade-bng/ppl-compass@0.5.0/dist/ppl-compass.css"
+      integrity="sha384-GtiX78xFYEvnHF3D6PbfEwl0OQsFnkaZk2usuHomx/JyFUtN4JfSQgI7T/iZREoh"
+      crossorigin="anonymous">
+</head>
+<body class="ppl-sky ppl-sky--split">
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     PORTA DE ENTRADA — o único lugar do console com degradê de tela inteira.
+
+     O <body> É o ciclorama (`.ppl-sky`): não há `.ppl-shell`, não há topbar,
+     não há sidebar — quem está aqui ainda não entrou. A luz vai da noite no
+     topo ao pêssego do horizonte embaixo, e cada peça tem lugar fixo:
+
+       - a logo BRANCA no canto, sobre a noite (nunca recolorida);
+       - a headline Sora na METADE SUPERIOR, sobre madrugada e base — nunca
+         sobre o horizonte, onde o branco deixaria de ler;
+       - o card branco apoiado no horizonte. É o único card com sombra do
+         sistema, porque é o único que flutua sobre um céu. Dentro dele tudo
+         volta a ser dia, em qualquer tema.
+
+     O brilho (`.ppl-sky__glow`) sobe uma vez ao carregar — o Raise, 900ms.
+     É o único momento autoral do sistema, e por isso acontece só aqui e só
+     uma vez; `prefers-reduced-motion` o desliga.
+
+     No celular a página é faixa de céu + card: o `--split` (texto à esquerda,
+     card à direita) só age a partir de 900px. Abaixo disso o card cai para o
+     fim da coluna, apoiado no horizonte do mesmo jeito.
+     ════════════════════════════════════════════════════════════════════ -->
+
+<div class="ppl-sky__glow" aria-hidden="true"></div>
+
+<a class="ppl-sky__logo" href="/" data-ppl-logo aria-label="BNG People"></a>
+
+<header class="ppl-sky__head">
+  <h1 class="ppl-sky__title">Bom dia. A folha de agosto fecha em 5 dias úteis.</h1>
+  <p class="ppl-sky__sub">Entre com o e-mail corporativo. O contexto de CNPJ e competência vem com você.</p>
+</header>
+
+<!-- `data-ppl-submit`: o protótipo não autentica nada — o envio anuncia o
+     que teria acontecido. Campos em `--touch` porque a porta é a mesma no
+     celular e no desktop, e 44px não atrapalha o mouse. -->
+<form class="ppl-sky__card ppl-stack" data-ppl-submit="Bem-vinda de volta, Ana.">
+  <label class="ppl-field">
+    <span class="ppl-field__label">E-mail corporativo</span>
+    <input class="ppl-input ppl-input--touch" type="email" name="email" autocomplete="username"
+           inputmode="email" value="ana.ribeiro@gestaohospitalar.com.br" required>
+  </label>
+  <label class="ppl-field">
+    <span class="ppl-field__label">Senha</span>
+    <input class="ppl-input ppl-input--touch" type="password" name="senha" autocomplete="current-password" required>
+  </label>
+  <label class="ppl-check"><input type="checkbox" name="manter" checked> Manter conectado</label>
+  <button type="submit" class="ppl-btn ppl-btn--primary ppl-btn--touch" style="width:100%;justify-content:center">Entrar</button>
+  <p class="ppl-caption"><a class="ppl-link" href="/recuperar">Esqueci a senha</a></p>
+</form>
+
+<script src="https://cdn.jsdelivr.net/gh/andreiandrade-bng/ppl-compass@0.5.0/dist/ppl-compass-icons.js"
+        integrity="sha384-K7HJQ+0th6kgYPtM02Ac4GpT4x/2JVA8oI33rClJ/XEdNIkGmSK+Z4IkMfyJqcHb" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/gh/andreiandrade-bng/ppl-compass@0.5.0/dist/ppl-compass.js"
+        integrity="sha384-I1G8vAmXzfvEHSYLoCYHp0xUu3aWq2EIv8WBNscMn68emHFPkI1mPdDgoua8PYGO" crossorigin="anonymous"></script>
+<script>addEventListener('DOMContentLoaded', () => PplCompass.init());</script>
+</body>
+</html>

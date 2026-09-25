@@ -2,8 +2,14 @@
 
 Framework de prototipação do **BNG People**. CSS + JS, **zero dependência**, servido por CDN.
 
-Monte um protótipo navegável do produto escrevendo HTML — com a identidade v5 (azul + dourado)
-já correta e as regras de acessibilidade já embutidas.
+Monte um protótipo navegável do produto escrevendo HTML — com a identidade **v6B "Alvorada"**
+já correta e as regras de acessibilidade já embutidas. Alvorada é cor como **luz**, não tinta: o
+roxo `#8100FF` é a única cor de ação e vai da noite ao dia; o pêssego `#FFB899` é a luz do
+horizonte e só existe sobre a noite. Sora nos títulos, Manrope na UI, JetBrains Mono nos dados.
+A operação é plana; o tema escuro é de primeira classe, no shell inteiro.
+
+Fork de `FelipeSilveiraBNG/ppl-compass` (v0.4.2, identidade v5) em `andreiandrade-bng`. O design
+system de origem é o `design-system.md` v6B, aprovado pelo PO em 21/09/2026.
 
 ---
 
@@ -16,32 +22,35 @@ já correta e as regras de acessibilidade já embutidas.
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/gh/FelipeSilveiraBNG/ppl-compass@0.4.2/dist/ppl-compass.css"
-        integrity="sha384-E/qBbSGDbYr5hi+Q+4F1wUy5uXO+0q56bzlXkG86ngrjw1upmDRUvA3d1m/MBjhT"
+        href="https://cdn.jsdelivr.net/gh/andreiandrade-bng/ppl-compass@0.5.0/dist/ppl-compass.css"
+        integrity="sha384-GtiX78xFYEvnHF3D6PbfEwl0OQsFnkaZk2usuHomx/JyFUtN4JfSQgI7T/iZREoh"
         crossorigin="anonymous">
 </head>
-<body data-brand="people">
+<body>
 
   <button class="ppl-btn ppl-btn--primary">Concluir admissão</button>
 
-  <script src="https://cdn.jsdelivr.net/gh/FelipeSilveiraBNG/ppl-compass@0.4.2/dist/ppl-compass-icons.js"
+  <script src="https://cdn.jsdelivr.net/gh/andreiandrade-bng/ppl-compass@0.5.0/dist/ppl-compass-icons.js"
           integrity="sha384-K7HJQ+0th6kgYPtM02Ac4GpT4x/2JVA8oI33rClJ/XEdNIkGmSK+Z4IkMfyJqcHb" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/gh/FelipeSilveiraBNG/ppl-compass@0.4.2/dist/ppl-compass.js"
-          integrity="sha384-1F/GpCbAI2O7OJGomGl1FNHYcFgTr+QVb7zhhngOvDhVGWieyhUBoYN6wRzUpTBT" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/gh/andreiandrade-bng/ppl-compass@0.5.0/dist/ppl-compass.js"
+          integrity="sha384-I1G8vAmXzfvEHSYLoCYHp0xUu3aWq2EIv8WBNscMn68emHFPkI1mPdDgoua8PYGO" crossorigin="anonymous"></script>
   <script>addEventListener('DOMContentLoaded', () => PplCompass.init());</script>
 </body>
 </html>
 ```
 
-**Comece pela documentação:** <https://felipesilveirabng.github.io/ppl-compass/> — 21 páginas com
+O `<body>` não leva atributo de marca: o tema (claro, escuro, ou o do sistema) é decidido no
+`<html>` e vale para tudo o que está dentro.
+
+**Comece pela documentação:** <https://andreiandrade-bng.github.io/ppl-compass/> — 22 páginas com
 o exemplo vivo e o código copiável de cada receita, as regras que o pacote embute e a referência da
 API. É o [`index.html`](index.html) da raiz, servido pelo GitHub Pages a partir do `main`.
 
-**Para montar uma tela:** [`templates/`](templates/README.md) traz oito arquétipos prontos —
-lista, lista com drawer de edição, wizard, home, detalhe, landing, molde móvel e a casca vazia.
-Copie o mais próximo e troque o conteúdo.
+**Para montar uma tela:** [`templates/`](templates/README.md) traz nove arquétipos prontos —
+lista, lista com drawer de edição, wizard, home, detalhe, landing, molde móvel, a casca vazia e a
+porta de entrada (`login.html`, em ciclorama). Copie o mais próximo e troque o conteúdo.
 
-**Para conferir um componente isolado:** [`demo/gallery.html`](demo/gallery.html) traz os 21 blocos
+**Para conferir um componente isolado:** [`demo/gallery.html`](demo/gallery.html) traz os blocos
 soltos, sem a navegação da documentação em volta.
 
 ### Arquivos publicados
@@ -54,28 +63,36 @@ soltos, sem a navegação da documentação em volta.
 | `ppl-compass-components.css` | só as receitas (exige um tokens) |
 | `ppl-compass.js` | os comportamentos |
 | `ppl-compass-icons.js` | 136 ícones do **lucide**, geometria embutida (ISC) |
-| `fonts/*.woff2` | Urbanist, Playfair Display itálica, JetBrains Mono — subset latin |
+| `fonts/*.woff2` | Sora, Manrope, JetBrains Mono — fontes variáveis, subset latin |
 | `LICENSE-lucide.txt` | a licença ISC do lucide — viaja junto por exigência dela |
 
 ---
 
 ## O que existe
 
-**Superfícies** `.ppl-canvas` `.ppl-card` `.ppl-bar` `.ppl-glass` `.ppl-sheet`
-**Texto** `.ppl-display` (`--hero`) `.ppl-data` `.ppl-eyebrow` `.ppl-grad-text`
-**Ação** `.ppl-btn` (`--primary --hero --secondary --ghost --danger --gold --sm --icon --touch`)
-**Estado** `.ppl-badge` `.ppl-alert` `.ppl-toast` `.ppl-state` `.ppl-skeleton` `.ppl-spinner` `.ppl-progress`
-**Formulário** `.ppl-field` `.ppl-input` `.ppl-select` `.ppl-check` `.ppl-combo`
+**Superfícies** `.ppl-canvas` `.ppl-card` (`--interactive --veil`) `.ppl-bar`
+**Texto** `.ppl-display` (`--hero`) `.ppl-data` `.ppl-hero-number` `.ppl-caption` `.ppl-group-label` `.ppl-chip-code` `.ppl-link`
+**Ação** `.ppl-btn` (`--primary --secondary --ghost --danger --punch --sm --icon --touch`) `.ppl-fab`
+**Estado** `.ppl-badge` (`--dawn --day --transit --success --warning --danger --muted --count`, `__dot` com `--hollow --dashed`) `.ppl-alert` `.ppl-toast` `.ppl-state` `.ppl-skeleton` `.ppl-spinner` `.ppl-progress`
+**Formulário** `.ppl-field` `.ppl-input` (`--data --touch`) `.ppl-select` `.ppl-textarea` `.ppl-check` `.ppl-combo`
 **Sobreposição** `.ppl-drawer` `.ppl-dialog` `.ppl-scrim`
-**Navegação** `.ppl-nav` `.ppl-topbar` `.ppl-tabbar` `.ppl-page-head`
-**Conteúdo** `.ppl-panel` `.ppl-data-panel` `.ppl-choice` `.ppl-stat` `.ppl-table` `.ppl-steps` `.ppl-review` `.ppl-disclosure`
-**Público** `.ppl-landing` `.ppl-landing__bar` `.ppl-hero`
+**Navegação** `.ppl-nav` `.ppl-topbar` `.ppl-topbar__chip` `.ppl-tabbar` `.ppl-page-head`
+**Conteúdo** `.ppl-icon-tile` `.ppl-panel` `.ppl-data-panel` `.ppl-choice` `.ppl-stat` `.ppl-table` `.ppl-steps` `.ppl-review` `.ppl-disclosure`
+**Luz** `.ppl-sky` (`--split --band`, `__glow __logo __card`) `.ppl-seal` (`--lg`) `.ppl-horizon` (`__seg--1…4`)
+**Público** `.ppl-landing` `.ppl-landing__bar` `.ppl-hero` `.ppl-sheet`
 **Layout** `.ppl-shell` `.ppl-main` `.ppl-app` `.ppl-stack` `.ppl-row` `.ppl-cols-2`
+
+"Luz" é o grupo dos únicos lugares com degradê: o ciclorama do login e da porta do app, o selo de
+conquista e o horizonte do dia. Fora dele, tudo é plano.
 
 ### Comportamento sem escrever JavaScript
 
 ```html
-<aside class="ppl-nav" data-ppl-nav><script type="application/json">{ "itens": [ … ] }</script></aside>
+<aside class="ppl-nav" data-ppl-nav><script type="application/json">{
+  "marca": { "logo": "people", "nome": "BNG People", "tag": "Depto. Pessoal", "href": "/" },
+  "itens": [ … ]
+}</script></aside>
+<span data-ppl-logo></span>                      <!-- recebe o logotipo horizontal branco -->
 <div class="ppl-data-panel" id="p" data-ppl-state="dados"><div data-ppl-when="dados">…</div></div>
 <button data-ppl-state-set="p:vazio">Vazio</button>
 <button data-ppl-confirm="R2" data-ppl-confirm-titulo="…" data-ppl-confirm-alvo="…"
@@ -90,6 +107,9 @@ soltos, sem a navegação da documentação em volta.
 <i data-ppl-icon="wallet" data-ppl-size="16"></i>
 ```
 
+O logotipo não é colado à mão em cada template — são 4 KB de `path` que divergiriam em silêncio.
+`init()` hidrata todo `[data-ppl-logo]` com o mesmo SVG que a sidebar desenha.
+
 ### API
 
 ```js
@@ -99,7 +119,7 @@ PplCompass.nav({
   alvo: '#nav',                                  // ou marque o elemento com data-ppl-nav
   variante: 'lateral' | 'tabbar',                // o mesmo objeto desenha as duas
   rotaAtiva: '/folha',
-  marca:   { sigla, nome, tag },
+  marca:   { logo: 'people', nome, tag, href },  // com `logo`, o SVG branco; sem, o nome em Sora
   itens:   [ { label, icone, href, contador? }, { grupo, itens: [ … ] } ],
   usuario: { iniciais, nome, papel, sair }
 });
@@ -108,6 +128,7 @@ PplCompass.drawer.abrir(id) / .fechar(id)
 PplCompass.busca.abrir() / .fechar()
 PplCompass.tema.alternar()
 PplCompass.icon(nome, tamanho)
+PplCompass.logo()                                 // o SVG do logotipo horizontal branco
 PplCompass.fmt.cpf / .cnpj / .dinheiro / .contagem / .competencia
 
 PplCompass.painel('painel-folha', 'carregando');   // dados | carregando | vazio | erro
@@ -137,15 +158,28 @@ new PplCompass.Wizard({
 
 Não são preferências de estilo. Um protótipo que as viola gera retrabalho na implementação.
 
-- **Um CTA primário sólido por tela.** Rótulo verbo-primeiro, nunca "OK".
-- **No máximo um elemento dourado por tela.** Dourado é acento, não decoração.
+- **Um CTA sólido por tela.** `--primary`, `--punch` e `.ppl-fab` contam. Rótulo verbo-primeiro,
+  nunca "OK".
+- **No máximo um pêssego por tela, e só sobre a noite.** O pêssego é a luz do horizonte: o
+  contador de Pendências na sidebar, o botão de bater ponto do app no tema escuro. Sobre o dia ele
+  mede 1,6:1 — ali ele não existe, e o acento é o próprio roxo cheio.
 - **Vermelho é só erro e ação destrutiva.** Nunca "chamar atenção".
-- **Estado nunca só por cor** — sempre ícone + texto.
+- **Estado nunca só por cor** — ponto cheio, vazado ou tracejado, sempre com texto. Em tabela de
+  DP com centenas de linhas, matiz novo compete com âmbar, vermelho e verde; a diferença vem da
+  fase (admitido, ativo, em trânsito) e da forma.
 - **Dado de folha e ponto sempre em `.ppl-data`**, com `tabular-nums`.
 - **Zero emoji** em qualquer superfície: ícone é ícone, e vem de `ppl-compass-icons.js`.
-- **Alvo de toque ≥ 44px** com `.ppl-btn--touch`.
-- **Gradiente só** em navegação/hero, CTA de destaque, marca e selo.
-- **Tema escuro só na landing** — o shell autenticado é claro, como o produto.
+- **Alvo de toque ≥ 44px** com `.ppl-btn--touch` e `.ppl-input--touch`.
+- **Degradê só onde há céu** — login, sidebar, app à noite, selo. Nunca em botão, texto, tabela ou
+  card. Botão é plano; texto em degradê não é texto.
+- **Card sem sombra.** Em repouso, linha de 1px. Sombra é sinal de algo solto da página — FAB,
+  toast, modal, dropdown, o card do login sobre o céu — e um card não está.
+- **O branco do dia é o estado ativo.** Item ativo da sidebar é pílula branca com texto roxo; o
+  badge "ativo" é branco com borda roxa. Ativo é o que está aceso, não o que tem uma barra ao lado.
+- **Eyebrow abolido.** Contexto e data ficam abaixo do título, em `.ppl-caption`. A única caixa
+  alta rastreada do sistema é o rótulo de grupo da sidebar.
+- **Tema escuro de primeira classe** — vale no shell inteiro, pela preferência do sistema ou por
+  `data-theme`. A sidebar é sempre noite, nos dois temas.
 - **Fluxo de efeito jurídico ou financeiro termina em revisão.** O `Wizard` falha fechado:
   sem a etapa `revisao` ele não renderiza e mostra o defeito.
 - **Contador é o número real, com separador de milhar** — nunca `"99+"`.
@@ -166,12 +200,15 @@ Não são preferências de estilo. Um protótipo que as viola gera retrabalho na
 
 ### Nomes
 
-Nada foi herdado do console. Lá a escala azul ainda se chama `violet-*`, e as superfícies se
-chamam `bento` e `glass` — nomes de decisões já revertidas (a identidade Violeta, e a direção
-Bento UI + Glassmorphism). Aqui cada nome descreve o que a coisa **é**: `.ppl-card` é um card,
-`.ppl-bar` é uma barra, `.ppl-disclosure` é o padrão ARIA que ele implementa.
+Cada nome descreve o que a coisa **é**: `.ppl-card` é um card, `.ppl-bar` é uma barra,
+`.ppl-disclosure` é o padrão ARIA que ele implementa. Nada foi herdado do console — lá as
+superfícies ainda carregam nomes de decisões já revertidas.
 
-O `build.mjs` **falha fechado** se um nome aposentado voltar ao fonte.
+A v0.5.0 aposentou o vocabulário da v5: `blue-*`, `gold`, `lp-*`, `eyebrow`, `glass`, `grad-text`,
+`btn--hero`, `stat-hero` e `nav__mark` são nomes aposentados, e o `build.mjs` **falha fechado** se
+qualquer um voltar ao fonte. A v6B fala em `violet-*` (a rampa da noite ao dia), `peach` (a luz
+quente) e `grad-sky`/`grad-nav`/`grad-seal`/`grad-night`/`grad-day` (os únicos degradês, cada um
+com o seu lugar).
 
 ---
 
@@ -182,7 +219,8 @@ chegar. Sem polyfill: polyfill é dependência.
 
 Em uso: `:has()`, `@container`, `color-mix()`, `inert` — é ele que prende o foco no drawer sem
 gerenciar `tabindex` à mão —, custom properties e Grid. Fora da v1: aninhamento nativo de CSS.
-`backdrop-filter` sempre acompanhado de `-webkit-`, que o Safari exige.
+`backdrop-filter` sobrevive só na tabbar do app, sempre acompanhado de `-webkit-`, que o Safari
+exige.
 
 ---
 
@@ -192,7 +230,7 @@ gerenciar `tabindex` à mão —, custom properties e Grid. Fora da v1: aninhame
 
 | Referência | Cache | Consequência |
 |---|---|---|
-| `@0.4.2` | 1 ano, imutável | a demo de amanhã é byte a byte a de hoje |
+| `@0.5.0` | 1 ano, imutável | a demo de amanhã é byte a byte a de hoje |
 | `@main` | 12 h no edge | a demo pode mudar sozinha antes da reunião |
 
 **Use o arquivo com SRI, não o `.min`.** O jsDelivr gera `.min.css` automaticamente, mas avisa
@@ -210,13 +248,17 @@ framework ainda está descobrindo os próprios nomes — cada fase encontra rece
 travar a superfície agora só criaria alias legado, que é exatamente o que o §5.4 do plano existe
 para evitar.
 
+**Esta é a v0.5.0, "Alvorada".** Ela trocou a identidade inteira — e com ela renomeou tokens e
+classes. Em `0.x` isso é um `minor`, não um `major`: ninguém prometeu que um token da v5
+duraria, e criar um alias para cada nome antigo só faria a v6B carregar a v5 nas costas.
+
 **A `1.0.0` volta quando a documentação estiver publicada no GitHub Pages** — antes disso não há
 onde alguém conferir o que a estabilidade estaria prometendo.
 
-> Houve uma `v1.0.0` no fim da Fase 1. Ela saiu antes da hora e **foi apagada em 26/08/2026**,
-> com a confirmação de que ninguém a consumia. Se você encontrar uma referência a `@1.0.0`, troque
-> pela `0.x`: no GitHub a tag já não existe, e o que ainda responde é cache do CDN — que some sem
-> aviso. Apagar tag publicada só é seguro com essa confirmação.
+> No repositório de origem houve uma `v1.0.0` no fim da Fase 1. Ela saiu antes da hora e **foi
+> apagada em 26/08/2026**, com a confirmação de que ninguém a consumia. Se você encontrar uma
+> referência a `@1.0.0`, troque pela `0.x`: no GitHub a tag já não existe, e o que ainda responde é
+> cache do CDN — que some sem aviso. Apagar tag publicada só é seguro com essa confirmação.
 
 **A superfície pública é:** nomes de token, nomes de classe, atributos `data-*` e a API
 `PplCompass.*`.
@@ -243,15 +285,18 @@ npm run icones                # regera src/ppl-compass-icons.js a partir de scri
 npm run icones:conferir       # reprova se o arquivo gerado derivou da lista
 
 node scripts/build.mjs        # monta dist/ e confere as invariantes (inclusive nos .html)
-node scripts/lint.mjs         # token órfão, CTA duplicado, dourado repetido, contraste
+node scripts/lint.mjs         # token órfão, CTA duplicado, pêssego repetido, contraste
 node scripts/lint.mjs --autoteste   # confere as CHECAGENS, não o código
 node scripts/smoke.mjs        # Tab, Esc e retorno de foco, no Chrome já instalado
 node scripts/preview.mjs      # espelha templates/ em .preview/ apontando para ../dist/
 node scripts/sri.mjs          # tabela de hashes para colar neste README
 node scripts/sri.mjs --html   # as tags prontas, já com a URL do CDN
 
-PPL_TAG=v0.4.2 node scripts/sri.mjs --html
+PPL_TAG=v0.5.0 node scripts/sri.mjs --html
 ```
+
+O `sri.mjs` monta a URL com o owner `andreiandrade-bng` por padrão; `PPL_OWNER` troca, se um dia
+o pacote mudar de casa.
 
 ### O que o CI reprova
 
@@ -262,27 +307,30 @@ navegador baixa.
 |---|---|
 | **autoteste** | uma regra que parou de morder — roda antes de tudo, porque um lint decorativo deixa o repositório verde e a garantia vazia |
 | **token definido** | `var(--ppl-x)` sem `--ppl-x:` em lugar nenhum. Resolve para nada: badge transparente, foco sem cor, botão branco com texto branco |
-| **um CTA sólido** | dois `--primary`/`--hero` na mesma superfície (DS-07). Vale por superfície: um drawer aberto tem o próprio CTA |
-| **um dourado** | acento repetido deixa de acentuar |
-| **contraste** | os pares versionados recalculados a partir do `tokens.css` de hoje, claro e escuro. A dívida conhecida é nomeada e **não pode piorar** |
-| **nome aposentado** | um nome do console de volta, em qualquer arquivo — inclusive na documentação, de onde ele volta para o código pela mão de quem copiou o exemplo |
+| **um CTA sólido** | dois `--primary`/`--punch`/`.ppl-fab` na mesma superfície (DS-07). Vale por superfície: um drawer aberto tem o próprio CTA |
+| **um pêssego** | dois pêssegos na mesma tela — classe (`--punch`, `.ppl-nav__count`) ou `"contador"` no JSON da nav. Dois horizontes não apontam |
+| **contraste** | os 38 pares versionados recalculados a partir do `tokens.css` de hoje, nos dois temas. A dívida conhecida é nomeada e **não pode piorar** |
+| **nome aposentado** | um nome da v5 ou do console de volta, em qualquer arquivo — inclusive na documentação, de onde ele volta para o código pela mão de quem copiou o exemplo |
 | **ícones em sincronia** | `src/ppl-compass-icons.js` editado à mão — a próxima geração reverteria a edição em silêncio |
 | **smoke de teclado** | `Tab` sem armadilha, foco preso no modal, `Esc` que fecha sem confirmar, foco de volta no gatilho |
 | **dist/ e SRI** | `dist/` que não é o que o fonte gera, ou hash documentado que não bate — a página de quem consome pararia de carregar |
 
 ### Dívida de contraste, nomeada
 
-Três pares herdados da paleta do console não atingem AA e estão listados no `lint.mjs`:
-`--ppl-ink-faint` (3.12:1), `--ppl-warning` (3.19:1) e `--ppl-success` (4.41:1). A checagem mede os
-três a cada execução e **reprova se algum piorar**. Pagá-los é decisão de identidade, não de
-higiene: `--ppl-ink-faint` precisaria escurecer até encostar em `--ppl-ink-soft`, e a hierarquia de
-três níveis do texto viraria dois.
+Dois semânticos de base ficam abaixo de AA como texto e estão listados no `lint.mjs`:
+`--ppl-success` (4,19:1 sobre o dia) e `--ppl-warning` (3,19:1 sobre branco). O design system
+resolve isto sem trocar o hex: os dois são usados **só como ícone e ponto**, onde o mínimo é 3:1
+(WCAG 1.4.11); texto usa a variante `-strong`, que mede 6,6:1 e 5,4:1. A checagem mede os dois a
+cada execução e **reprova se algum piorar**.
+
+A v6B pagou uma dívida da v5: `--ppl-ink-faint` ficou em `#736C86`, 4,7:1 sobre o dia, e a
+hierarquia de texto continuou com os seus níveis — o que a paleta anterior dizia ser impossível.
 
 ### Validar antes de publicar
 
 | Página | Aponta para | Serve para |
 |---|---|---|
-| `index.html` | `dist/` | a documentação — 21 páginas, exemplo vivo e código |
+| `index.html` | `dist/` | a documentação — 22 páginas, exemplo vivo e código |
 | `demo/gallery.html` | `../dist/` | ver todos os componentes do commit aberto |
 | `demo/proof-local.html` | `../dist/` | validar o **conteúdo** antes de publicar |
 | `demo/proof.html` | o CDN | validar a **entrega** depois de publicar |
@@ -301,8 +349,8 @@ python -m http.server 8777
 ```bash
 node scripts/build.mjs
 node scripts/sri.mjs              # cole os hashes aqui, em demo/proof.html e em templates/*.html
-git add -A && git commit -m "release: v0.4.2"
-git tag v0.4.2 && git push origin main --tags
+git add -A && git commit -m "release: v0.5.0 - alvorada"
+git tag v0.5.0 && git push origin main --tags
 ```
 
 O hash cobre o **byte exato** de cada arquivo: qualquer mudança, inclusive num comentário, gera
@@ -312,17 +360,18 @@ um hash novo. Regere **antes** de criar a tag, nunca depois.
 
 ## Hashes SRI
 
-| Arquivo | Tamanho | `integrity` (v0.4.2) |
+| Arquivo | Tamanho | `integrity` (v0.5.0) |
 |---|---|---|
-| `ppl-compass-components.css` | 52.6 KB | `sha384-rblKGhGSAqP+I5ktX6NVKEe38OV1BCbqM/48XsK697iZ8lXvo+DVbBwjH4GOPobk` |
-| `ppl-compass-icons.js` | 6.3 KB | `sha384-K7HJQ+0th6kgYPtM02Ac4GpT4x/2JVA8oI33rClJ/XEdNIkGmSK+Z4IkMfyJqcHb` |
-| `ppl-compass-nofonts.css` | 66.2 KB | `sha384-2Yjt1p6csRAkxNtFsbk7kM/ngmCeReS5SVO60/Y2IXgIfh7j7g6+yDIf9l8Qbw6o` |
-| `ppl-compass-tokens.css` | 12.8 KB | `sha384-e9hvrC/d4+ZqAfi200UvHN5OofkTbnN6JmygwRhEOMD21yowqA9oRCNn91Whkssn` |
-| `ppl-compass.css` | 68.8 KB | `sha384-E/qBbSGDbYr5hi+Q+4F1wUy5uXO+0q56bzlXkG86ngrjw1upmDRUvA3d1m/MBjhT` |
-| `ppl-compass.js` | 53.0 KB | `sha384-1F/GpCbAI2O7OJGomGl1FNHYcFgTr+QVb7zhhngOvDhVGWieyhUBoYN6wRzUpTBT` |
+| `ppl-compass-components.css` | 63.8 KB | `sha384-kQwgkN7zArVCRe7GqsqFnUChvalavq4DsTzFsRjFiVM+BEVlR9ccW1twOxF623lc` |
+| `ppl-compass-icons.js` | 25.1 KB | `sha384-K7HJQ+0th6kgYPtM02Ac4GpT4x/2JVA8oI33rClJ/XEdNIkGmSK+Z4IkMfyJqcHb` |
+| `ppl-compass-nofonts.css` | 82.6 KB | `sha384-1040uRV5GY0SgCGewJd796aUlh25ettD01DZ4jcKWT3Ix/7L/FqB11t4Klkisj6h` |
+| `ppl-compass-tokens.css` | 17.9 KB | `sha384-Gryj4HeDw/EnuSPTyCYp/WEbWvlmk1EuZRPqbb58yf0e0K9gD8NI1WDAnI/MBB9m` |
+| `ppl-compass.css` | 85.4 KB | `sha384-GtiX78xFYEvnHF3D6PbfEwl0OQsFnkaZk2usuHomx/JyFUtN4JfSQgI7T/iZREoh` |
+| `ppl-compass.js` | 63.5 KB | `sha384-I1G8vAmXzfvEHSYLoCYHp0xUu3aWq2EIv8WBNscMn68emHFPkI1mPdDgoua8PYGO` |
 
 ---
 
 ## Licença
 
-[MIT](LICENSE). As fontes redistribuídas seguem a **SIL Open Font License 1.1** — ver [NOTICE.md](NOTICE.md).
+[MIT](LICENSE). As fontes redistribuídas — Sora, Manrope e JetBrains Mono — seguem a
+**SIL Open Font License 1.1**; ver [NOTICE.md](NOTICE.md).

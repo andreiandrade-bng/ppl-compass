@@ -1,8 +1,9 @@
 {
   "name": "ppl-compass",
+  "version": "0.5.0",
   "private": true,
   "type": "module",
-  "description": "Framework de prototipacao do BNG People. NAO e publicado no npm — este package.json existe apenas para as duas devDependencies de BUILD: playwright-core (smoke de teclado no CI) e lucide-static (dados dos icones, embutidos na geracao). Nenhuma das duas chega ao navegador: o que o consumidor recebe sao dois arquivos do CDN, sem build e sem dependencia de runtime.",
+  "description": "Framework de prototipacao do BNG People — identidade v6B Alvorada. NAO e publicado no npm — este package.json existe apenas para as duas devDependencies de BUILD: playwright-core (smoke de teclado no CI) e lucide-static (dados dos icones, embutidos na geracao). Nenhuma das duas chega ao navegador: o que o consumidor recebe sao dois arquivos do CDN, sem build e sem dependencia de runtime.",
   "scripts": {
     "build": "node scripts/build.mjs",
     "lint": "node scripts/lint.mjs",

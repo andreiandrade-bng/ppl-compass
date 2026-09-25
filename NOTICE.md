@@ -1,21 +1,27 @@
-﻿# NOTICE — software de terceiros redistribuído
+# NOTICE — software de terceiros redistribuído
 
 O código do `ppl-compass` é MIT (ver [LICENSE](LICENSE)). Os itens abaixo são de terceiros,
 redistribuídos com este pacote, e mantêm as suas próprias licenças.
 
 ---
 
-## Fontes — a partir da v1.0.0, em `dist/fonts/`
+## Fontes — em `dist/fonts/`
 
 As três estão sob **SIL Open Font License 1.1**, que permite redistribuição e uso comercial,
 **desde que o aviso de licença seja preservado junto dos arquivos**. É por isso que este
 documento existe.
 
-| Fonte | Papel no design system | Licença |
-|---|---|---|
-| **Urbanist** | UI — toda a interface | SIL OFL 1.1 |
-| **Playfair Display** (itálica) | display humano — só saudação, sucesso e hero | SIL OFL 1.1 |
-| **JetBrains Mono** | dados de folha e ponto, com `tabular-nums` | SIL OFL 1.1 |
+| Fonte | Papel no design system | Arquivo | Licença |
+|---|---|---|---|
+| **Sora** | títulos — saudação, título de página, de card, de sucesso, headline (600–700) | `sora-var.woff2` | SIL OFL 1.1 |
+| **Manrope** | UI — corpo, rótulos, botões, tabelas, chrome (400–800) | `manrope-var.woff2` | SIL OFL 1.1 |
+| **JetBrains Mono** | dados de folha e ponto, com `tabular-nums` | `jetbrains-mono-var.woff2` | SIL OFL 1.1 |
+
+São **fontes variáveis**, em subset latin: um `.woff2` por família cobre a faixa inteira de pesos,
+e o `@font-face` declara a faixa em vez de um peso fixo. Três arquivos, não doze.
+
+Trio anterior (v5, até a v0.4.2): Urbanist e Playfair Display itálica → Sora e Manrope; JetBrains
+Mono ficou.
 
 Os arquivos `OFL.txt` de cada família acompanham os `.woff2` em `dist/fonts/`.
 

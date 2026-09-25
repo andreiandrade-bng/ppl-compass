@@ -5,17 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Folha da competência — BNG People</title>
 <link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/FelipeSilveiraBNG/ppl-compass@0.4.2/dist/ppl-compass.css"
-      integrity="sha384-E/qBbSGDbYr5hi+Q+4F1wUy5uXO+0q56bzlXkG86ngrjw1upmDRUvA3d1m/MBjhT"
+      href="https://cdn.jsdelivr.net/gh/andreiandrade-bng/ppl-compass@0.5.0/dist/ppl-compass.css"
+      integrity="sha384-GtiX78xFYEvnHF3D6PbfEwl0OQsFnkaZk2usuHomx/JyFUtN4JfSQgI7T/iZREoh"
       crossorigin="anonymous">
 </head>
-<body data-brand="people">
+<body>
 
 <!-- LISTA — o arquétipo mais comum do console: 51 tabelas seguem esta forma.
      Os QUATRO estados estão aqui, e quem escolhe é o `data-ppl-state` do painel:
      troque "dados" por "carregando", "vazio" ou "erro". Vêm no template de
      propósito — estado de lista é o que separa protótipo bonito de protótipo
-     implementável, e ninguém lembra de desenhar o vazio e o erro depois. -->
+     implementável, e ninguém lembra de desenhar o vazio e o erro depois.
+     Sem FAB: "Calcular folha" já é o CTA sólido da tela, e é um só. -->
 
 <div class="ppl-shell">
 
@@ -23,9 +24,9 @@
     <script type="application/json">
     {
       "rotaAtiva": "/folha",
-      "marca":  { "sigla": "b", "nome": "BNG People", "tag": "Depto. Pessoal" },
+      "marca":  { "logo": "people", "nome": "BNG People", "tag": "Depto. Pessoal", "href": "/" },
       "itens": [
-        { "label": "Início",     "icone": "house",         "href": "/" },
+        { "label": "Início",     "icone": "house",        "href": "/" },
         { "label": "Pendências", "icone": "circle-alert", "href": "/pendencias", "contador": 184368 },
         { "grupo": "Estrutura", "itens": [
           { "label": "Empresas",      "icone": "building", "href": "/empresas" },
@@ -35,12 +36,12 @@
         { "grupo": "Folha", "itens": [
           { "label": "Rubricas",  "icone": "list",       "href": "/rubricas" },
           { "label": "Folha",     "icone": "wallet",     "href": "/folha" },
-          { "label": "Férias",    "icone": "tree-palm",       "href": "/ferias" },
+          { "label": "Férias",    "icone": "tree-palm",  "href": "/ferias" },
           { "label": "Rescisões", "icone": "calendar-x", "href": "/rescisoes" }
         ]},
         { "grupo": "Ponto", "itens": [
           { "label": "Espelho",   "icone": "calendar",     "href": "/ponto" },
-          { "label": "Correções", "icone": "clock-fading", "href": "/correcoes", "contador": 42 }
+          { "label": "Correções", "icone": "clock-fading", "href": "/correcoes" }
         ]},
         { "grupo": "Obrigações", "itens": [
           { "label": "eSocial",    "icone": "send", "href": "/esocial" },
@@ -61,15 +62,12 @@
 
     <header class="ppl-topbar ppl-bar">
       <div class="ppl-topbar__row">
-        <span class="ppl-eyebrow">Grupo Boas Novas</span>
+        <span class="ppl-topbar__chip">Grupo Boas Novas</span>
         <span class="ppl-topbar__crumb"><i data-ppl-icon="wallet" data-ppl-size="15"></i>Folha</span>
         <div class="ppl-topbar__actions">
-          <button class="ppl-btn ppl-btn--icon ppl-btn--secondary" aria-label="Produtos">
-            <i data-ppl-icon="layout-grid" data-ppl-size="16"></i>
-          </button>
-          <button class="ppl-btn ppl-btn--icon ppl-btn--secondary" aria-label="Buscar" data-ppl-search-open>
-            <i data-ppl-icon="search" data-ppl-size="16"></i>
-          </button>
+          <button class="ppl-btn ppl-btn--icon ppl-btn--secondary" aria-label="Produtos"><i data-ppl-icon="layout-grid" data-ppl-size="16"></i></button>
+          <button class="ppl-btn ppl-btn--icon ppl-btn--secondary" aria-label="Buscar" data-ppl-search-open><i data-ppl-icon="search" data-ppl-size="16"></i></button>
+          <button class="ppl-btn ppl-btn--icon ppl-btn--secondary" data-ppl-theme-toggle aria-label="Alternar tema"><i data-ppl-icon="moon" data-ppl-size="16"></i></button>
         </div>
       </div>
     </header>
@@ -78,8 +76,8 @@
 
       <div class="ppl-page-head">
         <div class="ppl-page-head__id">
-          <div class="ppl-page-head__meta ppl-eyebrow">Competência 2026-08 · Gestão Hospitalar Ltda</div>
           <h1 class="ppl-page-head__title">Folha da competência</h1>
+          <div class="ppl-page-head__meta">Competência 2026-08 · Gestão Hospitalar Ltda</div>
           <p class="ppl-page-head__desc">Apuração, conferência e fechamento por CNPJ.</p>
         </div>
         <div class="ppl-page-head__actions">
@@ -113,6 +111,7 @@
           </div>
 
           <!-- ─── ESTADO 1 · COM DADOS ─────────────────────────────────── -->
+          <!-- Situação como fase do dia: "Em apuração" é a primeira luz (tonal, ponto vazado). -->
           <div class="ppl-table-wrap" data-ppl-when="dados">
             <table class="ppl-table">
               <thead>
@@ -145,7 +144,7 @@
                   <td class="ppl-td-data">2026-0007</td><td>Rafael Lima</td><td class="ppl-td-mute">Administrativo</td>
                   <td class="ppl-td-num">R$ 3.200,00</td><td class="ppl-td-num">R$ 588,12</td>
                   <td class="ppl-td-num">R$ 2.611,88</td>
-                  <td><span class="ppl-badge ppl-badge--muted"><i data-ppl-icon="clock" data-ppl-size="12"></i>Em apuração</span></td>
+                  <td><span class="ppl-badge ppl-badge--dawn"><span class="ppl-badge__dot ppl-badge__dot--hollow"></span>Em apuração</span></td>
                 </tr>
                 <tr>
                   <td class="ppl-td-data">2023-0155</td><td>Beatriz Andrade</td><td class="ppl-td-mute">Enfermaria B</td>
@@ -165,12 +164,12 @@
           </div>
 
           <!-- ─── ESTADO 3 · VAZIO ─────────────────────────────────────── -->
+          <!-- Secundário: "Calcular folha" já está sólido no cabeçalho, e o
+               mesmo rótulo duas vezes em cheio não dá uma decisão a mais —
+               dá uma dúvida a mais. -->
           <div class="ppl-state ppl-state--empty" data-ppl-when="vazio">
             <span class="ppl-state__icon"><i data-ppl-icon="wallet" data-ppl-size="28"></i></span>
             <p>Nenhum colaborador apurado nesta competência.</p>
-            <!-- Secundário: "Calcular folha" já está sólido no cabeçalho da
-                 página, e o mesmo rótulo duas vezes em cheio não dá uma decisão
-                 a mais — dá uma dúvida a mais. -->
             <button class="ppl-btn ppl-btn--secondary ppl-btn--sm">Calcular folha</button>
           </div>
 
@@ -190,10 +189,10 @@
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/gh/FelipeSilveiraBNG/ppl-compass@0.4.2/dist/ppl-compass-icons.js"
+<script src="https://cdn.jsdelivr.net/gh/andreiandrade-bng/ppl-compass@0.5.0/dist/ppl-compass-icons.js"
         integrity="sha384-K7HJQ+0th6kgYPtM02Ac4GpT4x/2JVA8oI33rClJ/XEdNIkGmSK+Z4IkMfyJqcHb" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/gh/FelipeSilveiraBNG/ppl-compass@0.4.2/dist/ppl-compass.js"
-        integrity="sha384-1F/GpCbAI2O7OJGomGl1FNHYcFgTr+QVb7zhhngOvDhVGWieyhUBoYN6wRzUpTBT" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/gh/andreiandrade-bng/ppl-compass@0.5.0/dist/ppl-compass.js"
+        integrity="sha384-I1G8vAmXzfvEHSYLoCYHp0xUu3aWq2EIv8WBNscMn68emHFPkI1mPdDgoua8PYGO" crossorigin="anonymous"></script>
 <script>addEventListener('DOMContentLoaded', () => PplCompass.init());</script>
 </body>
 </html>

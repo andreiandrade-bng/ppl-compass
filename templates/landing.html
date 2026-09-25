@@ -5,26 +5,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>BNG People — gestão de pessoas para operação de saúde</title>
 <link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/FelipeSilveiraBNG/ppl-compass@0.4.2/dist/ppl-compass.css"
-      integrity="sha384-E/qBbSGDbYr5hi+Q+4F1wUy5uXO+0q56bzlXkG86ngrjw1upmDRUvA3d1m/MBjhT"
+      href="https://cdn.jsdelivr.net/gh/andreiandrade-bng/ppl-compass@0.5.0/dist/ppl-compass.css"
+      integrity="sha384-GtiX78xFYEvnHF3D6PbfEwl0OQsFnkaZk2usuHomx/JyFUtN4JfSQgI7T/iZREoh"
       crossorigin="anonymous">
 </head>
-<body class="ppl-landing ppl-landing__mesh" data-brand="people">
+<body class="ppl-landing">
 
-<!-- LANDING — a ÚNICA superfície com vidro e tema escuro.
-     No produto, o shell autenticado é claro-only; espelhar isso é intencional
-     (decisão Q14). O alternador de tema vale só aqui.
+<!-- LANDING — o portal externo é DIA FRIO.
+     Plana, sobre o fundo do dia: sem vidro, sem texto em degradê, sem selo e
+     sem pêssego. O céu aparece uma vez só, na faixa da marca lá em cima — a
+     logo branca precisa da noite para existir, e é o único lugar da página
+     que a tem. O tema do aparelho vale aqui como vale no shell inteiro; o
+     alternador da barra é o mesmo da topbar do console.
 
-     `prefers-reduced-transparency` remove o vidro sem pedir nada: o efeito é
-     degradação, nunca requisito de leitura. -->
+     A headline é Sora; a ênfase ("no prazo") é o roxo cheio, sem itálico e
+     sem degradê — na v6B o calor vem de tamanho, peso e espaço. -->
 
 <div class="ppl-main">
 
-  <nav class="ppl-glass ppl-landing__bar" aria-label="Navegação da página">
-    <span class="ppl-row">
-      <span class="ppl-nav__mark">b</span>
-      <strong>BNG People</strong>
-    </span>
+  <nav class="ppl-landing__bar" aria-label="Navegação da página">
+    <a class="ppl-landing__logo" href="/" data-ppl-logo aria-label="BNG People"></a>
     <span class="ppl-row">
       <a href="#modulos" class="ppl-btn ppl-btn--ghost ppl-btn--sm">Módulos</a>
       <a href="#garantias" class="ppl-btn ppl-btn--ghost ppl-btn--sm">Garantias</a>
@@ -33,49 +33,48 @@
       </button>
       <!-- Secundário de propósito: o CTA sólido da tela é o do hero, e dois
            botões cheios competindo tiram do rosto qual é a decisão. -->
-      <a href="/" class="ppl-btn ppl-btn--secondary ppl-btn--sm">Entrar</a>
+      <a href="/login" class="ppl-btn ppl-btn--secondary ppl-btn--sm">Entrar</a>
     </span>
   </nav>
 
   <header class="ppl-hero">
-    <!-- Na landing o eyebrow vira serifa itálica no azul de marca: é editorial,
-         não rótulo de cromo. -->
-    <p class="ppl-eyebrow">Departamento pessoal para quem opera saúde</p>
-    <h1 class="ppl-hero__title">
-      A folha fecha <span class="ppl-grad-text">no prazo</span> porque o dado nasce certo.
-    </h1>
+    <h1 class="ppl-hero__title">A folha fecha <em>no prazo</em> porque o dado nasce certo.</h1>
+    <!-- O contexto vem ABAIXO da headline, em caption: o rótulo em caixa alta
+         acima do título foi abolido na v6B. -->
+    <p class="ppl-caption">Departamento pessoal para quem opera saúde</p>
     <p class="ppl-hero__line">
       Admissão, ponto, folha e eSocial no mesmo lugar — com o contexto de CNPJ e competência
       visível do início ao fim de cada processo.
     </p>
     <div class="ppl-hero__cta">
-      <a class="ppl-btn ppl-btn--hero ppl-btn--touch" href="/">Entrar no console</a>
+      <a class="ppl-btn ppl-btn--primary ppl-btn--touch" href="/login">Entrar no console</a>
       <a class="ppl-btn ppl-btn--secondary ppl-btn--touch" href="#modulos">Ver os módulos</a>
     </div>
   </header>
 
   <section id="modulos" class="ppl-stack">
-    <p class="ppl-eyebrow">Módulos</p>
+    <h2 class="ppl-display">Módulos</h2>
     <div class="ppl-choice-grid">
       <article class="ppl-card ppl-choice">
         <span class="ppl-icon-tile ppl-icon-tile--lg"><i data-ppl-icon="users" data-ppl-size="20"></i></span>
-        <h2 class="ppl-choice__title">Cadastro e admissão</h2>
+        <h3 class="ppl-choice__title">Cadastro e admissão</h3>
         <p class="ppl-choice__line">Contrato, lotação e documentos, com o S-2200 saindo do mesmo fluxo.</p>
       </article>
       <article class="ppl-card ppl-choice">
         <span class="ppl-icon-tile ppl-icon-tile--lg"><i data-ppl-icon="fingerprint-pattern" data-ppl-size="20"></i></span>
-        <h2 class="ppl-choice__title">Ponto e escala</h2>
+        <h3 class="ppl-choice__title">Ponto e escala</h3>
         <p class="ppl-choice__line">Marcação, tratamento por liderança e espelho fechado sem planilha.</p>
       </article>
       <article class="ppl-card ppl-choice">
         <span class="ppl-icon-tile ppl-icon-tile--lg"><i data-ppl-icon="wallet" data-ppl-size="20"></i></span>
-        <h2 class="ppl-choice__title">Folha e obrigações</h2>
+        <h3 class="ppl-choice__title">Folha e obrigações</h3>
         <p class="ppl-choice__line">Apuração por CNPJ, conferência de divergências e transmissão do eSocial.</p>
       </article>
     </div>
   </section>
 
-  <section id="garantias" class="ppl-sheet ppl-panel" style="border-radius:var(--ppl-radius-card);margin-top:32px">
+  <section id="garantias" class="ppl-sheet ppl-panel ppl-stack" style="border-radius:var(--ppl-radius-card);margin-top:32px">
+    <h2 class="ppl-display">Garantias</h2>
     <div class="ppl-choice-grid">
       <div class="ppl-stack ppl-stack--tight">
         <span class="ppl-icon-tile"><i data-ppl-icon="shield" data-ppl-size="18"></i></span>
@@ -95,7 +94,7 @@
     </div>
   </section>
 
-  <footer class="ppl-row" style="margin-top:48px;padding-top:24px;border-top:1px solid var(--ppl-lp-border)">
+  <footer class="ppl-row" style="margin-top:48px;padding-top:24px;border-top:1px solid var(--ppl-border)">
     <span class="ppl-muted">BNG People · Grupo Boas Novas</span>
     <span class="ppl-spacer"></span>
     <span class="ppl-muted">Protótipo — nenhum dado desta página é real.</span>
@@ -103,10 +102,10 @@
 
 </div>
 
-<script src="https://cdn.jsdelivr.net/gh/FelipeSilveiraBNG/ppl-compass@0.4.2/dist/ppl-compass-icons.js"
+<script src="https://cdn.jsdelivr.net/gh/andreiandrade-bng/ppl-compass@0.5.0/dist/ppl-compass-icons.js"
         integrity="sha384-K7HJQ+0th6kgYPtM02Ac4GpT4x/2JVA8oI33rClJ/XEdNIkGmSK+Z4IkMfyJqcHb" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/gh/FelipeSilveiraBNG/ppl-compass@0.4.2/dist/ppl-compass.js"
-        integrity="sha384-1F/GpCbAI2O7OJGomGl1FNHYcFgTr+QVb7zhhngOvDhVGWieyhUBoYN6wRzUpTBT" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/gh/andreiandrade-bng/ppl-compass@0.5.0/dist/ppl-compass.js"
+        integrity="sha384-I1G8vAmXzfvEHSYLoCYHp0xUu3aWq2EIv8WBNscMn68emHFPkI1mPdDgoua8PYGO" crossorigin="anonymous"></script>
 <script>addEventListener('DOMContentLoaded', () => PplCompass.init());</script>
 </body>
 </html>

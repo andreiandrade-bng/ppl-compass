@@ -8,7 +8,7 @@
 #      decoração, sem ninguém perceber. Se ele falhar, o resto não quer dizer nada.
 #   2. o build reprova nome aposentado, emoji e dependência externa no fonte, e
 #      monta dist/.
-#   3. o lint confere token órfão, CTA duplicado, dourado repetido e contraste.
+#   3. o lint confere token órfão, CTA duplicado, pêssego repetido e contraste.
 #   4. o smoke aperta Tab e Esc de verdade, no Chrome.
 #   5. o SRI do README precisa bater com o dist/ recém-montado — se não bater,
 #      alguém editou o fonte e não regerou os hashes, e a página de quem consome

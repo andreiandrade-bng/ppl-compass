@@ -14,14 +14,16 @@
 <style>
   /* Cromo só da galeria — não faz parte do framework. */
   .g { padding: 32px 40px 80px; max-width: 1180px; margin: 0 auto; }
-  .g h2 { font-size: 20px; font-weight: 700; color: var(--ppl-ink);
+  .g-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+  .g h2 { font-family: var(--ppl-font-display); font-size: 20px; font-weight: 700; color: var(--ppl-ink);
           margin: 48px 0 4px; padding-top: 24px; border-top: 1px solid var(--ppl-border); }
   .g h2:first-of-type { border-top: none; padding-top: 0; margin-top: 24px; }
-  .g h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
-          color: var(--ppl-ink-faint); margin: 28px 0 12px; }
+  /* Subtítulo em caixa baixa: a única caixa alta rastreada do sistema é o
+     rótulo de grupo da sidebar, e a galeria não abre exceção para si. */
+  .g h3 { font-size: 13px; font-weight: 700; color: var(--ppl-ink-soft); margin: 28px 0 12px; }
   .g p.lead { color: var(--ppl-ink-soft); max-width: 62ch; margin-bottom: 8px; }
-  .g code { font-family: var(--ppl-font-data); font-size: 12px; background: var(--ppl-blue-50);
-            padding: 1px 5px; border-radius: 4px; color: var(--ppl-blue-700); }
+  .g code { font-family: var(--ppl-font-data); font-size: 12px; background: var(--ppl-primary-soft);
+            padding: 1px 5px; border-radius: 4px; color: var(--ppl-strong); }
   .sw-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(168px,1fr)); gap: 12px; }
   .sw { border: 1px solid var(--ppl-border); border-radius: var(--ppl-radius-control);
         overflow: hidden; background: var(--ppl-surface); }
@@ -29,89 +31,132 @@
   .sw div { padding: 8px 10px; }
   .sw b { display: block; font-size: 11px; color: var(--ppl-ink); }
   .sw span { font-family: var(--ppl-font-data); font-size: 10.5px; color: var(--ppl-ink-soft); }
+  /* O pêssego só existe contra a noite: a amostra dele é mostrada sobre a
+     noite, e não sobre o branco onde ele mede 1,6:1. */
+  .sw--night { background: var(--ppl-night); border-color: var(--ppl-night); }
+  .sw--night i { margin: 10px 10px 0; height: 40px; border-radius: 6px; }
+  .sw--night b { color: #fff; }
+  .sw--night span { color: var(--ppl-lilac-soft); }
   .demo { border: 1px dashed var(--ppl-border-strong); border-radius: var(--ppl-radius-control);
           padding: 20px; background: var(--ppl-surface); }
   .demo + .demo { margin-top: 12px; }
+  .demo--night { background: var(--ppl-dawn); border-color: var(--ppl-dawn); }
   .wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
   .shell-demo { border: 1px solid var(--ppl-border); border-radius: var(--ppl-radius-card);
                 overflow: hidden; height: 520px; display: flex; background: var(--ppl-surface); }
   .shell-demo .ppl-nav { height: 100%; position: static; }
+  /* Moldura do ciclorama: o `.ppl-sky` é de tela inteira; aqui ele mora numa
+     janela de 520px para caber na galeria. */
+  .sky-frame { height: 520px; border-radius: var(--ppl-radius-card); overflow: hidden;
+               border: 1px solid var(--ppl-border); }
+  .sky-frame .ppl-sky { min-height: 100%; height: 100%; }
 </style>
 </head>
-<body data-brand="people">
+<body>
 <div class="g">
 
-  <p class="ppl-eyebrow">ppl-compass · identidade v5</p>
-  <h1 class="ppl-display" style="font-size:34px;font-weight:600;color:var(--ppl-ink);margin:4px 0 8px">
-    Galeria de componentes
-  </h1>
-  <p class="lead">
-    Cada bloco é uma receita de <code>dist/ppl-compass.css</code>. Nomes desenhados do zero,
-    prefixo <code>ppl-</code>: nada foi herdado do console. Comportamentos em
-    <code>ppl-compass.js</code>, ícones em <code>ppl-compass-icons.js</code>.
+  <div class="g-top">
+    <div>
+      <h1 class="ppl-display" style="font-size:34px;margin:4px 0 4px">Galeria de componentes</h1>
+      <p class="ppl-caption">ppl-compass · identidade v6B Alvorada</p>
+    </div>
+    <button class="ppl-btn ppl-btn--icon ppl-btn--secondary" data-ppl-theme-toggle aria-label="Alternar tema">
+      <i data-ppl-icon="moon" data-ppl-size="18"></i>
+    </button>
+  </div>
+  <p class="lead" style="margin-top:12px">
+    Cada bloco é uma receita de <code>dist/ppl-compass.css</code>. Prefixo <code>ppl-</code>,
+    nomes próprios: nada foi herdado do console. Comportamentos em <code>ppl-compass.js</code>,
+    ícones em <code>ppl-compass-icons.js</code>. Cor é luz: a rampa vai da noite ao dia, o roxo
+    é a única cor de ação e o pêssego só aparece sobre superfícies escuras. O botão de tema ao
+    lado troca a noite pelo dia no shell inteiro.
   </p>
 
   <!-- ============================================================ -->
   <h2>1 · Cor</h2>
-  <h3>Azul — marca e interação</h3>
+  <h3>Rampa de luz — da noite ao dia</h3>
   <div class="sw-grid">
-    <div class="sw"><i style="background:#f0f4fc"></i><div><b>blue-50</b><span>#F0F4FC</span></div></div>
-    <div class="sw"><i style="background:#e6edfc"></i><div><b>blue-100</b><span>#E6EDFC</span></div></div>
-    <div class="sw"><i style="background:#d2dbec"></i><div><b>blue-200</b><span>#D2DBEC</span></div></div>
-    <div class="sw"><i style="background:#a9bff2"></i><div><b>blue-300</b><span>#A9BFF2</span></div></div>
-    <div class="sw"><i style="background:#6c93ec"></i><div><b>blue-400 · céu</b><span>#6C93EC</span></div></div>
-    <div class="sw"><i style="background:#2f5ad0"></i><div><b>blue-500 · primária</b><span>#2F5AD0</span></div></div>
-    <div class="sw"><i style="background:#254bb4"></i><div><b>blue-600 · hover</b><span>#254BB4</span></div></div>
-    <div class="sw"><i style="background:#1e4193"></i><div><b>blue-700</b><span>#1E4193</span></div></div>
-    <div class="sw"><i style="background:#12305f"></i><div><b>blue-800</b><span>#12305F</span></div></div>
-    <div class="sw"><i style="background:#0d2551"></i><div><b>blue-900</b><span>#0D2551</span></div></div>
+    <div class="sw"><i style="background:#f9f5ff"></i><div><b>violet-50</b><span>#F9F5FF</span></div></div>
+    <div class="sw"><i style="background:#f1e8ff"></i><div><b>violet-100 · primary-soft</b><span>#F1E8FF</span></div></div>
+    <div class="sw"><i style="background:#e3d0ff"></i><div><b>violet-200 · primary-tint</b><span>#E3D0FF</span></div></div>
+    <div class="sw"><i style="background:#cdaeff"></i><div><b>violet-300 · lilás-suave</b><span>#CDAEFF</span></div></div>
+    <div class="sw"><i style="background:#b48aff"></i><div><b>violet-400 · lilás (primário à noite)</b><span>#B48AFF</span></div></div>
+    <div class="sw"><i style="background:#9a4dff"></i><div><b>violet-500</b><span>#9A4DFF</span></div></div>
+    <div class="sw"><i style="background:#8100ff"></i><div><b>violet-600 · primário</b><span>#8100FF</span></div></div>
+    <div class="sw"><i style="background:#6600cc"></i><div><b>violet-700 · strong</b><span>#6600CC</span></div></div>
+    <div class="sw"><i style="background:#3e1585"></i><div><b>violet-800 · base</b><span>#3E1585</span></div></div>
+    <div class="sw"><i style="background:#25104f"></i><div><b>violet-900 · madrugada</b><span>#25104F</span></div></div>
+    <div class="sw"><i style="background:#130d22"></i><div><b>violet-950 · noite</b><span>#130D22</span></div></div>
   </div>
 
-  <h3>Dourado — acento quente, no máximo um elemento por tela</h3>
-  <div class="sw-grid">
-    <div class="sw"><i style="background:#f3c63f"></i><div><b>gold</b><span>#F3C63F</span></div></div>
-    <div class="sw"><i style="background:#e4b52c"></i><div><b>gold-deep</b><span>#E4B52C</span></div></div>
-    <div class="sw"><i style="background:#fbefbe"></i><div><b>gold-soft</b><span>#FBEFBE</span></div></div>
+  <h3>Luz quente — só sobre a noite; nunca texto</h3>
+  <p class="lead" style="font-size:12.5px">Pêssego mede 1,6:1 sobre o dia: ali ele não existe. Rosa e orquídea são paradas de degradê e nunca carregam texto.</p>
+  <div class="sw-grid" style="margin-top:10px">
+    <div class="sw sw--night"><i style="background:#ffb899"></i><div><b>peach</b><span>#FFB899</span></div></div>
+    <div class="sw sw--night"><i style="background:#ffe3d3"></i><div><b>peach-soft</b><span>#FFE3D3</span></div></div>
+    <div class="sw sw--night"><i style="background:#f27bb8"></i><div><b>rose · só degradê</b><span>#F27BB8</span></div></div>
+    <div class="sw sw--night"><i style="background:#c24dff"></i><div><b>orchid · só degradê</b><span>#C24DFF</span></div></div>
   </div>
 
-  <h3>Neutros e semânticas</h3>
+  <h3>Texto e superfícies do dia</h3>
   <div class="sw-grid">
-    <div class="sw"><i style="background:#132c63"></i><div><b>ink</b><span>#132C63</span></div></div>
-    <div class="sw"><i style="background:#5a6486"></i><div><b>ink-soft</b><span>#5A6486</span></div></div>
-    <div class="sw"><i style="background:#8492b2"></i><div><b>ink-faint</b><span>#8492B2</span></div></div>
-    <div class="sw"><i style="background:#e2e8f4"></i><div><b>border</b><span>#E2E8F4</span></div></div>
-    <div class="sw"><i style="background:#f2f5fc"></i><div><b>surface-sunk</b><span>#F2F5FC</span></div></div>
-    <div class="sw"><i style="background:#0e8a4f"></i><div><b>success</b><span>#0E8A4F</span></div></div>
-    <div class="sw"><i style="background:#b5892c"></i><div><b>warning</b><span>#B5892C</span></div></div>
-    <div class="sw"><i style="background:#c0392b"></i><div><b>danger</b><span>#C0392B</span></div></div>
-    <div class="sw"><i style="background:#3c6fe0"></i><div><b>info · foco</b><span>#3C6FE0</span></div></div>
+    <div class="sw"><i style="background:#1e1826"></i><div><b>ink</b><span>#1E1826</span></div></div>
+    <div class="sw"><i style="background:#433c4d"></i><div><b>ink-body</b><span>#433C4D</span></div></div>
+    <div class="sw"><i style="background:#6c6577"></i><div><b>ink-soft</b><span>#6C6577</span></div></div>
+    <div class="sw"><i style="background:#736c86"></i><div><b>ink-faint</b><span>#736C86</span></div></div>
+    <div class="sw"><i style="background:#a79fbd"></i><div><b>ink-disabled</b><span>#A79FBD</span></div></div>
+    <div class="sw"><i style="background:#ffffff;border-bottom:1px solid #e6e1ea"></i><div><b>surface</b><span>#FFFFFF</span></div></div>
+    <div class="sw"><i style="background:#fbf9f7"></i><div><b>surface-app · o dia</b><span>#FBF9F7</span></div></div>
+    <div class="sw"><i style="background:#f4f1f6"></i><div><b>surface-subtle</b><span>#F4F1F6</span></div></div>
+    <div class="sw"><i style="background:#ece7f0"></i><div><b>surface-muted</b><span>#ECE7F0</span></div></div>
+    <div class="sw"><i style="background:#e6e1ea"></i><div><b>border</b><span>#E6E1EA</span></div></div>
+    <div class="sw"><i style="background:#cfc8da"></i><div><b>border-strong</b><span>#CFC8DA</span></div></div>
   </div>
 
-  <h3>Gradientes — lista fechada</h3>
+  <h3>Semânticas — texto usa a variante -strong</h3>
   <div class="sw-grid">
-    <div class="sw"><i style="background:var(--ppl-grad-nav)"></i><div><b>grad-nav</b><span>navegação</span></div></div>
-    <div class="sw"><i style="background:var(--ppl-grad-primary)"></i><div><b>grad-primary</b><span>CTA destaque</span></div></div>
-    <div class="sw"><i style="background:var(--ppl-grad-gold)"></i><div><b>grad-gold</b><span>marca</span></div></div>
-    <div class="sw"><i style="background:var(--ppl-grad-seal)"></i><div><b>grad-seal</b><span>conquista</span></div></div>
+    <div class="sw"><i style="background:#0e8a4f"></i><div><b>success · ícone e ponto</b><span>#0E8A4F</span></div></div>
+    <div class="sw"><i style="background:#0a6b3d"></i><div><b>success-strong · texto</b><span>#0A6B3D</span></div></div>
+    <div class="sw"><i style="background:#b5892c"></i><div><b>warning · ícone e ponto</b><span>#B5892C</span></div></div>
+    <div class="sw"><i style="background:#866521"></i><div><b>warning-strong · texto</b><span>#866521</span></div></div>
+    <div class="sw"><i style="background:#c0392b"></i><div><b>danger · só erro</b><span>#C0392B</span></div></div>
+    <div class="sw"><i style="background:#bb372a"></i><div><b>danger-strong · texto</b><span>#BB372A</span></div></div>
+    <div class="sw"><i style="background:#5e5775"></i><div><b>neutral · desligado</b><span>#5E5775</span></div></div>
+  </div>
+
+  <h3>Luz — os cinco degradês, lista fechada</h3>
+  <p class="lead" style="font-size:12.5px">Só onde há céu. Nunca em botão, texto, tabela ou card.</p>
+  <div class="sw-grid" style="margin-top:10px">
+    <div class="sw"><i style="background:var(--ppl-grad-sky);height:96px"></i><div><b>grad-sky</b><span>ciclorama · login e porta</span></div></div>
+    <div class="sw"><i style="background:var(--ppl-grad-nav);height:96px"></i><div><b>grad-nav</b><span>sidebar</span></div></div>
+    <div class="sw"><i style="background:var(--ppl-grad-seal);height:96px"></i><div><b>grad-seal</b><span>selo de conquista</span></div></div>
+    <div class="sw"><i style="background:var(--ppl-grad-night);height:96px"></i><div><b>grad-night</b><span>app à noite</span></div></div>
+    <div class="sw"><i style="background:var(--ppl-grad-day);height:96px"></i><div><b>grad-day</b><span>fundo do dia</span></div></div>
   </div>
 
   <!-- ============================================================ -->
   <h2>2 · Tipografia</h2>
-  <div class="demo ppl-stack">
+  <p class="lead">Sora nos títulos, Manrope em tudo o mais, JetBrains Mono em todo dado de folha e ponto. Sem itálico, sem serifa: o calor vem de tamanho, peso e espaço.</p>
+  <div class="demo ppl-stack" style="margin-top:12px">
     <div>
-      <p class="ppl-eyebrow">Eyebrow · 11 / 700 / .15em</p>
-      <p class="ppl-display" style="font-size:28px;font-weight:600;color:var(--ppl-ink)">Boa tarde, Felipe</p>
-      <p class="lead" style="font-size:12.5px"><code>.ppl-display</code> — só boas-vindas, sucesso e hero. Nunca em formulário, tabela ou chrome.</p>
+      <p class="ppl-caption" style="margin-bottom:6px">Sora — display</p>
+      <p class="ppl-display ppl-display--hero">Boa tarde, Felipe</p>
+      <p class="ppl-caption" style="margin-top:4px">Quinta, 25 de setembro · <code>.ppl-display--hero</code>: a headline, uma por tela</p>
     </div>
-    <div style="border-top:1px solid var(--ppl-border);padding-top:12px">
-      <p style="font-size:24px;font-weight:600;color:var(--ppl-ink)">Título de página · 24 / 600</p>
-      <p style="font-size:18px;font-weight:600;color:var(--ppl-ink)">Título de drawer · 18 / 600</p>
-      <p style="font-size:15px;font-weight:700;color:var(--ppl-ink)">Título de card · 15 / 700</p>
-      <p>Corpo · 14 / 400</p>
-      <p style="font-size:12.5px;color:var(--ppl-ink-soft)">Linha de apoio · 12,5 / ink-soft</p>
+    <div style="border-top:1px solid var(--ppl-border);padding-top:12px" class="ppl-stack ppl-stack--tight">
+      <p class="ppl-page-head__title">Título de página · Sora 24 / 700</p>
+      <p class="ppl-display" style="font-size:18px">Título de card · Sora 16–18 / 600</p>
     </div>
-    <div style="border-top:1px solid var(--ppl-border);padding-top:12px">
-      <p class="ppl-eyebrow" style="margin-bottom:6px"><code>.ppl-data</code> — obrigatório em folha e ponto</p>
+    <div style="border-top:1px solid var(--ppl-border);padding-top:12px" class="ppl-stack ppl-stack--tight">
+      <p class="ppl-caption" style="margin-bottom:2px">Manrope — interface</p>
+      <p>Corpo · 14 / 400 — admissão, ponto, folha, benefícios, férias e eSocial.</p>
+      <p class="ppl-field__label">Rótulo de campo · 13 / 600 em caixa baixa</p>
+      <p class="ppl-caption">Caption · 12 / ink-faint — contexto e data ficam abaixo do título</p>
+    </div>
+    <div style="border-top:1px solid var(--ppl-border);padding-top:12px" class="ppl-stack ppl-stack--tight">
+      <p class="ppl-caption" style="margin-bottom:2px">JetBrains Mono — dados</p>
+      <p class="ppl-hero-number">08:42:17</p>
+      <p class="wrap"><span class="ppl-chip-code">2026-0042</span><span class="ppl-chip-code">NSR 000184368</span><span class="ppl-caption"><code>.ppl-chip-code</code> — matrícula, NSR, ID de evento</span></p>
       <div class="ppl-table-wrap"><table class="ppl-table" style="min-width:0"><tbody>
         <tr><td class="ppl-td-mute">Matrícula</td><td class="ppl-td-data">2026-0042</td></tr>
         <tr><td class="ppl-td-mute">CPF</td><td class="ppl-td-data">111.222.333-44</td></tr>
@@ -120,25 +165,35 @@
         <tr><td class="ppl-td-mute">Líquido</td><td class="ppl-td-num">R$ 4.812,37</td></tr>
       </tbody></table></div>
     </div>
+    <div style="border-top:1px solid var(--ppl-border);padding-top:12px">
+      <div style="display:inline-block;background:var(--ppl-dawn);padding:10px 14px;border-radius:var(--ppl-radius-control)">
+        <p class="ppl-group-label">Estrutura</p>
+      </div>
+      <p class="ppl-caption" style="margin-top:6px"><code>.ppl-group-label</code> — a única caixa alta rastreada do sistema, e só na sidebar.
+        O eyebrow acima do título foi abolido: contexto vira caption abaixo do título.</p>
+    </div>
+    <div style="border-top:1px solid var(--ppl-border);padding-top:12px">
+      <p>Link em texto corrido: <a class="ppl-link" href="#">IN RFB 1.500/2014, art. 90</a> — o roxo escuro que mede 7,7:1 sobre o dia.</p>
+    </div>
   </div>
 
   <!-- ============================================================ -->
   <h2>3 · Superfícies</h2>
   <div class="ppl-cols-2">
     <div class="ppl-card ppl-card--interactive" style="padding:20px">
-      <p class="ppl-eyebrow">.ppl-card</p>
-      <p style="font-size:15px;font-weight:700;color:var(--ppl-ink);margin-top:6px">Card</p>
-      <p class="lead" style="font-size:12.5px">Só levanta no hover o que é clicável.</p>
+      <p class="ppl-display" style="font-size:16px">Card</p>
+      <p class="ppl-caption">.ppl-card · .ppl-card--interactive</p>
+      <p class="lead" style="font-size:12.5px;margin-top:8px">Linha de 1px e nenhuma sombra. O clicável muda de luz no hover — fundo e borda, nunca a posição.</p>
     </div>
     <div class="ppl-bar" style="padding:20px;border-radius:var(--ppl-radius-card)">
-      <p class="ppl-eyebrow">.ppl-bar</p>
-      <p style="font-size:15px;font-weight:700;color:var(--ppl-ink);margin-top:6px">Barra de topo</p>
-      <p class="lead" style="font-size:12.5px">Branco a 92% com hairline — de vidro não tem nada.</p>
+      <p class="ppl-display" style="font-size:16px">Barra de topo</p>
+      <p class="ppl-caption">.ppl-bar</p>
+      <p class="lead" style="font-size:12.5px;margin-top:8px">Sólida, com hairline — de vidro não tem nada.</p>
     </div>
   </div>
-  <div class="ppl-canvas" style="margin-top:12px;padding:28px;border-radius:var(--ppl-radius-card)">
-    <p class="ppl-eyebrow">.ppl-canvas</p>
-    <p style="font-size:15px;font-weight:700;color:var(--ppl-ink);margin-top:6px">Fundo do shell</p>
+  <div class="ppl-canvas" style="margin-top:12px;padding:28px;border-radius:var(--ppl-radius-card);border:1px solid var(--ppl-border)">
+    <p class="ppl-display" style="font-size:16px">Fundo do shell</p>
+    <p class="ppl-caption">.ppl-canvas — o dia com uma névoa roxa no canto; à noite, plano</p>
   </div>
 
   <!-- ============================================================ -->
@@ -146,29 +201,41 @@
   <div class="demo">
     <div class="wrap">
       <button class="ppl-btn ppl-btn--primary">Concluir admissão</button>
-      <button class="ppl-btn ppl-btn--hero">CTA de destaque</button>
-      <button class="ppl-btn ppl-btn--secondary">Cancelar</button>
+      <button class="ppl-btn ppl-btn--secondary">Admitir outro</button>
       <button class="ppl-btn ppl-btn--ghost">Ver detalhes</button>
       <button class="ppl-btn ppl-btn--danger">Excluir dependente</button>
-      <button class="ppl-btn ppl-btn--gold">Emitir certificado</button>
+      <button class="ppl-btn ppl-btn--punch ppl-btn--touch"><i data-ppl-icon="fingerprint-pattern" data-ppl-size="18"></i>Bater ponto</button>
       <button class="ppl-btn ppl-btn--primary" disabled>Desabilitado</button>
-      <button class="ppl-btn ppl-btn--secondary ppl-btn--sm"><i data-ppl-icon="plus" data-ppl-size="13"></i>Nova rubrica</button>
-      <button class="ppl-btn ppl-btn--primary ppl-btn--touch">Alvo de toque 44px</button>
     </div>
-    <p class="lead" style="margin-top:12px;font-size:12.5px">Um CTA primário sólido por tela. Rótulo verbo-primeiro, nunca "OK".</p>
+    <div class="wrap" style="margin-top:12px">
+      <button class="ppl-btn ppl-btn--secondary ppl-btn--sm"><i data-ppl-icon="plus" data-ppl-size="13"></i>Nova rubrica</button>
+      <button class="ppl-btn ppl-btn--icon ppl-btn--secondary" aria-label="Imprimir"><i data-ppl-icon="printer" data-ppl-size="16"></i></button>
+      <button class="ppl-btn ppl-btn--primary ppl-btn--touch">Alvo de toque 44px</button>
+      <button class="ppl-btn ppl-btn--secondary" aria-pressed="true">Mensal</button>
+      <button class="ppl-btn ppl-btn--secondary" aria-pressed="false">Semanal</button>
+      <a class="ppl-fab" href="#" style="position:static"><i data-ppl-icon="plus" data-ppl-size="18"></i>Admitir</a>
+    </div>
+    <p class="lead" style="margin-top:12px;font-size:12.5px">
+      Botões são planos: sem degradê, sem sombra. Um CTA sólido por tela (<code>--primary</code>, <code>--punch</code> e
+      <code>.ppl-fab</code> contam); a galeria mostra vários porque é catálogo, não tela. O <code>--punch</code> é roxo
+      de dia e pêssego à noite — troque o tema no topo. O FAB flutua no canto inferior direito; aqui está preso na
+      página só para ser visto.
+    </p>
   </div>
 
   <!-- ============================================================ -->
-  <h2>5 · Badges</h2>
-  <div class="demo wrap">
-    <span class="ppl-badge ppl-badge--info"><i data-ppl-icon="circle-check" data-ppl-size="12"></i>Calculado</span>
+  <h2>5 · Badges — fases do dia</h2>
+  <p class="lead">Estado nunca só por cor: ponto cheio, vazado ou tracejado, e texto sempre. Caixa baixa.</p>
+  <div class="demo wrap" style="margin-top:12px">
+    <span class="ppl-badge ppl-badge--dawn"><span class="ppl-badge__dot ppl-badge__dot--hollow"></span>Admitido</span>
+    <span class="ppl-badge ppl-badge--day"><span class="ppl-badge__dot"></span>Ativo</span>
+    <span class="ppl-badge ppl-badge--transit"><span class="ppl-badge__dot ppl-badge__dot--dashed"></span>Transferido</span>
     <span class="ppl-badge ppl-badge--success"><i data-ppl-icon="circle-check" data-ppl-size="12"></i>Validado pelo RH</span>
     <span class="ppl-badge ppl-badge--warning"><i data-ppl-icon="circle-alert" data-ppl-size="12"></i>Em análise</span>
     <span class="ppl-badge ppl-badge--danger"><i data-ppl-icon="circle-x" data-ppl-size="12"></i>Rejeitado</span>
     <span class="ppl-badge"><i data-ppl-icon="clock-fading" data-ppl-size="12"></i>Proposto</span>
-    <span class="ppl-badge ppl-badge--muted"><i data-ppl-icon="circle-slash" data-ppl-size="12"></i>Cancelado</span>
-    <span class="ppl-badge ppl-badge--gold"><i data-ppl-icon="star" data-ppl-size="12"></i>Homologada</span>
-    <span class="ppl-badge ppl-badge--gold ppl-badge--count">184.368</span>
+    <span class="ppl-badge ppl-badge--muted"><i data-ppl-icon="circle-slash" data-ppl-size="12"></i>Desligado</span>
+    <span class="ppl-badge ppl-badge--dawn ppl-badge--count">184.368</span>
   </div>
 
   <!-- ============================================================ -->
@@ -178,9 +245,12 @@
       <span class="ppl-icon-tile ppl-icon-tile--lg"><i data-ppl-icon="wallet" data-ppl-size="22"></i></span>
       <span class="ppl-icon-tile"><i data-ppl-icon="calendar" data-ppl-size="18"></i></span>
       <span class="ppl-icon-tile ppl-icon-tile--sm"><i data-ppl-icon="clock" data-ppl-size="15"></i></span>
-      <span class="ppl-icon-tile ppl-icon-tile--lg ppl-icon-tile--gold"><i data-ppl-icon="star" data-ppl-size="22"></i></span>
+      <span class="ppl-icon-tile ppl-icon-tile--lg ppl-icon-tile--warn"><i data-ppl-icon="triangle-alert" data-ppl-size="22"></i></span>
+      <span style="display:inline-grid;padding:6px;border-radius:var(--ppl-radius-control);background:var(--ppl-dawn)">
+        <span class="ppl-icon-tile ppl-icon-tile--dark"><i data-ppl-icon="banknote" data-ppl-size="18"></i></span>
+      </span>
     </div>
-    <p class="ppl-eyebrow" style="margin-bottom:10px">Catálogo</p>
+    <p class="ppl-caption" style="margin-bottom:10px">Tonal roxo por padrão; <code>--warn</code> âmbar para o card de atenção; <code>--dark</code> sobre superfície escura. Catálogo:</p>
     <div class="wrap" id="catalogo-icones" style="gap:14px;color:var(--ppl-ink-soft)"></div>
   </div>
 
@@ -222,6 +292,12 @@
         </div>
       </div>
 
+      <div class="ppl-field">
+        <label class="ppl-field__label" for="f-pis">PIS</label>
+        <input class="ppl-input ppl-input--data" id="f-pis" value="123.45678.90-0" aria-invalid="true" aria-describedby="f-pis-err">
+        <p class="ppl-field__error" id="f-pis-err">Dígito verificador não confere.</p>
+      </div>
+
       <div class="ppl-stack ppl-stack--tight">
         <label class="ppl-check"><input type="checkbox" checked> Dependente para IRRF</label>
         <label class="ppl-check"><input type="checkbox"> Incluído no convênio médico</label>
@@ -250,10 +326,10 @@
 
   <!-- ============================================================ -->
   <h2>9 · Choice cards</h2>
-  <p class="lead">Decisão de caminho em cards grandes, não dropdown escondido. Só um card recebe o dourado.</p>
+  <p class="lead">Decisão de caminho em cards grandes, não dropdown escondido. Nenhum card tem cor de destaque: o destaque é ordem e tamanho. O tile âmbar marca o card de atenção.</p>
   <div class="ppl-choice-grid" style="margin-top:12px">
     <a class="ppl-card ppl-card--interactive ppl-choice ppl-choice--wide" href="#">
-      <span class="ppl-icon-tile ppl-icon-tile--lg ppl-icon-tile--gold"><i data-ppl-icon="clipboard-check" data-ppl-size="22"></i></span>
+      <span class="ppl-icon-tile ppl-icon-tile--lg ppl-icon-tile--warn"><i data-ppl-icon="clipboard-check" data-ppl-size="22"></i></span>
       <span class="ppl-choice__title">Validar correções de ponto</span>
       <span class="ppl-choice__line">12 propostas aguardando o seu aceite.</span>
       <span class="ppl-choice__foot">2 de 3 interações previstas</span>
@@ -274,11 +350,12 @@
 
   <!-- ============================================================ -->
   <h2>10 · Stats</h2>
-  <div class="ppl-stack" style="gap:12px">
-    <div class="ppl-stat-hero">
-      <span class="ppl-icon-tile ppl-icon-tile--dark"><i data-ppl-icon="banknote" data-ppl-size="17"></i></span>
-      <span class="ppl-stat-hero__value">R$ 1.284.930,55</span>
-      <span class="ppl-stat-hero__label">Líquido</span>
+  <p class="lead">Número plano em mono. O número-herói do app é <code>.ppl-hero-number</code> dentro de um card comum: sem degradê em card, nunca.</p>
+  <div class="ppl-stack" style="gap:12px;margin-top:12px">
+    <div class="ppl-card ppl-panel" style="max-width:360px">
+      <p class="ppl-caption">Banco de horas · 2026-08</p>
+      <p class="ppl-hero-number" style="margin:8px 0 6px">+12h 30min</p>
+      <p class="ppl-caption">Saldo positivo, compensável até 2026-12</p>
     </div>
     <div class="ppl-stat-grid">
       <div class="ppl-card ppl-stat"><span class="ppl-icon-tile ppl-icon-tile--sm"><i data-ppl-icon="trending-up" data-ppl-size="15"></i></span><span class="ppl-stat__value">R$ 1.610.220,10</span><span class="ppl-stat__label">Proventos</span></div>
@@ -318,11 +395,11 @@
   <h3>Os quatro estados que toda lista repete</h3>
   <div class="ppl-cols-2">
     <div class="demo">
-      <p class="ppl-eyebrow" style="margin-bottom:10px">Carregando</p>
+      <p class="ppl-caption" style="margin-bottom:10px">Carregando</p>
       <div class="ppl-stack ppl-stack--tight"><div class="ppl-skeleton"></div><div class="ppl-skeleton"></div><div class="ppl-skeleton"></div></div>
     </div>
     <div class="demo">
-      <p class="ppl-eyebrow" style="margin-bottom:10px">Erro · com recuperação</p>
+      <p class="ppl-caption" style="margin-bottom:10px">Erro · com recuperação</p>
       <div class="ppl-state">
         <span class="ppl-state__icon"><i data-ppl-icon="triangle-alert" data-ppl-size="20"></i></span>
         <p>Não foi possível carregar as rubricas.</p>
@@ -330,11 +407,11 @@
       </div>
     </div>
     <div class="demo">
-      <p class="ppl-eyebrow" style="margin-bottom:10px">Vazio</p>
+      <p class="ppl-caption" style="margin-bottom:10px">Vazio</p>
       <div class="ppl-state ppl-state--empty">Nenhuma rubrica nesta competência.</div>
     </div>
     <div class="demo">
-      <p class="ppl-eyebrow" style="margin-bottom:10px">Progresso determinado</p>
+      <p class="ppl-caption" style="margin-bottom:10px">Progresso determinado</p>
       <div class="ppl-stack ppl-stack--tight">
         <div class="ppl-progress"><div class="ppl-progress__bar" style="width:34.5%"></div></div>
         <p class="ppl-muted ppl-data" style="font-size:12px">428 de 1.240 marcações apuradas</p>
@@ -348,11 +425,14 @@
   <p class="lead">Uma decisão por etapa · avançar sempre valida · voltar é direito do operador · fluxo de efeito jurídico termina em revisão, ou não renderiza.</p>
   <div class="demo" id="wizard" style="margin-top:12px"></div>
 
-  <h3>Conclusão — ID em mono e UM próximo passo</h3>
+  <h3>Conclusão — selo de alvorada, ID em mono e um próximo passo</h3>
   <div class="ppl-card ppl-panel" style="max-width:420px">
     <div class="ppl-row" style="margin-bottom:12px">
-      <span class="ppl-icon-tile ppl-icon-tile--sm" style="border-radius:var(--ppl-radius-pill)"><i data-ppl-icon="check" data-ppl-size="16"></i></span>
-      <h4 class="ppl-display" style="font-size:17px;font-weight:600;color:var(--ppl-ink)">Admissão concluída</h4>
+      <span class="ppl-seal"><i data-ppl-icon="check" data-ppl-size="24"></i></span>
+      <div>
+        <h4 class="ppl-display" style="font-size:18px">Admissão concluída</h4>
+        <p class="ppl-caption">Mariana Souza · 01/09/2026</p>
+      </div>
     </div>
     <dl class="ppl-review" style="margin-bottom:14px">
       <div class="ppl-review__row"><dt class="ppl-review__key">Matrícula</dt><dd class="ppl-review__val ppl-review__val--data">2026-0042</dd></div>
@@ -384,7 +464,8 @@
 
   <!-- ============================================================ -->
   <h2>14 · Drawer e Toast</h2>
-  <div class="demo wrap">
+  <p class="lead">O toast é sempre sobre a madrugada, nos dois temas: a variante colore o ícone, não o fundo. Sucesso some sozinho; erro fica e traz a ação de recuperação.</p>
+  <div class="demo wrap" style="margin-top:12px">
     <button class="ppl-btn ppl-btn--primary" data-ppl-drawer-open="d-rubrica">Abrir drawer</button>
     <button class="ppl-btn ppl-btn--secondary" onclick="PplCompass.toast.success('Rubrica criada.')">Sucesso</button>
     <button class="ppl-btn ppl-btn--secondary" onclick="PplCompass.toast.error('Falha de rede ao salvar.',{acao:{label:'Tentar novamente',onClick(){}}})">Erro (persistente)</button>
@@ -423,10 +504,10 @@
   <div class="ppl-dialog" style="margin-top:12px">
     <div class="ppl-dialog__head"><h3 class="ppl-dialog__title">Fechar a competência definitivamente</h3></div>
     <p class="ppl-muted" style="margin-bottom:12px">Depois do fechamento, lançamentos só mudam por reabertura registrada em auditoria.</p>
+    <div class="ppl-dialog__alvo ppl-dialog__alvo--risco" style="margin-bottom:12px">Gestão Hospitalar Ltda · competência 2026-08 · 1.240 colaboradores</div>
     <dl class="ppl-review" style="margin-bottom:14px">
-      <div class="ppl-review__row"><dt class="ppl-review__key">Empresa</dt><dd class="ppl-review__val">Gestão Hospitalar Ltda</dd></div>
-      <div class="ppl-review__row"><dt class="ppl-review__key">Competência</dt><dd class="ppl-review__val ppl-review__val--data">2026-08</dd></div>
-      <div class="ppl-review__row"><dt class="ppl-review__key">Colaboradores</dt><dd class="ppl-review__val ppl-review__val--data">1.240</dd></div>
+      <div class="ppl-review__row"><dt class="ppl-review__key">Líquido</dt><dd class="ppl-review__val ppl-review__val--data">R$ 1.284.930,55</dd></div>
+      <div class="ppl-review__row"><dt class="ppl-review__key">Eventos eSocial</dt><dd class="ppl-review__val ppl-review__val--data">1.240 × S-1200</dd></div>
     </dl>
     <div class="ppl-field" style="margin-bottom:14px">
       <label class="ppl-field__label" for="r3">Digite <span class="ppl-dialog__phrase">2026-08</span> para confirmar</label>
@@ -456,15 +537,17 @@
   <p class="lead">
     A navegação inteira sai do JSON abaixo, via <code>data-ppl-nav</code>. É o que faz um template
     virar dez sem copiar marcação: as telas são a mesma lista com uma <code>rotaAtiva</code>
-    diferente. Falha fechado — grupo vazio, contador que não é número ou rota ativa fora do menu
-    trocam a navegação por um alerta que diz o defeito.
+    diferente. A sidebar é sempre noite: marca em logotipo branco (<code>"logo": "people"</code>),
+    item ativo em pílula branca com texto roxo, e UM contador pêssego — o único pêssego do console.
+    Falha fechado — grupo vazio, contador que não é número ou rota ativa fora do menu trocam a
+    navegação por um alerta que diz o defeito.
   </p>
   <div class="shell-demo">
     <aside class="ppl-nav" data-ppl-nav>
       <script type="application/json">
       {
         "rotaAtiva": "/folha",
-        "marca":  { "sigla": "b", "nome": "BNG People", "tag": "Depto. Pessoal" },
+        "marca":  { "logo": "people", "nome": "BNG People", "tag": "Depto. Pessoal", "href": "/" },
         "itens": [
           { "label": "Início",     "icone": "house",         "href": "/" },
           { "label": "Pendências", "icone": "circle-alert", "href": "/pendencias", "contador": 184368 },
@@ -487,20 +570,21 @@
     <div class="ppl-shell__col ppl-canvas" style="display:flex;flex-direction:column">
       <header class="ppl-topbar ppl-bar">
         <div class="ppl-topbar__row">
-          <button class="ppl-btn ppl-btn--secondary ppl-btn--sm" style="color:var(--ppl-primary)"><i data-ppl-icon="menu" data-ppl-size="16"></i>Menu</button>
-          <span class="ppl-eyebrow">Grupo Boas Novas</span>
+          <button class="ppl-btn ppl-btn--secondary ppl-btn--sm"><i data-ppl-icon="menu" data-ppl-size="16"></i>Menu</button>
+          <span class="ppl-topbar__chip">Grupo Boas Novas</span>
           <span class="ppl-topbar__crumb"><i data-ppl-icon="wallet" data-ppl-size="15"></i>Folha</span>
           <div class="ppl-topbar__actions">
             <button class="ppl-btn ppl-btn--icon ppl-btn--secondary" aria-label="Produtos"><i data-ppl-icon="layout-grid" data-ppl-size="16"></i></button>
             <button class="ppl-btn ppl-btn--icon ppl-btn--secondary" aria-label="Buscar" data-ppl-search-open><i data-ppl-icon="search" data-ppl-size="16"></i></button>
+            <button class="ppl-btn ppl-btn--icon ppl-btn--secondary" aria-label="Alternar tema" data-ppl-theme-toggle><i data-ppl-icon="moon" data-ppl-size="16"></i></button>
           </div>
         </div>
       </header>
       <main style="padding:24px;overflow:auto">
         <div class="ppl-page-head">
-          <div style="min-width:0">
-            <div class="ppl-page-head__meta ppl-eyebrow">Competência 2026-08 · Gestão Hospitalar Ltda</div>
+          <div class="ppl-page-head__id">
             <h1 class="ppl-page-head__title">Folha da competência</h1>
+            <p class="ppl-page-head__meta">Competência 2026-08 · Gestão Hospitalar Ltda</p>
             <p class="ppl-page-head__desc">Apuração, conferência e fechamento por CNPJ.</p>
           </div>
           <div class="ppl-page-head__actions">
@@ -520,7 +604,7 @@
 
   <!-- ============================================================ -->
   <h2>18 · Tabbar (mobile)</h2>
-  <p class="lead">Máximo 5 itens — e o sexto não quebra o grid em silêncio: a navegação some e aparece o alerta. Sai do MESMO <code>nav(json)</code> do shell, com <code>"variante": "tabbar"</code>; um produto não mantém duas listas de rotas. O alvo de toque é o link inteiro, ≥ 44px, nunca a pílula.</p>
+  <p class="lead">Máximo 5 itens — e o sexto não quebra o grid em silêncio: a navegação some e aparece o alerta. Sai do MESMO <code>nav(json)</code> do shell, com <code>"variante": "tabbar"</code>; um produto não mantém duas listas de rotas. O alvo de toque é o link inteiro, ≥ 44px, nunca a pílula. À noite o item ativo é pêssego.</p>
   <div style="max-width:420px;border:1px solid var(--ppl-border);border-radius:var(--ppl-radius-card);overflow:hidden;margin-top:12px">
     <nav data-ppl-nav>
       <script type="application/json">
@@ -538,28 +622,94 @@
   </div>
 
   <!-- ============================================================ -->
-  <h2>19 · Landing — a única superfície com vidro e tema escuro</h2>
-  <div class="ppl-landing ppl-landing__mesh" style="border-radius:var(--ppl-radius-card);padding:24px;min-height:auto">
-    <nav class="ppl-glass" style="display:flex;align-items:center;justify-content:space-between;gap:12px;border-radius:var(--ppl-radius-card);padding:12px 20px">
-      <strong style="color:var(--ppl-lp-ink)">BNG People</strong>
+  <h2>19 · Landing — dia frio</h2>
+  <p class="lead">O portal externo é plano, sobre o fundo do dia: sem vidro, sem texto em degradê, sem pêssego. O céu aparece só na faixa da marca, com o logotipo branco hidratado por <code>data-ppl-logo</code>.</p>
+  <div class="ppl-landing" style="border-radius:var(--ppl-radius-card);padding:16px;min-height:auto;margin-top:12px;border:1px solid var(--ppl-border)">
+    <nav class="ppl-landing__bar" aria-label="Navegação da página">
+      <a class="ppl-landing__logo" href="#" data-ppl-logo aria-label="BNG People"></a>
       <div class="ppl-row">
-        <a href="#" style="color:var(--ppl-lp-ink-soft);font-size:14px">Módulos</a>
-        <button class="ppl-btn ppl-btn--icon" data-ppl-theme-toggle aria-label="Alternar tema"
-                style="border:1px solid var(--ppl-lp-border-strong);color:var(--ppl-lp-ink)">
-          <i data-ppl-icon="moon" data-ppl-size="18"></i>
-        </button>
-        <a class="ppl-btn" href="#" style="background:var(--ppl-lp-accent);color:var(--ppl-lp-on-accent)">Entrar<i data-ppl-icon="arrow-right" data-ppl-size="16"></i></a>
+        <a class="ppl-btn ppl-btn--ghost" href="#">Módulos</a>
+        <a class="ppl-btn ppl-btn--secondary" href="#">Entrar<i data-ppl-icon="arrow-right" data-ppl-size="16"></i></a>
       </div>
     </nav>
-    <div style="padding:40px 8px 24px;max-width:640px">
-      <p class="ppl-eyebrow" style="font-size:15px">Folha, ponto e eSocial do grupo</p>
-      <h2 class="ppl-grad-text" style="font-size:40px;font-weight:700;line-height:1.1;margin:8px 0 12px;border:none;padding:0">Um só lugar para o departamento pessoal inteiro.</h2>
-      <p style="color:var(--ppl-lp-ink-soft);max-width:52ch">Admissão, ponto, folha, benefícios, férias e eSocial — multi-CNPJ, com trilha de auditoria em tudo.</p>
-    </div>
+    <header class="ppl-hero" style="padding:40px 8px 24px">
+      <h2 class="ppl-hero__title" style="margin:0;padding:0;border:none">Um só lugar para o <em>departamento pessoal</em> inteiro.</h2>
+      <p class="ppl-caption">Folha, ponto e eSocial do grupo</p>
+      <p class="ppl-hero__line">Admissão, ponto, folha, benefícios, férias e eSocial — multi-CNPJ, com trilha de auditoria em tudo.</p>
+      <div class="ppl-hero__cta">
+        <a class="ppl-btn ppl-btn--primary ppl-btn--touch" href="#">Entrar no console</a>
+        <a class="ppl-btn ppl-btn--secondary ppl-btn--touch" href="#">Conhecer os módulos</a>
+      </div>
+    </header>
   </div>
 
   <!-- ============================================================ -->
-  <h2>20 · Painel de dados — a máquina de quatro estados</h2>
+  <h2>20 · Luz — ciclorama, selo e horizonte</h2>
+  <p class="lead">Os únicos lugares com degradê. Login e porta do app em <code>.ppl-sky</code>, conquista em <code>.ppl-seal</code>, a fila de pendências lida por consequência em <code>.ppl-horizon</code>.</p>
+
+  <h3>Faixa de céu — <code>.ppl-sky--band</code></h3>
+  <div class="ppl-sky ppl-sky--band" style="border-radius:var(--ppl-radius-card)">
+    <span class="ppl-sky__logo" data-ppl-logo></span>
+    <div class="ppl-sky__head" style="padding-top:16px">
+      <p class="ppl-sky__title" style="font-size:24px">Primeiro acesso</p>
+      <p class="ppl-sky__sub">Você recebeu o convite por e-mail. Crie a senha para entrar.</p>
+    </div>
+  </div>
+
+  <h3>Ciclorama de tela inteira — <code>.ppl-sky</code></h3>
+  <p class="lead" style="font-size:12.5px">Headline branca na metade superior, sobre madrugada e base; card branco apoiado no horizonte, com a única sombra legítima. Ao carregar, o brilho sobe uma vez — o Raise. Com <code>--split</code>, no desktop o card vai para a direita, como no login.</p>
+  <div class="sky-frame" style="margin-top:10px">
+    <div class="ppl-sky ppl-sky--split">
+      <div class="ppl-sky__glow"></div>
+      <span class="ppl-sky__logo" data-ppl-logo></span>
+      <div class="ppl-sky__head">
+        <p class="ppl-sky__title">Bom dia. A folha de setembro fecha hoje.</p>
+        <p class="ppl-sky__sub">Entre com o e-mail corporativo. O grupo inteiro, um só acesso.</p>
+      </div>
+      <form class="ppl-sky__card ppl-stack" onsubmit="return false">
+        <div class="ppl-field">
+          <label class="ppl-field__label" for="sky-mail">E-mail</label>
+          <input class="ppl-input" id="sky-mail" type="email" placeholder="voce@grupoboasnovas.com.br">
+        </div>
+        <div class="ppl-field">
+          <label class="ppl-field__label" for="sky-pass">Senha</label>
+          <input class="ppl-input" id="sky-pass" type="password" placeholder="••••••••">
+        </div>
+        <button type="submit" class="ppl-btn ppl-btn--primary ppl-btn--touch" style="justify-content:center">Entrar</button>
+        <a class="ppl-link" href="#" style="font-size:12.5px;text-align:center">Esqueci a senha</a>
+      </form>
+    </div>
+  </div>
+
+  <h3>Selo de alvorada — <code>.ppl-seal</code></h3>
+  <div class="demo wrap" style="gap:24px">
+    <div class="ppl-row">
+      <span class="ppl-seal"><i data-ppl-icon="check" data-ppl-size="24"></i></span>
+      <div>
+        <p class="ppl-display" style="font-size:18px">Folha fechada</p>
+        <p class="ppl-caption">2026-08 · 1.240 contratos</p>
+      </div>
+    </div>
+    <div class="ppl-row">
+      <span class="ppl-seal ppl-seal--lg"><i data-ppl-icon="check" data-ppl-size="30"></i></span>
+      <div>
+        <p class="ppl-display" style="font-size:18px">Bem-vinda, Mariana</p>
+        <p class="ppl-caption"><code>--lg</code> — primeiro acesso</p>
+      </div>
+    </div>
+  </div>
+
+  <h3>Horizonte do dia — <code>.ppl-horizon</code></h3>
+  <p class="lead" style="font-size:12.5px">Quatro segmentos, da madrugada ao dia: escuro é urgência, branco é pronto. Rótulo e contagem são obrigatórios — a cor só ordena. Cada segmento filtra a fila.</p>
+  <div class="ppl-horizon" style="margin-top:10px">
+    <a class="ppl-horizon__seg ppl-horizon__seg--1" href="#"><span class="ppl-horizon__label">Bloqueiam a folha</span><span class="ppl-horizon__count">37</span></a>
+    <a class="ppl-horizon__seg ppl-horizon__seg--2" href="#"><span class="ppl-horizon__label">Bloqueiam o eSocial</span><span class="ppl-horizon__count">112</span></a>
+    <a class="ppl-horizon__seg ppl-horizon__seg--3" href="#"><span class="ppl-horizon__label">Bloqueiam cessão</span><span class="ppl-horizon__count">1.208</span></a>
+    <a class="ppl-horizon__seg ppl-horizon__seg--4" href="#"><span class="ppl-horizon__label">Não bloqueiam</span><span class="ppl-horizon__count">36.404</span></a>
+  </div>
+
+  <!-- ============================================================ -->
+  <h2>21 · Painel de dados — a máquina de quatro estados</h2>
   <p class="lead">
     A receita mais copiada do console: 51 tabelas repetem esta mesma máquina à mão. Aqui os quatro
     blocos são escritos uma vez e quem escolhe é o <code>data-ppl-state</code> do painel. O
@@ -615,7 +765,7 @@
   </div>
 
   <!-- ============================================================ -->
-  <h2>21 · Confirmação por risco</h2>
+  <h2>22 · Confirmação por risco</h2>
   <p class="lead">
     O nível é atributo do <strong>processo</strong>, não decisão de tela — e é ele que escolhe o
     diálogo. Repare no que o pacote <em>recusa</em>: R0 e R1 não abrem modal nenhum. Fadiga de
@@ -712,7 +862,7 @@
           '<div class="ppl-review__row"><dt class="ppl-review__key">Admissão</dt><dd class="ppl-review__val">01/09/2026</dd></div></dl>';
       } else {
         corpo.innerHTML =
-          '<p class="ppl-eyebrow" style="margin-bottom:8px">Etapa: ' + passo.label + '</p>' +
+          '<p class="ppl-caption" style="margin-bottom:8px">Etapa: ' + passo.label + '</p>' +
           '<p class="ppl-muted">Uma decisão por etapa. O conteúdo real do passo entra aqui.</p>';
       }
     },

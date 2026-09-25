@@ -1,6 +1,6 @@
 # Templates de tela
 
-Oito arquétipos. Cada um é um `.html` autossuficiente que roda com dois `<link>`/`<script>`
+Nove arquétipos. Cada um é um `.html` autossuficiente que roda com dois `<link>`/`<script>`
 apontando para o CDN — **copie o arquivo, troque o conteúdo, pronto**. Não há build, não há
 `include`, não há passo intermediário.
 
@@ -13,11 +13,12 @@ apontando para o CDN — **copie o arquivo, troque o conteúdo, pronto**. Não h
 | Qualquer uma — comece aqui | [`shell.html`](shell.html) | navegação + topo + `<main>` vazio |
 | Tabela de registros | [`lista.html`](lista.html) | painel com tabela e os **quatro estados** por `data-ppl-state` |
 | Tabela + edição num painel | [`form-drawer.html`](form-drawer.html) | o padrão de 35 telas do console |
-| Fluxo em etapas | [`wizard.html`](wizard.html) | numerado, com revisão e conclusão |
-| Ponto de partida do operador | [`home.html`](home.html) | saudação e processos em cards grandes |
+| Fluxo em etapas | [`wizard.html`](wizard.html) | numerado, com revisão e a conclusão com o selo de alvorada |
+| Ponto de partida do operador | [`home.html`](home.html) | saudação, o **Horizonte do dia** e os processos em cards grandes |
 | Ficha de um registro | [`detalhe.html`](detalhe.html) | contexto, seções colapsáveis e as confirmações R2/R3 |
-| Página pública | [`landing.html`](landing.html) | vidro e tema escuro — a única superfície com os dois |
-| Aplicativo do colaborador | [`pwa.html`](pwa.html) | molde móvel com tabbar e alvo de toque |
+| Página pública | [`landing.html`](landing.html) | dia frio — plana, sem vidro; o céu só na faixa da marca |
+| Aplicativo do colaborador | [`pwa.html`](pwa.html) | molde móvel com tabbar, alvo de toque e o botão de bater ponto |
+| Entrar no console | [`login.html`](login.html) | porta de entrada — ciclorama, o único lugar do console com degradê de tela inteira |
 
 ---
 
@@ -34,6 +35,11 @@ A navegação inteira sai de um `<script type="application/json">` dentro do `<a
 É por isso que dez telas não custam dez cópias de marcação: custam dez vezes a mesma lista com uma
 rota diferente. Trocar um item de lugar muda as dez de uma vez, porque o JSON é o mesmo texto
 colado — colar é a única forma de reúso que sobrevive à restrição de zero build no consumidor.
+
+O JSON traz a marca (`"marca": { "logo": "people", … }` desenha o logotipo horizontal branco) e
+**um contador só**, o de Pendências. Ele vira a pílula pêssego da sidebar — a luz do horizonte só
+existe sobre a noite, e é o único pêssego do console. Um segundo contador seria um segundo
+horizonte, e dois horizontes não apontam: o lint reprova.
 
 ### A confirmação também é declarativa, e recusa mais do que aceita
 
@@ -60,6 +66,14 @@ Ela não aparece meio certa. Some, e no lugar dela vem um alerta dizendo o defei
 - **`rotaAtiva` que não existe no menu** — o mais importante dos seis. Menu que não sabe onde você
   está é pior do que menu nenhum, porque mente com confiança.
 
+### O Horizonte do dia
+
+`home.html` não abre com um alerta de "184.368 pendências": abre com a fila lida por
+**consequência**, em quatro segmentos da madrugada ao dia — bloqueiam a folha, bloqueiam o eSocial,
+bloqueiam cessão, não bloqueiam. O escuro é urgência, o branco é pronto; a cor só ordena, e rótulo e
+contagem são obrigatórios. Cada segmento é um link que filtra a fila. É a resposta à pergunta que o
+alerta não respondia: por onde começar.
+
 ---
 
 ## O que estes templates assumem
@@ -68,9 +82,10 @@ Ela não aparece meio certa. Some, e no lugar dela vem um alerta dizendo o defei
 |---|---|
 | **Dados estáticos** (Q12) | os dados moram no HTML. `data-ppl-submit` fecha o painel e anuncia o resultado; a tabela por baixo **não** ganha a linha. |
 | **Sempre por HTTP** (Q11) | os templates apontam para o CDN. Abrir por `file://` não funciona — sirva a pasta. |
-| **Escuro só na landing** (Q14) | o alternador de tema existe só em `landing.html`; o shell autenticado é claro-only, como o produto. |
-| **Desktop + um molde móvel** (Q13) | sete templates de desktop e um de aplicativo. |
+| **Tema escuro de primeira classe** | segue `prefers-color-scheme`; o alternador (`data-ppl-theme-toggle`) vive na topbar; a sidebar é sempre noite. |
+| **Desktop + um molde móvel + a porta de entrada** | sete templates de desktop, um de aplicativo e o login, que é o mesmo nos dois. |
 | **PO e time interno** (Q9) | cobertura antes de polimento: muitos arquétipos rasos para montar a jornada inteira rápido. |
+| **Um CTA sólido por superfície, um pêssego por tela** | `--primary`, `--punch` e `.ppl-fab` contam como CTA; o drawer aberto é superfície própria. O contador da nav e o `--punch` à noite contam como pêssego. O lint reprova o excesso. |
 
 ### Os limites, ditos na cara
 
@@ -87,13 +102,14 @@ Ela não aparece meio certa. Some, e no lugar dela vem um alerta dizendo o defei
   já dependiam disso, mas navegação é conteúdo, e isso é um recuo em relação a "degrada sem JS".
   A troca foi aceita porque o alternativa é dez cópias da mesma marcação divergindo em silêncio.
   Se um protótipo precisar sobreviver sem JS, escreva os `<a class="ppl-nav__item">` à mão: a
-  receita CSS é a mesma, e `nav()` não é obrigatório.
+  receita CSS é a mesma, e `nav()` não é obrigatório. O logotipo (`[data-ppl-logo]`) também é
+  hidratado pelo `init()`: sem script, o canto do céu fica sem a marca.
 
 ---
 
 ## Escrever JavaScript não faz parte
 
-Sete dos oito templates têm exatamente uma linha de script: `PplCompass.init()`. Todo o resto é
+Oito dos nove templates têm exatamente uma linha de script: `PplCompass.init()`. Todo o resto é
 atributo no HTML.
 
 ```html
@@ -107,6 +123,7 @@ atributo no HTML.
 <div data-ppl-combo>…</div>
 <button data-ppl-search-open>Buscar</button>
 <button data-ppl-theme-toggle>Tema</button>
+<a data-ppl-logo href="/" aria-label="BNG People"></a>
 <i data-ppl-icon="wallet" data-ppl-size="16"></i>
 <aside class="ppl-nav" data-ppl-nav><script type="application/json">…</script></aside>
 ```

@@ -5,16 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Início — BNG People</title>
 <link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/FelipeSilveiraBNG/ppl-compass@0.4.2/dist/ppl-compass.css"
-      integrity="sha384-E/qBbSGDbYr5hi+Q+4F1wUy5uXO+0q56bzlXkG86ngrjw1upmDRUvA3d1m/MBjhT"
+      href="https://cdn.jsdelivr.net/gh/andreiandrade-bng/ppl-compass@0.5.0/dist/ppl-compass.css"
+      integrity="sha384-GtiX78xFYEvnHF3D6PbfEwl0OQsFnkaZk2usuHomx/JyFUtN4JfSQgI7T/iZREoh"
       crossorigin="anonymous">
 </head>
-<body data-brand="people">
+<body>
 
-<!-- HOME — saudação, contexto e os processos como decisão de caminho.
+<!-- HOME — saudação, o Horizonte do dia e os processos como decisão de caminho.
      Cards grandes e não um dropdown escondido: escolher processo é a decisão
      mais frequente do dia, e ela não pode custar dois cliques e uma lista.
-     UM card recebe o dourado. Só um. -->
+
+     Nenhum card é "o destacado": na v6B o destaque é ordem e tamanho, nunca
+     cor — o primeiro card é o processo que o operador faz mais. E não há FAB
+     aqui (decisão do PO): a Home é o lugar de escolher, não de agir. -->
 
 <div class="ppl-shell">
 
@@ -22,9 +25,9 @@
     <script type="application/json">
     {
       "rotaAtiva": "/",
-      "marca":  { "sigla": "b", "nome": "BNG People", "tag": "Depto. Pessoal" },
+      "marca":  { "logo": "people", "nome": "BNG People", "tag": "Depto. Pessoal", "href": "/" },
       "itens": [
-        { "label": "Início",     "icone": "house",         "href": "/" },
+        { "label": "Início",     "icone": "house",        "href": "/" },
         { "label": "Pendências", "icone": "circle-alert", "href": "/pendencias", "contador": 184368 },
         { "grupo": "Estrutura", "itens": [
           { "label": "Empresas",      "icone": "building", "href": "/empresas" },
@@ -34,12 +37,12 @@
         { "grupo": "Folha", "itens": [
           { "label": "Rubricas",  "icone": "list",       "href": "/rubricas" },
           { "label": "Folha",     "icone": "wallet",     "href": "/folha" },
-          { "label": "Férias",    "icone": "tree-palm",       "href": "/ferias" },
+          { "label": "Férias",    "icone": "tree-palm",  "href": "/ferias" },
           { "label": "Rescisões", "icone": "calendar-x", "href": "/rescisoes" }
         ]},
         { "grupo": "Ponto", "itens": [
           { "label": "Espelho",   "icone": "calendar",     "href": "/ponto" },
-          { "label": "Correções", "icone": "clock-fading", "href": "/correcoes", "contador": 42 }
+          { "label": "Correções", "icone": "clock-fading", "href": "/correcoes" }
         ]},
         { "grupo": "Obrigações", "itens": [
           { "label": "eSocial",    "icone": "send", "href": "/esocial" },
@@ -60,7 +63,7 @@
 
     <header class="ppl-topbar ppl-bar">
       <div class="ppl-topbar__row">
-        <span class="ppl-eyebrow">Grupo Boas Novas</span>
+        <span class="ppl-topbar__chip">Grupo Boas Novas</span>
         <span class="ppl-topbar__crumb"><i data-ppl-icon="house" data-ppl-size="15"></i>Início</span>
         <div class="ppl-topbar__actions">
           <button class="ppl-btn ppl-btn--icon ppl-btn--secondary" aria-label="Produtos">
@@ -68,6 +71,9 @@
           </button>
           <button class="ppl-btn ppl-btn--icon ppl-btn--secondary" aria-label="Buscar" data-ppl-search-open>
             <i data-ppl-icon="search" data-ppl-size="16"></i>
+          </button>
+          <button class="ppl-btn ppl-btn--icon ppl-btn--secondary" data-ppl-theme-toggle aria-label="Alternar tema">
+            <i data-ppl-icon="moon" data-ppl-size="16"></i>
           </button>
         </div>
       </div>
@@ -77,10 +83,10 @@
 
       <div class="ppl-page-head">
         <div class="ppl-page-head__id">
-          <div class="ppl-page-head__meta ppl-eyebrow">Grupo Boas Novas · competência 2026-08</div>
-          <!-- O display humano SÓ aqui: saudação, sucesso e hero. Nunca em
-               formulário, tabela ou cromo. -->
+          <!-- A headline Sora SÓ aqui: saudação, sucesso e porta de entrada.
+               Nunca em formulário, tabela ou cromo. Uma por tela. -->
           <p class="ppl-display ppl-display--hero">Boa tarde, Ana</p>
+          <div class="ppl-page-head__meta">Grupo Boas Novas · competência 2026-08</div>
           <p class="ppl-page-head__desc">
             1.240 contratos ativos em 3 CNPJs. A folha de agosto fecha em 5 dias úteis.
           </p>
@@ -94,23 +100,45 @@
 
       <div class="ppl-stack">
 
-        <div class="ppl-alert ppl-alert--warning">
-          <i data-ppl-icon="triangle-alert" data-ppl-size="16"></i>
-          <span>184.368 pendências aguardam tratamento. <a href="/pendencias" class="ppl-state__action">Abrir a fila</a></span>
-        </div>
+        <!-- HORIZONTE DO DIA — a fila de 184.368 pendências lida por
+             consequência, da madrugada ao dia: o segmento escuro é o que
+             bloqueia a folha, o branco é o que não bloqueia nada. A cor só
+             ordena; rótulo e contagem são obrigatórios. Substitui o alerta
+             âmbar anterior, que dizia o total e não dizia por onde começar.
+             Cada segmento filtra a fila. -->
+        <nav class="ppl-horizon" aria-label="Pendências por consequência">
+          <a class="ppl-horizon__seg ppl-horizon__seg--1" href="/pendencias?c=bloqueia_folha">
+            <span class="ppl-horizon__label">Bloqueiam a folha</span>
+            <span class="ppl-horizon__count">37.761</span>
+          </a>
+          <a class="ppl-horizon__seg ppl-horizon__seg--2" href="/pendencias?c=bloqueia_esocial">
+            <span class="ppl-horizon__label">Bloqueiam o eSocial</span>
+            <span class="ppl-horizon__count">58.204</span>
+          </a>
+          <a class="ppl-horizon__seg ppl-horizon__seg--3" href="/pendencias?c=bloqueia_cessao">
+            <span class="ppl-horizon__label">Bloqueiam cessão</span>
+            <span class="ppl-horizon__count">12.930</span>
+          </a>
+          <a class="ppl-horizon__seg ppl-horizon__seg--4" href="/pendencias?c=nao_bloqueia">
+            <span class="ppl-horizon__label">Não bloqueiam</span>
+            <span class="ppl-horizon__count">75.473</span>
+          </a>
+        </nav>
 
         <div class="ppl-choice-grid">
 
-          <!-- O único dourado da tela: o processo que o operador faz mais. -->
+          <!-- Primeiro porque é o processo que o operador faz mais. Tonal como
+               os outros: ordem é o destaque. -->
           <a class="ppl-card ppl-choice ppl-card--interactive" href="/colaboradores/novo">
-            <span class="ppl-icon-tile ppl-icon-tile--gold ppl-icon-tile--lg"><i data-ppl-icon="user" data-ppl-size="20"></i></span>
+            <span class="ppl-icon-tile ppl-icon-tile--lg"><i data-ppl-icon="user" data-ppl-size="20"></i></span>
             <span class="ppl-choice__title">Admitir colaborador</span>
             <span class="ppl-choice__line">Dados pessoais, contrato, jornada e o S-2200 do eSocial.</span>
             <span class="ppl-choice__foot">7 admissões em agosto</span>
           </a>
 
+          <!-- Tile âmbar porque é fila de atenção: há gente esperando o RH. -->
           <a class="ppl-card ppl-choice ppl-card--interactive" href="/correcoes">
-            <span class="ppl-icon-tile ppl-icon-tile--lg"><i data-ppl-icon="clock-fading" data-ppl-size="20"></i></span>
+            <span class="ppl-icon-tile ppl-icon-tile--warn ppl-icon-tile--lg"><i data-ppl-icon="clock-fading" data-ppl-size="20"></i></span>
             <span class="ppl-choice__title">Corrigir marcação de ponto</span>
             <span class="ppl-choice__line">Tratamento das batidas propostas pelos líderes.</span>
             <span class="ppl-choice__foot">42 aguardando o RH</span>
@@ -151,10 +179,10 @@
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/gh/FelipeSilveiraBNG/ppl-compass@0.4.2/dist/ppl-compass-icons.js"
+<script src="https://cdn.jsdelivr.net/gh/andreiandrade-bng/ppl-compass@0.5.0/dist/ppl-compass-icons.js"
         integrity="sha384-K7HJQ+0th6kgYPtM02Ac4GpT4x/2JVA8oI33rClJ/XEdNIkGmSK+Z4IkMfyJqcHb" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/gh/FelipeSilveiraBNG/ppl-compass@0.4.2/dist/ppl-compass.js"
-        integrity="sha384-1F/GpCbAI2O7OJGomGl1FNHYcFgTr+QVb7zhhngOvDhVGWieyhUBoYN6wRzUpTBT" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/gh/andreiandrade-bng/ppl-compass@0.5.0/dist/ppl-compass.js"
+        integrity="sha384-I1G8vAmXzfvEHSYLoCYHp0xUu3aWq2EIv8WBNscMn68emHFPkI1mPdDgoua8PYGO" crossorigin="anonymous"></script>
 <script>addEventListener('DOMContentLoaded', () => PplCompass.init());</script>
 </body>
 </html>

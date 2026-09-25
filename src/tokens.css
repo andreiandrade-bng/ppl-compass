@@ -1,13 +1,20 @@
 /*!
  * ppl-compass — tokens
- * Identidade v5 do BNG People: azul royal + acento dourado.
+ * Identidade v6B "Alvorada" do BNG People: roxo #8100FF como luz que vai da
+ * noite ao dia, pêssego #FFB899 como luz do horizonte.
  *
  * Trocar ESTE arquivo troca a marca inteira. As receitas de componente não
  * conhecem nenhum valor: só referenciam token.
  *
- * Nomes desenhados do zero (nada herdado). Vocabulário:
- *   ink      texto        surface  fundo        border   linha
- *   blue-*   escala de marca       gold-*   acento quente (raro)
+ * Filosofia (design-system.md §2.1): cor é LUZ, não tinta. Sete paradas da
+ * noite ao dia; três são estruturais e aparecem em toda tela (noite, roxo,
+ * dia). O roxo é a única cor de ação. O pêssego é a única luz quente e obedece
+ * à física da alvorada: só é visível contra a noite. Não há arco-íris de
+ * estados.
+ *
+ * Vocabulário:
+ *   ink       texto          surface   fundo         border   linha
+ *   violet-*  rampa de luz   peach     luz quente    grad-*   só onde há céu
  */
 
 /* ── Reset mínimo ────────────────────────────────────────────────────────── */
@@ -24,97 +31,140 @@ legend { padding: 0; }
 img, svg { display: block; max-width: 100%; }
 [hidden] { display: none !important; }
 
-:root,
-[data-brand="people"] {
-  /* ══ Marca ══════════════════════════════════════════════════════════════ */
-  --ppl-blue-50:  #f0f4fc;   /* hover de linha, fundo de chip                */
-  --ppl-blue-100: #e6edfc;   /* seleção, badge frio, tile de ícone           */
-  --ppl-blue-200: #d2dbec;
-  --ppl-blue-300: #a9bff2;
-  --ppl-blue-400: #6c93ec;   /* azul-céu: avatar, gradiente de destaque      */
-  --ppl-blue-500: #2f5ad0;   /* PRIMÁRIA                                     */
-  --ppl-blue-600: #254bb4;   /* hover da primária                            */
-  --ppl-blue-700: #1e4193;   /* topo do degradê da navegação                 */
-  --ppl-blue-800: #12305f;
-  --ppl-blue-900: #0d2551;   /* base do degradê                              */
+/* Só em :root. Um seletor extra no <body> (o antigo `[data-brand]`) venceria o
+   tema escuro herdado do <html> e a noite nunca chegaria ao conteúdo. */
+:root {
+  /* ══ A rampa de luz ════════════════════════════════════════════════════ */
+  --ppl-violet-50:  #f9f5ff;   /* fundo tonal mais leve, hover de linha       */
+  --ppl-violet-100: #f1e8ff;   /* seleção, badge "admitido", tile de ícone     */
+  --ppl-violet-200: #e3d0ff;   /* faixa "cessões", badge transferido, seleção  */
+  --ppl-violet-300: #cdaeff;   /* lilás-suave: rótulo sobre escuro              */
+  --ppl-violet-400: #b48aff;   /* lilás: primário do tema escuro                */
+  --ppl-violet-500: #9a4dff;   /* hover de item sobre escuro                    */
+  --ppl-violet-600: #8100ff;   /* PRIMÁRIA — a cor da palavra "People"          */
+  --ppl-violet-700: #6600cc;   /* texto forte sobre tonal                       */
+  --ppl-violet-800: #3e1585;   /* base da sidebar                               */
+  --ppl-violet-900: #25104f;   /* madrugada: toast, faixa mais urgente          */
+  --ppl-violet-950: #130d22;   /* noite: topo da sidebar, fundo do tema escuro  */
 
-  --ppl-primary:       var(--ppl-blue-500);
-  --ppl-primary-hover: var(--ppl-blue-600);
+  /* ══ Marca e interação ═════════════════════════════════════════════════ */
+  --ppl-primary:       var(--ppl-violet-600);
+  --ppl-primary-hover: #6e00db;
   --ppl-primary-fg:    #ffffff;
+  --ppl-primary-soft:  var(--ppl-violet-100);   /* seleção, badge, stepper concluído */
+  --ppl-primary-tint:  var(--ppl-violet-200);   /* borda de ênfase, seleção de texto */
+  --ppl-link:          #6a00d6;                 /* links em texto corrido (7,7:1)    */
+  --ppl-strong:        var(--ppl-violet-700);   /* texto de badge sobre tonal        */
+  --ppl-nav-base:      var(--ppl-violet-800);   /* base da sidebar ("base" é duração) */
+  --ppl-dawn:          var(--ppl-violet-900);
+  --ppl-night:         var(--ppl-violet-950);
+  --ppl-lilac:         var(--ppl-violet-400);
+  --ppl-lilac-soft:    var(--ppl-violet-300);
 
-  /* ══ Acento quente — NO MÁXIMO UM ELEMENTO DOURADO POR TELA ════════════ */
-  --ppl-gold:      #f3c63f;
-  --ppl-gold-deep: #e4b52c;
-  --ppl-gold-soft: #fbefbe;
-
-  /* ══ Neutros (viés azul) ═══════════════════════════════════════════════ */
-  --ppl-ink:            #132c63;  /* título e ênfase                        */
-  --ppl-ink-soft:       #5a6486;  /* texto secundário — o mais usado        */
-  --ppl-ink-faint:      #8492b2;  /* rótulo, placeholder, metadado          */
-  --ppl-surface:        #ffffff;  /* superfície dominante                   */
-  --ppl-surface-sunk:   #f2f5fc;  /* fundo de página, cabeçalho de tabela   */
-  --ppl-surface-mute:   #eef1fa;  /* painel, linha alternada                */
-  --ppl-surface-head:   #e7edf8;
-  --ppl-border:         #e2e8f4;
-  --ppl-border-strong:  #d2dbec;
-
-  /* ══ Semânticas ════════════════════════════════════════════════════════ */
-  --ppl-success:      #0e8a4f;
-  --ppl-warning:      #b5892c;   /* atenção                                 */
-  --ppl-warning-soft: #f7edd4;
-  --ppl-danger:       #c0392b;   /* SÓ erro e ação destrutiva               */
-  --ppl-info:         #3c6fe0;   /* link e anel de foco                     */
-
-  /* ══ Texto sobre superfície azul ═══════════════════════════════════════ */
-  --ppl-on-dark:      #ffffff;
-  --ppl-on-dark-soft: #aec2ec;
-
-  /* ══ Gradientes — lista fechada ════════════════════════════════════════
-   * Permitidos só em: navegação/hero, botão de destaque, marca e selo.
-   * Em nenhum outro lugar.
+  /* ══ Luz quente — SÓ SOBRE SUPERFÍCIES ESCURAS, texto sempre tinta ═════
+   * Pêssego mede 1,6:1 sobre o dia: ali ele não existe. De dia, o acento é o
+   * próprio roxo cheio. Rosa e orquídea são paradas de degradê e NUNCA
+   * carregam texto (branco sobre orquídea mede 3,6:1).
    * ─────────────────────────────────────────────────────────────────────── */
-  --ppl-grad-nav:     linear-gradient(180deg, #1e4193 0%, #12305f 55%, #0d2551 100%);
-  --ppl-grad-primary: linear-gradient(135deg, #3560d9 0%, #2a4ebb 100%);
-  --ppl-grad-gold:    linear-gradient(135deg, #f7d451 0%, #efc02c 100%);
-  --ppl-grad-seal:    radial-gradient(circle at 40% 35%, #fdf3cc 0%, #f6de86 100%);
+  --ppl-peach:      #ffb899;
+  --ppl-peach-soft: #ffe3d3;
+  --ppl-rose:       #f27bb8;
+  --ppl-orchid:     #c24dff;
 
-  /* ══ Sombras — profundidade por sombra difusa + hairline, nunca borda pesada */
-  --ppl-shadow-color: 19 44 99;
-  --ppl-shadow-sm: 0 1px 2px rgb(var(--ppl-shadow-color) / .06),
-                   0 1px 3px rgb(var(--ppl-shadow-color) / .05);
-  --ppl-shadow-lg: 0 12px 34px rgb(var(--ppl-shadow-color) / .12),
-                   0 3px 8px  rgb(var(--ppl-shadow-color) / .06);
+  /* ══ Texto (dia) ═══════════════════════════════════════════════════════ */
+  --ppl-ink:          #1e1826;  /* títulos (16,5:1 sobre o dia)              */
+  --ppl-ink-body:     #433c4d;  /* corpo (10:1)                              */
+  --ppl-ink-soft:     #6c6577;  /* rótulos, descrições (5,3:1)               */
+  --ppl-ink-faint:    #736c86;  /* legendas, metadados (4,7:1)               */
+  --ppl-ink-disabled: #a79fbd;  /* campos travados; nunca informação necessária */
+  --ppl-on-dark:      #ffffff;
+  --ppl-on-dark-soft: var(--ppl-violet-300);
+
+  /* ══ Superfícies (dia) ═════════════════════════════════════════════════ */
+  --ppl-surface:        #ffffff;  /* cards, tabelas, formulários, pílula ativa */
+  --ppl-surface-app:    #fbf9f7;  /* o dia: fundo do shell e do app            */
+  --ppl-surface-subtle: #f4f1f6;  /* painéis, linhas alternadas                */
+  --ppl-surface-muted:  #ece7f0;  /* cabeçalho de tabela, painel secundário    */
+  --ppl-surface-dark:   var(--ppl-violet-900);   /* toast: independe do tema  */
+  --ppl-border:         #e6e1ea;
+  --ppl-border-strong:  #cfc8da;
+
+  /* ══ Semânticas — texto sobre claro usa a variante -strong ═════════════ */
+  --ppl-success:        #0e8a4f;   /* ícone e ponto (4,2:1 sobre o dia)       */
+  --ppl-success-soft:   #e6f5ee;
+  --ppl-success-strong: #0a6b3d;   /* texto (6,6:1)                           */
+  --ppl-warning:        #b5892c;   /* ícone e ponto                            */
+  --ppl-warning-soft:   #f7edd4;
+  --ppl-warning-strong: #866521;   /* texto (5,4:1)                           */
+  --ppl-danger:         #c0392b;   /* SÓ erro e ação destrutiva                */
+  --ppl-danger-soft:    #fbeae7;
+  --ppl-danger-strong:  #bb372a;
+  --ppl-neutral:        #5e5775;   /* estado apagado (desligado)               */
+  --ppl-neutral-soft:   #e9e4ee;
+  --ppl-success-on-dark: #7ed9a9;  /* ícone de sucesso sobre a noite           */
+  --ppl-danger-on-dark:  #f08a7e;  /* texto de erro sobre a noite              */
+
+  /* ══ Luz — degradês, lista fechada ═════════════════════════════════════
+   * Só onde há céu: login e porta do app (sky), sidebar (nav), app à noite
+   * (night), selo de conquista (seal) e o fundo quase plano do dia (day).
+   * Nunca em botão, texto, tabela ou card.
+   * ─────────────────────────────────────────────────────────────────────── */
+  --ppl-grad-sky:
+    radial-gradient(60% 70% at 50% 110%, rgb(255 184 153 / .95) 0%, rgb(242 123 184 / .55) 38%, rgb(194 77 255 / .25) 62%, transparent 80%),
+    linear-gradient(180deg, #130d22 0%, #25104f 34%, #3e1585 52%, #8100ff 72%, #c24dff 84%, #f27bb8 92%, #ffb899 100%);
+  --ppl-grad-nav:
+    radial-gradient(240px 130px at 50% 106%, rgb(255 184 153 / .62) 0%, rgb(242 123 184 / .30) 45%, transparent 72%),
+    linear-gradient(180deg, #130d22 0%, #25104f 48%, #3e1585 100%);
+  --ppl-grad-seal:
+    radial-gradient(circle at 40% 30%, #ffe3d3 0%, #ffb899 45%, #f27bb8 78%, #c24dff 100%);
+  --ppl-grad-night:
+    radial-gradient(70% 34% at 50% 100%, rgb(255 184 153 / .85) 0%, rgb(242 123 184 / .45) 40%, rgb(129 0 255 / .22) 70%, transparent 90%),
+    linear-gradient(180deg, #130d22 0%, #1a1030 60%, #25104f 100%);
+  --ppl-grad-day:
+    radial-gradient(360px 220px at 100% -10%, rgb(129 0 255 / .10), transparent 60%),
+    var(--ppl-surface-app);
+  /* O fundo do console: o dia com névoa de dia; à noite, PLANO — o horizonte
+     do app (`--ppl-grad-night`) é do Colaborador, não da operação. */
+  --ppl-canvas-bg: var(--ppl-grad-day);
+
+  /* ══ Sombra — só em flutuantes reais, sempre com offset em y ═══════════
+   * Card em repouso tem linha de 1px e NENHUMA sombra. Sombra é sinal de que
+   * algo está solto da página: FAB, toast, modal, dropdown, card do login.
+   * ─────────────────────────────────────────────────────────────────────── */
+  --ppl-shadow-color: 62 21 133;
+  --ppl-shadow-float: 0 10px 24px -10px rgb(var(--ppl-shadow-color) / .22);
+  --ppl-scrim:        rgb(19 13 34 / .50);
 
   /* ══ Tipografia ════════════════════════════════════════════════════════
-   * sans    = toda a interface
-   * display = superfície humana: saudação, sucesso, hero. NUNCA formulário,
-   *           tabela ou chrome operacional.
-   * data    = TODO dado de folha e ponto, com tabular-nums.
+   * display = Sora: saudação, título de página, de card, de sucesso, headline.
+   *           Sem itálico, sem serifa. O calor vem de tamanho, peso e espaço.
+   * sans    = Manrope: tudo o mais — corpo, rótulos, botões, tabelas, chrome.
+   * data    = JetBrains Mono: TODO dado de folha e ponto, com tabular-nums.
    * ─────────────────────────────────────────────────────────────────────── */
-  --ppl-font-sans:    "Urbanist", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --ppl-font-display: "Playfair Display", Georgia, "Times New Roman", serif;
+  --ppl-font-sans:    "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --ppl-font-display: "Sora", system-ui, -apple-system, "Segoe UI", sans-serif;
   --ppl-font-data:    "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
-  --ppl-text-eyebrow: 11px;    /* caixa alta, 700, tracking .15em            */
-  --ppl-text-xs:      12px;
+  --ppl-text-2xs:     11px;    /* rótulo de grupo, badge, legenda da logo    */
+  --ppl-text-xs:      12px;    /* caption, metadado                          */
   --ppl-text-sm:      12.5px;
-  --ppl-text-base:    14px;
+  --ppl-text-base:    14px;    /* corpo                                      */
   --ppl-text-md:      15px;
-  --ppl-text-lg:      18px;
-  --ppl-text-h1:      24px;
-  --ppl-text-display: 28px;
+  --ppl-text-lg:      18px;    /* título de seção e de card (Sora 600)       */
+  --ppl-text-h1:      24px;    /* título de página (Sora 700)                */
+  --ppl-text-display: 32px;    /* headline emocional: 1 por tela             */
+  --ppl-text-hero-number: 40px;/* relógio, saldo — mono                      */
   --ppl-leading-tight: 1.15;
   --ppl-leading-body:  1.5;
 
-  /* ══ Forma ═════════════════════════════════════════════════════════════ */
+  /* ══ Forma — cantos de ferramenta: DP é operação ═══════════════════════ */
   --ppl-radius-sm:      4px;
   --ppl-radius-md:      8px;
-  --ppl-radius-control: 12px;   /* input, botão, tile                       */
-  --ppl-radius-card:    16px;
-  --ppl-radius-card-lg: 18px;
+  --ppl-radius-control: 8px;    /* input, botão, chip, item de sidebar       */
+  --ppl-radius-card:    12px;   /* card, diálogo, card do login              */
   --ppl-radius-pill:    999px;
 
-  /* ══ Espaço ════════════════════════════════════════════════════════════ */
+  /* ══ Espaço — escala 8pt ═══════════════════════════════════════════════ */
   --ppl-space-1: 4px;
   --ppl-space-2: 8px;
   --ppl-space-3: 12px;
@@ -122,11 +172,13 @@ img, svg { display: block; max-width: 100%; }
   --ppl-space-5: 20px;
   --ppl-space-6: 24px;
   --ppl-space-8: 32px;
+  --ppl-space-12: 48px;
 
-  /* ══ Movimento ═════════════════════════════════════════════════════════ */
-  --ppl-fast: 120ms;
-  --ppl-base: 180ms;
-  --ppl-slow: 300ms;
+  /* ══ Movimento — mudança de estado é mudança de luz, nunca deslocamento ═ */
+  --ppl-fast:  120ms;
+  --ppl-base:  200ms;
+  --ppl-slow:  300ms;
+  --ppl-raise: 900ms;           /* o brilho do horizonte sobe uma vez         */
   --ppl-ease:       cubic-bezier(.16, 1, .3, 1);
   --ppl-ease-inout: cubic-bezier(.65, 0, .35, 1);
 
@@ -138,96 +190,118 @@ img, svg { display: block; max-width: 100%; }
 
   /* ══ Acessibilidade — requisito, não preferência ═══════════════════════ */
   --ppl-touch: 44px;              /* alvo mínimo em toque (WCAG 2.5.5)      */
-  --ppl-focus-ring: var(--ppl-info);
+  --ppl-focus-ring: var(--ppl-primary);
 
   /* ══ Layout ════════════════════════════════════════════════════════════ */
-  --ppl-nav-w:       238px;
-  --ppl-content-max: 1152px;
+  --ppl-nav-w:       242px;
+  --ppl-content-max: 1200px;
+
+  /* ══ Dependentes de tema ═══════════════════════════════════════════════
+   * O botão de bater ponto é roxo de dia e PÊSSEGO à noite; a aba ativa da
+   * tabbar idem. Quem escreve a tela usa uma classe só — a luz muda sozinha.
+   * ─────────────────────────────────────────────────────────────────────── */
+  --ppl-punch-bg:   var(--ppl-primary);
+  --ppl-punch-fg:   var(--ppl-primary-fg);
+  --ppl-tab-active: var(--ppl-primary);
+  --ppl-tab-pill:   var(--ppl-primary-soft);
+  --ppl-tabbar-bg:  rgb(255 255 255 / .92);
+
+  color-scheme: light;
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
- * Landing pública — o ÚNICO lugar com tema escuro.
+ * Tema escuro — "noite". Primeira classe: vale no shell inteiro.
  *
- * Conjunto separado (`--ppl-lp-*`) de propósito: assim o `prefers-color-scheme`
- * não re-tematiza o shell autenticado, que é claro-only.
+ * O roxo #8100FF NÃO atinge AA como texto sobre a noite — por isso o escuro
+ * usa o lilás #B48AFF como primário (texto tinta por cima, 6,6:1) e o
+ * lilás-suave #CDAEFF para links (9,3:1). A sidebar é sempre noite nos dois
+ * temas, então ela não muda aqui.
+ *
+ * Preferência do sistema, a menos que o usuário force claro; a escolha
+ * explícita (`data-theme`) vence a do sistema nos dois sentidos.
  * ═══════════════════════════════════════════════════════════════════════ */
-:root {
-  --ppl-lp-bg:            #f4f7fd;
-  --ppl-lp-surface:       #ffffff;
-  --ppl-lp-border:        #e2e8f4;
-  --ppl-lp-border-strong: #d2dbec;
-  --ppl-lp-ink:           #132c63;
-  --ppl-lp-ink-soft:      #5a6486;
-  --ppl-lp-accent:        #2f5ad0;
-  --ppl-lp-accent-strong: #1e4193;
-  --ppl-lp-accent-soft:   #e6edfc;
-  --ppl-lp-on-accent:     #ffffff;
-  --ppl-lp-glass:         rgb(255 255 255 / .72);
-  --ppl-lp-glass-border:  rgb(255 255 255 / .62);
-  --ppl-lp-glass-shadow:  0 24px 60px -24px rgb(19 44 99 / .28);
-  --ppl-lp-card:          rgb(255 255 255 / .78);
-  --ppl-lp-sheet:         rgb(255 255 255 / .97);
-  --ppl-lp-mesh-1:        rgb(47 90 208 / .14);
-  --ppl-lp-mesh-2:        rgb(108 147 236 / .14);
-  --ppl-lp-mesh-3:        rgb(30 65 147 / .10);
-  --ppl-lp-dot:           rgb(47 90 208 / .08);
-  --ppl-lp-grad:          linear-gradient(135deg, #2f5ad0 0%, #0d2551 100%);
-}
-
-/* Escuro por preferência do sistema, a menos que o usuário force claro.
- *
- * O azul royal #2F5AD0 NÃO atinge AA como texto sobre fundo escuro — por isso
- * o escuro usa #6C93EC para superfície e #A9C4F5 para texto. Pares verificados:
- *   #E9EEF9 sobre #0B1830 = 14,8:1   ·   #A9B6D3 sobre #122448 = 7,1:1
- *   #0B1830 sobre #6C93EC =  5,7:1   ·   #A9C4F5 sobre #0B1830 = 9,5:1
- */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --ppl-lp-bg:            #0b1830;
-    --ppl-lp-surface:       #122448;
-    --ppl-lp-border:        rgb(255 255 255 / .12);
-    --ppl-lp-border-strong: rgb(255 255 255 / .24);
-    --ppl-lp-ink:           #e9eef9;
-    --ppl-lp-ink-soft:      #a9b6d3;
-    --ppl-lp-accent:        #6c93ec;
-    --ppl-lp-accent-strong: #a9c4f5;
-    --ppl-lp-accent-soft:   rgb(108 147 236 / .18);
-    --ppl-lp-on-accent:     #0b1830;
-    --ppl-lp-glass:         rgb(18 36 72 / .72);
-    --ppl-lp-glass-border:  rgb(255 255 255 / .10);
-    --ppl-lp-glass-shadow:  0 24px 60px -24px rgb(0 0 0 / .6);
-    --ppl-lp-card:          rgb(24 48 94 / .72);
-    --ppl-lp-sheet:         rgb(18 36 72 / .97);
-    --ppl-lp-mesh-1:        rgb(47 90 208 / .35);
-    --ppl-lp-mesh-2:        rgb(108 147 236 / .24);
-    --ppl-lp-mesh-3:        rgb(13 37 81 / .40);
-    --ppl-lp-dot:           rgb(169 196 245 / .10);
-    --ppl-lp-grad:          linear-gradient(135deg, #6c93ec 0%, #1e4193 100%);
+    --ppl-surface:        #1c1530;
+    --ppl-surface-app:    #130d22;
+    --ppl-surface-subtle: #241b3c;
+    --ppl-surface-muted:  #2a2044;
+    --ppl-border:         #342a4f;
+    --ppl-border-strong:  #4a3d6b;
+    --ppl-ink:            #f3eff8;
+    --ppl-ink-body:       #cfc7dc;
+    --ppl-ink-soft:       #bdb4d0;
+    --ppl-ink-faint:      #afa6c6;
+    --ppl-ink-disabled:   #6f6688;
+    --ppl-primary:        #b48aff;
+    --ppl-primary-hover:  #cdaeff;
+    --ppl-primary-fg:     #1e1826;
+    --ppl-primary-soft:   #241b3c;
+    --ppl-primary-tint:   #3e1585;
+    --ppl-link:           #cdaeff;
+    --ppl-strong:         #cdaeff;
+    --ppl-success-strong: #7ed9a9;
+    --ppl-warning-strong: #e3b85a;
+    --ppl-danger-strong:  #f08a7e;
+    --ppl-neutral:        #b5abcf;
+    --ppl-neutral-soft:   #2a2044;
+    --ppl-success-soft:   #16352a;
+    --ppl-warning-soft:   #3a2f18;
+    --ppl-danger-soft:    #3d1f22;
+    --ppl-shadow-color:   0 0 0;
+    --ppl-shadow-float:   0 10px 24px -10px rgb(0 0 0 / .45);
+    --ppl-scrim:          rgb(0 0 0 / .60);
+    --ppl-grad-day:       var(--ppl-grad-night);
+    --ppl-canvas-bg:      var(--ppl-surface-app);
+    --ppl-focus-ring:     var(--ppl-lilac);
+    --ppl-punch-bg:       var(--ppl-peach);
+    --ppl-punch-fg:       #1e1826;
+    --ppl-tab-active:     var(--ppl-peach);
+    --ppl-tab-pill:       rgb(255 184 153 / .18);
+    --ppl-tabbar-bg:      rgb(19 13 34 / .86);
+    color-scheme: dark;
   }
 }
 
-/* Escolha explícita do usuário vence a do sistema nos dois sentidos. */
 :root[data-theme="dark"] {
-  --ppl-lp-bg:            #0b1830;
-  --ppl-lp-surface:       #122448;
-  --ppl-lp-border:        rgb(255 255 255 / .12);
-  --ppl-lp-border-strong: rgb(255 255 255 / .24);
-  --ppl-lp-ink:           #e9eef9;
-  --ppl-lp-ink-soft:      #a9b6d3;
-  --ppl-lp-accent:        #6c93ec;
-  --ppl-lp-accent-strong: #a9c4f5;
-  --ppl-lp-accent-soft:   rgb(108 147 236 / .18);
-  --ppl-lp-on-accent:     #0b1830;
-  --ppl-lp-glass:         rgb(18 36 72 / .72);
-  --ppl-lp-glass-border:  rgb(255 255 255 / .10);
-  --ppl-lp-glass-shadow:  0 24px 60px -24px rgb(0 0 0 / .6);
-  --ppl-lp-card:          rgb(24 48 94 / .72);
-  --ppl-lp-sheet:         rgb(18 36 72 / .97);
-  --ppl-lp-mesh-1:        rgb(47 90 208 / .35);
-  --ppl-lp-mesh-2:        rgb(108 147 236 / .24);
-  --ppl-lp-mesh-3:        rgb(13 37 81 / .40);
-  --ppl-lp-dot:           rgb(169 196 245 / .10);
-  --ppl-lp-grad:          linear-gradient(135deg, #6c93ec 0%, #1e4193 100%);
+  --ppl-surface:        #1c1530;
+  --ppl-surface-app:    #130d22;
+  --ppl-surface-subtle: #241b3c;
+  --ppl-surface-muted:  #2a2044;
+  --ppl-border:         #342a4f;
+  --ppl-border-strong:  #4a3d6b;
+  --ppl-ink:            #f3eff8;
+  --ppl-ink-body:       #cfc7dc;
+  --ppl-ink-soft:       #bdb4d0;
+  --ppl-ink-faint:      #afa6c6;
+  --ppl-ink-disabled:   #6f6688;
+  --ppl-primary:        #b48aff;
+  --ppl-primary-hover:  #cdaeff;
+  --ppl-primary-fg:     #1e1826;
+  --ppl-primary-soft:   #241b3c;
+  --ppl-primary-tint:   #3e1585;
+  --ppl-link:           #cdaeff;
+  --ppl-strong:         #cdaeff;
+  --ppl-success-strong: #7ed9a9;
+  --ppl-warning-strong: #e3b85a;
+  --ppl-danger-strong:  #f08a7e;
+  --ppl-neutral:        #b5abcf;
+  --ppl-neutral-soft:   #2a2044;
+  --ppl-success-soft:   #16352a;
+  --ppl-warning-soft:   #3a2f18;
+  --ppl-danger-soft:    #3d1f22;
+  --ppl-shadow-color:   0 0 0;
+  --ppl-shadow-float:   0 10px 24px -10px rgb(0 0 0 / .45);
+  --ppl-scrim:          rgb(0 0 0 / .60);
+  --ppl-grad-day:       var(--ppl-grad-night);
+  --ppl-canvas-bg:      var(--ppl-surface-app);
+  --ppl-focus-ring:     var(--ppl-lilac);
+  --ppl-punch-bg:       var(--ppl-peach);
+  --ppl-punch-fg:       #1e1826;
+  --ppl-tab-active:     var(--ppl-peach);
+  --ppl-tab-pill:       rgb(255 184 153 / .18);
+  --ppl-tabbar-bg:      rgb(19 13 34 / .86);
+  color-scheme: dark;
 }
 
 /* ══ Base do documento ═════════════════════════════════════════════════ */
@@ -235,11 +309,16 @@ body {
   font-family: var(--ppl-font-sans);
   font-size: var(--ppl-text-base);
   line-height: var(--ppl-leading-body);
-  color: var(--ppl-ink);
-  background: var(--ppl-surface-sunk);
+  color: var(--ppl-ink-body);
+  background: var(--ppl-surface-app);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
+h1, h2, h3, h4 { color: var(--ppl-ink); }
+
+/* Superfícies do navegador tematizadas: seleção e barra de rolagem. */
+::selection { background: var(--ppl-primary-tint); color: #1e1826; }
+html { scrollbar-color: var(--ppl-primary) var(--ppl-surface-app); }
 
 /* Foco visível global (WCAG 2.4.7). Nunca remover sem substituto. */
 *:focus-visible {

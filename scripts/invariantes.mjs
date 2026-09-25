@@ -27,8 +27,22 @@ export const SEMPRE = [
     motivo: 'nome herdado do console — o sistema de nomes deste pacote é próprio (prefixo ppl-)',
   },
   {
-    re: /#6f00ff/i,
-    motivo: 'violeta da identidade anterior — a marca é o azul #2F5AD0',
+    // A identidade v5 (azul + dourado) e os tokens que a serviam. A v6B
+    // "Alvorada" tem vocabulário próprio: violet-*, peach, grad-sky/nav/seal.
+    re: /--ppl-(blue-|gold|lp-|info\b|grad-primary|grad-gold|shadow-sm|shadow-lg|surface-sunk|surface-mute\b|surface-head|text-eyebrow|radius-card-lg)/,
+    motivo: 'token da identidade v5 (azul + dourado) — a v6B usa violet-*, peach e os degradês do céu',
+  },
+  {
+    re: /\.ppl-(eyebrow|glass|grad-text|landing__mesh|stat-hero|nav__mark)\b|ppl-(btn|badge|icon-tile)--(hero|gold)\b/,
+    motivo: 'receita aposentada na v6B — eyebrow, vidro, texto em degradê e dourado não existem mais',
+  },
+  {
+    re: /#2f5ad0|#6f00ff|#f3c63f/i,
+    motivo: 'cor de identidade anterior — a marca é o roxo #8100FF e o pêssego #FFB899',
+  },
+  {
+    re: /\b(Urbanist|Playfair)\b/,
+    motivo: 'fonte da identidade anterior — a v6B é Sora + Manrope + JetBrains Mono',
   },
 ];
 
@@ -39,7 +53,7 @@ export const ENTREGUE = [
     motivo: 'CDN de fonte de terceiro — as fontes são self-hospedadas em src/fonts/',
   },
   {
-    re: /\bcdn\.jsdelivr\.net\/(?!gh\/FelipeSilveiraBNG\/ppl-compass)/,
+    re: /\bcdn\.jsdelivr\.net\/(?!gh\/andreiandrade-bng\/ppl-compass)/,
     motivo: 'referência a pacote de terceiro no CDN — o pacote é zero dependência',
   },
   // Zero emoji é regra do design system: ícone é ícone. A faixa inclui os
@@ -62,7 +76,7 @@ export const AUTORREFERENTES = ['scripts/invariantes.mjs', 'scripts/lint.mjs'];
  * Linhas que CITAM um nome antigo para explicar a substituição são legítimas —
  * é assim que a tabela de/para e os comentários das receitas funcionam.
  */
-export const EXPLICATIVA = /→|->|console:|era |em vez de|substitu|herdad|no lugar de|proibid|aposentad/i;
+export const EXPLICATIVA = /→|->|console:|era |em vez de|substitu|herdad|no lugar de|proibid|aposentad|anterior|v5\b|abolid|saiu|removid/i;
 
 /**
  * Confere um texto linha a linha.

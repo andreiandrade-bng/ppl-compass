@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ppl-compass — documentação</title>
-<meta name="description" content="Framework de prototipação do BNG People. CSS + JS, zero dependência, servido por CDN.">
+<meta name="description" content="Framework de prototipação do BNG People na identidade v6B Alvorada. CSS + JS, zero dependência, servido por CDN.">
 
 <!--
   A documentação é servida pelo PRÓPRIO pacote.
@@ -28,12 +28,14 @@
   :root {
     --doc-coluna: 74rem;
     --doc-prosa: 68ch;
-    --doc-codigo-fundo: #0d2551;
-    --doc-codigo-tinta: #cfdcf7;
+    /* O painel de código é a madrugada — a mesma superfície do toast. Ele não
+       muda com o tema: código é código de dia e de noite. */
+    --doc-codigo-fundo: #25104f;
+    --doc-codigo-tinta: #cfc7dc;
     --doc-topo: 0px;
   }
 
-  body { background: var(--ppl-surface-sunk); }
+  body { background: var(--ppl-surface-app); }
 
   /* ── Navegação ─────────────────────────────────────────────────────── */
   .doc-nav { gap: 2px; }
@@ -42,21 +44,27 @@
      chevron à direita, colapso e ícone. O ícone faz dois trabalhos, e o
      estrutural é o SEGUNDO: `gap:10px` depois de um glifo de 16px empurra todo
      rótulo de item 26px à direita do rótulo da seção. Aqui não há ícone por
-     componente — nem faria sentido inventar 21 —, mas o recuo não depende do
+     componente — nem faria sentido inventar 22 —, mas o recuo não depende do
      glifo. Reservar a medida entrega a subordinação sem um desenho por item, e
      sem nome novo: é a mesma geometria de `.ppl-nav__item` com ícone. */
   .doc-nav .ppl-nav__item {
     font-size: 12.5px;
     padding-left: calc(var(--ppl-space-3) + 16px + 10px);
   }
+  /* Rodapé da navegação: a versão à esquerda, o botão de tema à direita. A
+     documentação demonstra o tema escuro de primeira classe, então o
+     interruptor mora onde a pessoa está sempre — não escondido numa página. */
   .doc-nav__versao {
     margin-top: auto;
+    display: flex; align-items: center; justify-content: space-between; gap: var(--ppl-space-2);
     border-top: 1px solid rgb(255 255 255 / .12);
     padding-top: var(--ppl-space-3);
     font-family: var(--ppl-font-data);
-    font-size: var(--ppl-text-eyebrow);
+    font-size: var(--ppl-text-2xs);
     color: var(--ppl-on-dark-soft);
   }
+  .doc-nav__versao .ppl-btn { color: #fff; }
+  .doc-nav__versao .ppl-btn:hover { background: rgb(255 255 255 / .10); }
 
   /* ── Coluna de leitura ─────────────────────────────────────────────── */
   .doc-main {
@@ -75,7 +83,8 @@
     margin: 0 0 var(--ppl-space-2);
     padding-bottom: var(--ppl-space-2);
     border-bottom: 1px solid var(--ppl-border);
-    font-size: var(--ppl-text-h1); font-weight: 600; color: var(--ppl-ink);
+    font-family: var(--ppl-font-display);
+    font-size: var(--ppl-text-h1); font-weight: 600; letter-spacing: -.02em; color: var(--ppl-ink);
     display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--ppl-space-3);
   }
   .doc-main h3 {
@@ -94,33 +103,35 @@
      botão-link — e sublinharia componentes que o pacote desenha sem sublinhado.
      A demo passaria a mostrar algo que o produto não faz. */
   .doc-main p a, .doc-main li a, .doc-main td a, .doc-main h3 a, .doc-main .doc-sub a {
-    color: var(--ppl-primary); text-decoration: underline;
+    color: var(--ppl-link); text-decoration: underline;
     text-decoration-thickness: 1px; text-underline-offset: 3px;
   }
   .doc-main p a:hover, .doc-main li a:hover, .doc-main td a:hover { text-decoration-thickness: 2px; }
   .doc-main strong { color: var(--ppl-ink); font-weight: 600; }
 
-  /* Código no meio da frase. */
+  /* Código no meio da frase: tonal roxo, o mesmo par do badge "admitido". */
   .doc-main :not(pre) > code {
     font-family: var(--ppl-font-data); font-size: 12px;
-    background: var(--ppl-blue-50); color: var(--ppl-blue-700);
+    background: var(--ppl-primary-soft); color: var(--ppl-strong);
     padding: 1px 5px; border-radius: var(--ppl-radius-sm);
+    white-space: nowrap;   /* um token não quebra no hífen: `--primary` é uma palavra */
   }
 
   /* A etiqueta ao lado do título: a classe ou a chamada que a página documenta. */
   .doc-tag {
     font-family: var(--ppl-font-data); font-size: var(--ppl-text-sm);
-    font-weight: 400; color: var(--ppl-ink-faint);
+    font-weight: 400; letter-spacing: 0; color: var(--ppl-ink-faint);
   }
 
   /* ── Cartão de exemplo: a demo é a figura, o código é a legenda ─────── */
+  /* Sem sombra: o cartão está apoiado na página, e sombra é sinal de algo
+     solto dela. A v6B guarda a sombra para o que flutua de verdade. */
   .exemplo {
     margin-top: var(--ppl-space-4);
     border: 1px solid var(--ppl-border);
     border-radius: var(--ppl-radius-card);
     background: var(--ppl-surface);
     overflow: hidden;
-    box-shadow: var(--ppl-shadow-sm);
   }
   .exemplo .preview {
     display: flex; flex-wrap: wrap; align-items: center;
@@ -128,10 +139,12 @@
     padding: var(--ppl-space-5);
   }
   .exemplo .preview--bloco { display: block; }
-  .exemplo .preview--escuro { background: var(--ppl-blue-900); }
+  .exemplo .preview--escuro { background: var(--ppl-surface-dark); }
   .exemplo .codigo { position: relative; }
+  /* O respiro à direita reserva o lugar do botão de copiar: sem ele, numa
+     coluna estreita o botão cobre o fim da primeira linha de código. */
   .exemplo pre {
-    margin: 0; padding: var(--ppl-space-4) var(--ppl-space-5);
+    margin: 0; padding: var(--ppl-space-4) 88px var(--ppl-space-4) var(--ppl-space-5);
     background: var(--doc-codigo-fundo); overflow-x: auto;
   }
   .exemplo code {
@@ -151,9 +164,9 @@
     transition: background-color var(--ppl-fast) ease, color var(--ppl-fast) ease;
   }
   .copiar:hover { background: rgb(255 255 255 / .16); color: #fff; }
-  .copiar[data-copiado] { background: var(--ppl-success); border-color: transparent; color: #fff; }
+  .copiar[data-copiado] { background: var(--ppl-success-strong); border-color: transparent; color: #fff; }
 
-  /* Moldura para o que ocupa a tela inteira: shell, navegação, landing. */
+  /* Moldura para o que ocupa a tela inteira: shell, navegação, céu, landing. */
   .moldura {
     margin-top: var(--ppl-space-4);
     border: 1px solid var(--ppl-border);
@@ -162,18 +175,23 @@
   }
   .moldura--alta { height: 520px; display: flex; }
   .moldura--alta .ppl-nav { height: 100%; position: static; }
+  /* O ciclorama pede a tela inteira (100vh); dentro da moldura ele ocupa a
+     moldura. O template continua limpo — a medida é problema da doc. */
+  .moldura--alta > .ppl-sky { min-height: 0; height: 100%; flex: 1; }
   .moldura--estreita { max-width: 420px; }
 
   /* ── Grades de referência ──────────────────────────────────────────── */
   .cards { display: grid; gap: var(--ppl-space-3); margin-top: var(--ppl-space-4);
            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
+  /* Hover por LUZ, não por deslocamento: o card muda de fundo e de borda e
+     fica onde está. */
   .cards a {
     display: block; text-decoration: none;
-    border: 1px solid var(--ppl-border); border-radius: var(--ppl-radius-control);
+    border: 1px solid var(--ppl-border); border-radius: var(--ppl-radius-card);
     background: var(--ppl-surface); padding: var(--ppl-space-4);
-    transition: border-color var(--ppl-fast) ease, transform var(--ppl-fast) ease;
+    transition: border-color var(--ppl-base) ease, background-color var(--ppl-base) ease;
   }
-  .cards a:hover { border-color: var(--ppl-primary); transform: translateY(-2px); }
+  .cards a:hover { border-color: var(--ppl-primary); background: var(--ppl-surface-subtle); }
   .cards a strong { display: block; font-size: var(--ppl-text-base); color: var(--ppl-ink); }
   .cards a small { display: block; margin-top: 2px; font-size: var(--ppl-text-xs); color: var(--ppl-ink-soft); }
 
@@ -220,6 +238,12 @@
     }
     .doc-nav[data-aberta] { transform: translateX(0); }
     .doc-main { padding-top: var(--ppl-space-5); }
+    /* Na coluna estreita o código rola por baixo do botão flutuante e a
+       primeira linha some atrás dele. Aqui o botão ganha a própria linha,
+       acima do código, em vez de flutuar. */
+    .exemplo .codigo { display: flex; flex-direction: column; background: var(--doc-codigo-fundo); }
+    .copiar { position: static; order: -1; align-self: flex-end; margin: 10px 10px 0; }
+    .exemplo pre { padding-top: var(--ppl-space-2); padding-right: var(--ppl-space-5); }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -228,18 +252,17 @@
   }
 </style>
 </head>
-<body data-brand="people">
+<body>
 
 <div class="ppl-shell">
 
   <aside class="ppl-nav doc-nav" id="doc-nav">
-    <div class="ppl-nav__brand">
-      <span class="ppl-nav__mark">b</span>
-      <span class="ppl-nav__id">
-        <span class="ppl-nav__name">ppl-compass</span>
-        <span class="ppl-nav__tag">BNG People</span>
-      </span>
-    </div>
+    <!-- A marca é o logotipo horizontal branco, hidratado pelo init() a partir
+         de `data-ppl-logo`; a legenda em caixa baixa diz o que este site é. -->
+    <a class="ppl-nav__brand" href="#/home">
+      <span class="ppl-nav__logo" data-ppl-logo></span>
+      <span class="ppl-nav__tag">ppl-compass · v6B Alvorada</span>
+    </a>
 
     <!-- OS QUATRO DISPOSITIVOS QUE SEPARAM SEÇÃO DE ITEM
          Antes esta navegação usava rótulos `<p>` e trazia só o primeiro dos
@@ -273,6 +296,7 @@
         <button type="button" class="ppl-nav__group" aria-controls="doc-g-fundamentos">Fundamentos<span class="ppl-chevron"><i data-ppl-icon="chevron-down" data-ppl-size="13"></i></span></button>
         <div class="ppl-nav__list" id="doc-g-fundamentos">
           <a class="ppl-nav__item" href="#/tokens"><span>Design tokens</span></a>
+          <a class="ppl-nav__item" href="#/luz"><span>Luz — céu, selo e horizonte</span></a>
           <a class="ppl-nav__item" href="#/superficies"><span>Superfícies e texto</span></a>
           <a class="ppl-nav__item" href="#/icones"><span>Ícones</span></a>
         </div>
@@ -287,7 +311,7 @@
           <a class="ppl-nav__item" href="#/feedback"><span>Alert, toast e estados</span></a>
           <a class="ppl-nav__item" href="#/dados"><span>Tabela e painel de dados</span></a>
           <a class="ppl-nav__item" href="#/conteudo"><span>Painel, choice e stat</span></a>
-          <a class="ppl-nav__item" href="#/navegação"><span>Navegação e busca</span></a>
+          <a class="ppl-nav__item" href="#/navegacao"><span>Navegação e busca</span></a>
           <a class="ppl-nav__item" href="#/sobreposicao"><span>Drawer e diálogo</span></a>
           <a class="ppl-nav__item" href="#/confirmacao"><span>Confirmação por risco</span></a>
           <a class="ppl-nav__item" href="#/wizard"><span>Wizard</span></a>
@@ -305,7 +329,12 @@
       </div>
     </nav>
 
-    <div class="doc-nav__versao" id="doc-versao">v0.4.2</div>
+    <div class="doc-nav__versao">
+      <span id="doc-versao">v0.5.0</span>
+      <button class="ppl-btn ppl-btn--icon" data-ppl-theme-toggle aria-label="Alternar tema">
+        <i data-ppl-icon="moon" data-ppl-size="16"></i>
+      </button>
+    </div>
   </aside>
 
   <div class="ppl-shell__col ppl-canvas">
@@ -316,7 +345,12 @@
                 aria-expanded="false" aria-controls="doc-nav">
           <i data-ppl-icon="menu" data-ppl-size="16"></i>Menu
         </button>
-        <span class="ppl-eyebrow">ppl-compass</span>
+        <span class="ppl-topbar__chip">ppl-compass</span>
+        <div class="ppl-topbar__actions">
+          <button class="ppl-btn ppl-btn--icon ppl-btn--secondary" data-ppl-theme-toggle aria-label="Alternar tema">
+            <i data-ppl-icon="moon" data-ppl-size="16"></i>
+          </button>
+        </div>
       </div>
     </header>
 
@@ -324,11 +358,15 @@
 
 <!-- ══════════════════════════════════════════════════════════ INÍCIO ═══ -->
 <section class="doc-pagina" id="p-home">
-  <p class="ppl-eyebrow">Framework de prototipação · identidade v5</p>
   <h1 class="doc-h1 ppl-display ppl-display--hero">ppl-compass</h1>
+  <!-- O contexto vem DEPOIS do título, em caption. O eyebrow em caixa alta
+       acima do h1 foi abolido na v6B — aqui a doc pratica o que ensina. -->
+  <p class="ppl-caption">Framework de prototipação · identidade v6B Alvorada</p>
   <p class="doc-sub">
-    Monte um protótipo navegável do BNG People <strong>escrevendo HTML</strong> — com o azul e o
-    dourado já corretos e as regras de acessibilidade já embutidas, para que o que sai do protótipo
+    Monte um protótipo navegável do BNG People <strong>escrevendo HTML</strong> — já na identidade
+    <strong>v6B "Alvorada"</strong>: o roxo <code>#8100FF</code> como luz que vai da noite ao dia, o
+    pêssego só sobre a noite, Sora + Manrope + JetBrains Mono, operação plana e clara e um tema escuro
+    de primeira classe. As regras de acessibilidade já vêm embutidas, para que o que sai do protótipo
     seja implementável sem retrabalho de design.
   </p>
 
@@ -344,11 +382,11 @@
   </p>
   <div class="exemplo">
     <template data-so-codigo>
-&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/FelipeSilveiraBNG/ppl-compass@VERSAO/dist/ppl-compass.css"&gt;
+&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/andreiandrade-bng/ppl-compass@VERSAO/dist/ppl-compass.css"&gt;
 
 &lt;button class="ppl-btn ppl-btn--primary"&gt;Concluir admissão&lt;/button&gt;
 
-&lt;script src="https://cdn.jsdelivr.net/gh/FelipeSilveiraBNG/ppl-compass@VERSAO/dist/ppl-compass.js"&gt;&lt;/script&gt;
+&lt;script src="https://cdn.jsdelivr.net/gh/andreiandrade-bng/ppl-compass@VERSAO/dist/ppl-compass.js"&gt;&lt;/script&gt;
 &lt;script&gt;addEventListener('DOMContentLoaded', () =&gt; PplCompass.init());&lt;/script&gt;
     </template>
   </div>
@@ -356,22 +394,26 @@
 
   <h3>Comece por um template</h3>
   <p>
-    Oito arquétipos de tela prontos. Copie o mais próximo, troque a <code>rotaAtiva</code> do JSON
+    Nove arquétipos de tela prontos. Copie o mais próximo, troque a <code>rotaAtiva</code> do JSON
     da navegação e escreva o miolo — <a href="#/templates">Templates de tela</a>.
   </p>
 
   <h3>O que existe</h3>
+  <!-- Contagens lidas do fonte, não decoradas: tokens `--ppl-*` do bloco claro
+       de tokens.css, classes `.ppl-*` distintas de components.css, ícones de
+       icones.txt e atributos `data-ppl-*` que ppl-compass.js lê. -->
   <div class="cards">
-    <a href="#/tokens"><strong>98 design tokens</strong><small>trocar isto troca a marca inteira</small></a>
-    <a href="#/superficies"><strong>187 classes</strong><small>em 23 grupos de receita</small></a>
+    <a href="#/tokens"><strong>109 design tokens</strong><small>trocar isto troca a marca inteira</small></a>
+    <a href="#/superficies"><strong>214 classes</strong><small>em 24 grupos de receita</small></a>
     <a href="#/icones"><strong>136 ícones</strong><small>lucide embutido, sem carregar o pacote</small></a>
-    <a href="#/atributos"><strong>22 atributos</strong><small>comportamento sem escrever JavaScript</small></a>
+    <a href="#/atributos"><strong>21 atributos</strong><small>comportamento sem escrever JavaScript</small></a>
   </div>
 
   <h3>Componentes</h3>
   <div class="cards">
+    <a href="#/luz"><strong>Luz</strong><small>céu, selo e horizonte — os únicos degradês</small></a>
     <a href="#/botoes"><strong>Botões</strong><small>um CTA sólido por tela</small></a>
-    <a href="#/badges"><strong>Badges e tiles</strong><small>estado nunca só por cor</small></a>
+    <a href="#/badges"><strong>Badges e tiles</strong><small>fases do dia — estado nunca só por cor</small></a>
     <a href="#/formulario"><strong>Formulário</strong><small>campo, checkbox e combobox com busca</small></a>
     <a href="#/feedback"><strong>Alert, toast e estados</strong><small>erro é persistente e traz saída</small></a>
     <a href="#/dados"><strong>Tabela e painel de dados</strong><small>a máquina de quatro estados</small></a>
@@ -380,7 +422,7 @@
     <a href="#/sobreposicao"><strong>Drawer e diálogo</strong><small>foco preso, e devolvido ao gatilho</small></a>
     <a href="#/confirmacao"><strong>Confirmação por risco</strong><small>R2 e R3 — e o que ela recusa</small></a>
     <a href="#/wizard"><strong>Wizard</strong><small>fluxo numerado que termina em revisão</small></a>
-    <a href="#/landing"><strong>Landing</strong><small>a única superfície com tema escuro</small></a>
+    <a href="#/landing"><strong>Landing</strong><small>dia frio, sem vidro</small></a>
     <a href="#/layout"><strong>Layout</strong><small>o mínimo para compor tela</small></a>
   </div>
 
@@ -417,13 +459,13 @@
   <div class="exemplo">
     <template data-so-codigo>
 &lt;link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/FelipeSilveiraBNG/ppl-compass@VERSAO/dist/ppl-compass.css"
+      href="https://cdn.jsdelivr.net/gh/andreiandrade-bng/ppl-compass@VERSAO/dist/ppl-compass.css"
       integrity="SRI_CSS"
       crossorigin="anonymous"&gt;
 
-&lt;script src="https://cdn.jsdelivr.net/gh/FelipeSilveiraBNG/ppl-compass@VERSAO/dist/ppl-compass-icons.js"
+&lt;script src="https://cdn.jsdelivr.net/gh/andreiandrade-bng/ppl-compass@VERSAO/dist/ppl-compass-icons.js"
         integrity="SRI_ICONS" crossorigin="anonymous"&gt;&lt;/script&gt;
-&lt;script src="https://cdn.jsdelivr.net/gh/FelipeSilveiraBNG/ppl-compass@VERSAO/dist/ppl-compass.js"
+&lt;script src="https://cdn.jsdelivr.net/gh/andreiandrade-bng/ppl-compass@VERSAO/dist/ppl-compass.js"
         integrity="SRI_JS" crossorigin="anonymous"&gt;&lt;/script&gt;
 &lt;script&gt;addEventListener('DOMContentLoaded', () =&gt; PplCompass.init());&lt;/script&gt;
     </template>
@@ -434,7 +476,7 @@
     <table class="ppl-table">
       <thead><tr><th>Referência</th><th>Cache</th><th>Consequência</th></tr></thead>
       <tbody>
-        <tr><td class="ppl-td-data" data-versao-tag>@0.4.2</td><td>1 ano, imutável</td><td>a demo de amanhã é byte a byte a de hoje</td></tr>
+        <tr><td class="ppl-td-data" data-versao-tag>@0.5.0</td><td>1 ano, imutável</td><td>a demo de amanhã é byte a byte a de hoje</td></tr>
         <tr><td class="ppl-td-data">@main</td><td>12 h no edge</td><td>a demo pode mudar sozinha antes da reunião</td></tr>
       </tbody>
     </table>
@@ -460,7 +502,7 @@
         <tr><td><code>ppl-compass-components.css</code></td><td>só as receitas (exige um tokens)</td></tr>
         <tr><td><code>ppl-compass.js</code></td><td>os comportamentos</td></tr>
         <tr><td><code>ppl-compass-icons.js</code></td><td>os 136 ícones</td></tr>
-        <tr><td><code>fonts/*.woff2</code></td><td>Urbanist, Playfair Display itálica, JetBrains Mono — subset latin</td></tr>
+        <tr><td><code>fonts/*.woff2</code></td><td>Sora, Manrope e JetBrains Mono — variáveis, subset latin</td></tr>
       </tbody>
     </table>
   </div>
@@ -480,8 +522,8 @@
   <p>
     Em uso: <code>:has()</code>, <code>@container</code>, <code>color-mix()</code> e
     <code>inert</code> — é ele que prende o foco no drawer sem gerenciar <code>tabindex</code> à
-    mão. Fora por ora: aninhamento nativo de CSS. <code>backdrop-filter</code> sempre acompanhado
-    de <code>-webkit-</code>, que o Safari exige.
+    mão. Fora por ora: aninhamento nativo de CSS. O único <code>backdrop-filter</code> que sobrou é
+    o da tabbar, sempre acompanhado de <code>-webkit-</code>, que o Safari exige.
   </p>
 </section>
 
@@ -489,7 +531,7 @@
 <section class="doc-pagina" id="p-templates">
   <h2>Templates de tela <span class="doc-tag">templates/</span></h2>
   <p>
-    Oito arquétipos. Cada um é um <code>.html</code> autossuficiente que roda com dois
+    Nove arquétipos. Cada um é um <code>.html</code> autossuficiente que roda com dois
     <code>&lt;link&gt;</code>/<code>&lt;script&gt;</code> apontando para o CDN — copie o arquivo,
     troque o conteúdo, pronto.
   </p>
@@ -500,13 +542,14 @@
       <thead><tr><th>A tela que você quer</th><th>Template</th><th>O que ela é</th></tr></thead>
       <tbody>
         <tr><td>Qualquer uma — comece aqui</td><td><a href="templates/shell.html"><code>shell.html</code></a></td><td>navegação + topo + <code>&lt;main&gt;</code> vazio</td></tr>
+        <tr><td>Porta de entrada</td><td><a href="templates/login.html"><code>login.html</code></a></td><td>ciclorama, logo branca, headline Sora, card apoiado no horizonte, Raise uma vez</td></tr>
         <tr><td>Tabela de registros</td><td><a href="templates/lista.html"><code>lista.html</code></a></td><td>painel com tabela e os quatro estados</td></tr>
         <tr><td>Tabela + edição num painel</td><td><a href="templates/form-drawer.html"><code>form-drawer.html</code></a></td><td>o padrão de 35 telas do console</td></tr>
         <tr><td>Fluxo em etapas</td><td><a href="templates/wizard.html"><code>wizard.html</code></a></td><td>numerado, com revisão e conclusão</td></tr>
-        <tr><td>Ponto de partida do operador</td><td><a href="templates/home.html"><code>home.html</code></a></td><td>saudação e processos em cards grandes</td></tr>
+        <tr><td>Ponto de partida do operador</td><td><a href="templates/home.html"><code>home.html</code></a></td><td>saudação, Horizonte do dia e processos em cards grandes</td></tr>
         <tr><td>Ficha de um registro</td><td><a href="templates/detalhe.html"><code>detalhe.html</code></a></td><td>contexto, seções colapsáveis e as confirmações</td></tr>
-        <tr><td>Página pública</td><td><a href="templates/landing.html"><code>landing.html</code></a></td><td>vidro e tema escuro</td></tr>
-        <tr><td>Aplicativo do colaborador</td><td><a href="templates/pwa.html"><code>pwa.html</code></a></td><td>molde móvel com tabbar</td></tr>
+        <tr><td>Página pública</td><td><a href="templates/landing.html"><code>landing.html</code></a></td><td>dia frio, plana — o céu só na faixa da marca</td></tr>
+        <tr><td>Aplicativo do colaborador</td><td><a href="templates/pwa.html"><code>pwa.html</code></a></td><td>tabbar, alvo de toque, botão de bater ponto que vira pêssego à noite</td></tr>
       </tbody>
     </table>
   </div>
@@ -557,18 +600,29 @@
 
   <h3>De composição</h3>
   <ul>
-    <li><strong>Um CTA primário sólido por tela.</strong> Rótulo verbo-primeiro ("Concluir admissão"),
-        nunca "OK". Vale por <em>superfície</em>: um drawer aberto tem o próprio CTA.</li>
-    <li><strong>No máximo um elemento dourado por tela.</strong> Dourado é acento, e acento repetido
-        deixa de acentuar.</li>
+    <li><strong>Um CTA sólido por tela.</strong> Rótulo verbo-primeiro ("Concluir admissão"),
+        nunca "OK". Vale por <em>superfície</em>: um drawer aberto tem o próprio CTA. Contam
+        <code>--primary</code>, <code>--punch</code> e o <code>.ppl-fab</code>.</li>
+    <li><strong>No máximo um pêssego por tela, e só sobre a noite.</strong> O pêssego é a luz do
+        horizonte: o contador de Pendências na sidebar e o botão de bater ponto à noite. Sobre o dia
+        ele mede 1,6:1 — ali ele não existe, e o acento é o próprio roxo.</li>
     <li><strong>Vermelho é só erro e ação destrutiva.</strong> Nunca "chamar atenção".</li>
-    <li><strong>Gradiente só</strong> em navegação, CTA de destaque, marca e selo — a lista é fechada.</li>
-    <li><strong>Cards grandes para escolher caminho</strong>, não dropdown escondido. Alvo ≥ 160px.</li>
+    <li><strong>Degradê só onde há céu</strong> — login, sidebar, app à noite e selo. Nunca em
+        botão, texto, tabela ou card. A lista é fechada.</li>
+    <li><strong>Card sem sombra.</strong> Linha de 1px e nada mais; sombra é sinal de algo solto da
+        página — FAB, toast, modal, dropdown, card do login.</li>
+    <li><strong>O branco do dia é o estado ativo:</strong> a pílula da sidebar, o passo atual, a aba.
+        Ativo é o que está aceso, não o que ganhou uma barra colorida.</li>
+    <li><strong>Eyebrow abolido.</strong> Contexto vira caption abaixo do título. A única caixa alta
+        rastreada do sistema é o rótulo de grupo da sidebar.</li>
+    <li><strong>Tema escuro é de primeira classe</strong>, no shell inteiro — e a sidebar é sempre
+        noite, nos dois temas.</li>
+    <li><strong>Cards grandes para escolher caminho</strong>, não dropdown escondido. Alvo ≥ 150px.</li>
   </ul>
 
   <h3>De conteúdo</h3>
   <ul>
-    <li><strong>Estado nunca só por cor</strong> — sempre ícone + texto.</li>
+    <li><strong>Estado nunca só por cor</strong> — ponto cheio, vazado ou tracejado, e sempre texto.</li>
     <li><strong>Dado de folha e ponto sempre em <code>.ppl-data</code></strong>, com
         <code>tabular-nums</code>: matrícula, CPF/CNPJ, NSR, competência e todo valor em tabela.</li>
     <li><strong>Contador é o número real</strong>, com separador de milhar — nunca <code>"99+"</code>.
@@ -584,14 +638,19 @@
   <ul>
     <li><strong>Alvo de toque ≥ 44px</strong> com <code>.ppl-btn--touch</code>. Em toque, o alvo é o
         link inteiro — nunca a pílula.</li>
-    <li><strong>Foco visível</strong> em todo interativo, global em <code>*:focus-visible</code>.</li>
+    <li><strong>Foco visível</strong> em todo interativo, global em <code>*:focus-visible</code> —
+        roxo de dia, lilás sobre a noite.</li>
     <li><strong>Um modal por vez.</strong> O foco é preso marcando os irmãos como <code>inert</code>,
         então um segundo modal nasceria inerte — desenhado na tela e invisível ao teclado. Empilhar
         aqui não degrada, apaga.</li>
+    <li><strong>O alvo da ação fica visível no diálogo</strong>, sempre. Sem ele o operador confirma
+        o diálogo, não a operação.</li>
     <li><strong><code>Esc</code> nunca confirma</strong> — mas cancela, porque fechar diálogo pelo
         teclado é requisito, não atalho de descoberta.</li>
-    <li><strong>Respeita <code>prefers-reduced-motion</code> e
-        <code>prefers-reduced-transparency</code></strong> — nesta, o vidro vira opaco.</li>
+    <li><strong>Tabbar com no máximo 5 itens.</strong> É o teto verificado no CI do produto, e
+        <code>nav()</code> recusa o sexto.</li>
+    <li><strong>Respeita <code>prefers-reduced-motion</code></strong> — com a preferência ligada, a
+        entrada e o Raise simplesmente não rodam.</li>
   </ul>
 
   <h3>De processo</h3>
@@ -601,7 +660,8 @@
         ele não renderiza. Um fluxo de rescisão que "esqueceu" a revisão não é um fluxo com uma tela
         a menos — é um fluxo que assina sem conferir.</li>
     <li><strong>Confirmação é proporcional ao risco do processo</strong>, e o risco é atributo do
-        processo, não decisão de tela. <a href="#/confirmacao">R0 e R1 não abrem diálogo</a>.</li>
+        processo, não decisão de tela. <a href="#/confirmacao">R0 e R1 são recusados</a>; R2 e R3
+        abrem diálogo.</li>
     <li><strong>Nunca listar-e-negar:</strong> a busca global é composta pelo que o operador pode
         fazer.</li>
     <li><strong>O contexto que decide fica visível</strong> do início ao fim do fluxo — quem, qual
@@ -611,15 +671,15 @@
   <h3>De nome</h3>
   <p>
     Nada foi herdado do console. Lá as superfícies ainda se chamam <code>bento</code> e
-    <code>glass</code> — nomes de decisões já revertidas: a direção Bento UI e o glassmorphism que a
-    identidade v5 removeu da operação. Aqui cada nome descreve o que a coisa <strong>é</strong>:
-    <code>.ppl-card</code> é um card, <code>.ppl-bar</code> é uma barra,
-    <code>.ppl-disclosure</code> é o padrão ARIA que ele implementa.
+    <code>glass</code> — nomes de decisões já revertidas. Aqui cada nome descreve o que a coisa
+    <strong>é</strong>: <code>.ppl-card</code> é um card, <code>.ppl-bar</code> é uma barra,
+    <code>.ppl-disclosure</code> é o padrão ARIA que ele implementa, <code>.ppl-sky</code> é o céu.
   </p>
   <div class="ppl-alert ppl-alert--warning">
     <i data-ppl-icon="triangle-alert" data-ppl-size="16"></i>
     <span>O build <strong>reprova</strong> se um nome aposentado voltar ao fonte — inclusive na
-    documentação, de onde ele volta para o código pela mão de quem copiou o exemplo.</span>
+    documentação, de onde ele volta para o código pela mão de quem copiou o exemplo. A identidade
+    anterior (azul e dourado) inteira está nessa lista: token, classe, cor e fonte.</span>
   </div>
 </section>
 
@@ -627,9 +687,14 @@
 <section class="doc-pagina" id="p-tokens">
   <h2>Design tokens <span class="doc-tag">--ppl-*</span></h2>
   <p>
-    São <strong>98</strong>: 78 do shell autenticado e 20 da landing (<code>--ppl-lp-*</code>).
-    Trocar <code>ppl-compass-tokens.css</code> troca a marca inteira — as receitas de componente não
-    conhecem nenhum valor, só referenciam token.
+    São <strong>109</strong> no tema claro, e o tema escuro sobrescreve 37 deles — nenhum nome novo,
+    só valor. Trocar <code>ppl-compass-tokens.css</code> troca a marca inteira: as receitas de
+    componente não conhecem nenhum valor, só referenciam token.
+  </p>
+  <p>
+    A filosofia é uma frase: <strong>cor é luz, não tinta</strong>. Sete paradas da noite ao dia;
+    três são estruturais e aparecem em toda tela — noite, roxo, dia. O roxo é a única cor de ação. O
+    pêssego é a única luz quente e obedece à física da alvorada: só é visível contra a noite.
   </p>
   <div class="ppl-alert ppl-alert--info">
     <i data-ppl-icon="info" data-ppl-size="16"></i>
@@ -638,91 +703,165 @@
     branco — nenhum quebrava o build, todos quebravam a tela.</span>
   </div>
 
-  <h3>Azul — marca e interação</h3>
+  <h3>A rampa de luz</h3>
+  <p>
+    Da noite ao dia. As paradas do meio são as que fazem trabalho de interface; as duas pontas são
+    o fundo do tema escuro e o fundo do tema claro.
+  </p>
   <div class="sw-grid">
-    <div class="sw"><i style="background:#f0f4fc"></i><span><b>blue-50</b><em>#F0F4FC</em></span></div>
-    <div class="sw"><i style="background:#e6edfc"></i><span><b>blue-100</b><em>#E6EDFC</em></span></div>
-    <div class="sw"><i style="background:#d2dbec"></i><span><b>blue-200</b><em>#D2DBEC</em></span></div>
-    <div class="sw"><i style="background:#a9bff2"></i><span><b>blue-300</b><em>#A9BFF2</em></span></div>
-    <div class="sw"><i style="background:#6c93ec"></i><span><b>blue-400 · céu</b><em>#6C93EC</em></span></div>
-    <div class="sw"><i style="background:#2f5ad0"></i><span><b>blue-500 · primária</b><em>#2F5AD0</em></span></div>
-    <div class="sw"><i style="background:#254bb4"></i><span><b>blue-600 · hover</b><em>#254BB4</em></span></div>
-    <div class="sw"><i style="background:#1e4193"></i><span><b>blue-700</b><em>#1E4193</em></span></div>
-    <div class="sw"><i style="background:#12305f"></i><span><b>blue-800</b><em>#12305F</em></span></div>
-    <div class="sw"><i style="background:#0d2551"></i><span><b>blue-900</b><em>#0D2551</em></span></div>
+    <div class="sw"><i style="background:#130d22"></i><span><b>violet-950 · noite</b><em>#130D22 · topo da sidebar, fundo do escuro</em></span></div>
+    <div class="sw"><i style="background:#25104f"></i><span><b>violet-900 · madrugada</b><em>#25104F · toast, faixa mais urgente</em></span></div>
+    <div class="sw"><i style="background:#3e1585"></i><span><b>violet-800 · base</b><em>#3E1585 · base da sidebar</em></span></div>
+    <div class="sw"><i style="background:#6600cc"></i><span><b>violet-700 · strong</b><em>#6600CC · texto forte sobre tonal</em></span></div>
+    <div class="sw"><i style="background:#8100ff"></i><span><b>violet-600 · PRIMÁRIA</b><em>#8100FF · a cor da palavra "People"</em></span></div>
+    <div class="sw"><i style="background:#9a4dff"></i><span><b>violet-500</b><em>#9A4DFF · hover sobre escuro</em></span></div>
+    <div class="sw"><i style="background:#b48aff"></i><span><b>violet-400 · lilás</b><em>#B48AFF · primário do tema escuro</em></span></div>
+    <div class="sw"><i style="background:#cdaeff"></i><span><b>violet-300 · lilás-suave</b><em>#CDAEFF · rótulo sobre escuro</em></span></div>
+    <div class="sw"><i style="background:#e3d0ff"></i><span><b>violet-200</b><em>#E3D0FF · badge transferido, seleção</em></span></div>
+    <div class="sw"><i style="background:#f1e8ff"></i><span><b>violet-100</b><em>#F1E8FF · badge admitido, tile</em></span></div>
+    <div class="sw"><i style="background:#f9f5ff"></i><span><b>violet-50</b><em>#F9F5FF · hover de linha</em></span></div>
+    <div class="sw"><i style="background:#fbf9f7"></i><span><b>surface-app · dia</b><em>#FBF9F7 · fundo do shell e do app</em></span></div>
+  </div>
+  <p>
+    Os nomes de papel apontam para a rampa: <code>--ppl-night</code> é a 950, <code>--ppl-dawn</code>
+    a 900, <code>--ppl-nav-base</code> a 800, <code>--ppl-strong</code> a 700, <code>--ppl-primary</code>
+    a 600, <code>--ppl-lilac</code> a 400 e <code>--ppl-lilac-soft</code> a 300. Orquídea e rosa
+    (abaixo) são paradas de degradê — nunca aparecem sozinhas.
+  </p>
+
+  <h3>Pêssego — a luz do horizonte</h3>
+  <p>
+    <strong>Só vive sobre a noite</strong>: sobre o dia ele mede 1,6:1 e não existe. Sempre com texto
+    tinta por cima — <strong>nunca texto branco</strong> (3,6:1 sobre a orquídea, pior sobre o pêssego).
+    Rosa e orquídea são paradas de degradê e não carregam texto nenhum.
+  </p>
+  <div class="sw-grid">
+    <div class="sw"><i style="background:#ffb899"></i><span><b>peach</b><em>#FFB899 · contador da sidebar, bater ponto à noite</em></span></div>
+    <div class="sw"><i style="background:#ffe3d3"></i><span><b>peach-soft</b><em>#FFE3D3 · miolo do selo</em></span></div>
+    <div class="sw"><i style="background:#f27bb8"></i><span><b>rose</b><em>#F27BB8 · só em degradê</em></span></div>
+    <div class="sw"><i style="background:#c24dff"></i><span><b>orchid</b><em>#C24DFF · só em degradê</em></span></div>
   </div>
 
-  <h3>Dourado — o único acento quente</h3>
+  <h3>Texto e superfícies do dia</h3>
   <div class="sw-grid">
-    <div class="sw"><i style="background:#f3c63f"></i><span><b>gold</b><em>#F3C63F</em></span></div>
-    <div class="sw"><i style="background:#e4b52c"></i><span><b>gold-deep</b><em>#E4B52C</em></span></div>
-    <div class="sw"><i style="background:#fbefbe"></i><span><b>gold-soft</b><em>#FBEFBE</em></span></div>
+    <div class="sw"><i style="background:#1e1826"></i><span><b>ink</b><em>#1E1826 · títulos (16,5:1)</em></span></div>
+    <div class="sw"><i style="background:#433c4d"></i><span><b>ink-body</b><em>#433C4D · corpo (10:1)</em></span></div>
+    <div class="sw"><i style="background:#6c6577"></i><span><b>ink-soft</b><em>#6C6577 · rótulos (5,3:1)</em></span></div>
+    <div class="sw"><i style="background:#736c86"></i><span><b>ink-faint</b><em>#736C86 · caption (4,7:1)</em></span></div>
+    <div class="sw"><i style="background:#a79fbd"></i><span><b>ink-disabled</b><em>#A79FBD · nunca informação necessária</em></span></div>
+    <div class="sw"><i style="background:#6a00d6"></i><span><b>link</b><em>#6A00D6 · texto corrido (7,7:1)</em></span></div>
+    <div class="sw"><i style="background:#ffffff"></i><span><b>surface</b><em>#FFFFFF · card, tabela, pílula ativa</em></span></div>
+    <div class="sw"><i style="background:#f4f1f6"></i><span><b>surface-subtle</b><em>#F4F1F6 · painel, hover de card</em></span></div>
+    <div class="sw"><i style="background:#ece7f0"></i><span><b>surface-muted</b><em>#ECE7F0 · cabeçalho de tabela</em></span></div>
+    <div class="sw"><i style="background:#e6e1ea"></i><span><b>border</b><em>#E6E1EA</em></span></div>
+    <div class="sw"><i style="background:#cfc8da"></i><span><b>border-strong</b><em>#CFC8DA · campo em repouso</em></span></div>
   </div>
 
-  <h3>Neutros e semânticas</h3>
+  <h3>Semânticos</h3>
+  <p>
+    Cada um em três: a base para <strong>ícone e ponto</strong>, <code>-soft</code> para o fundo
+    tonal, <code>-strong</code> para <strong>texto</strong>. Texto sobre claro usa sempre a
+    <code>-strong</code> — é ela que mede AA. Vermelho é só erro; não há arco-íris de estados.
+  </p>
   <div class="sw-grid">
-    <div class="sw"><i style="background:#132c63"></i><span><b>ink</b><em>#132C63</em></span></div>
-    <div class="sw"><i style="background:#5a6486"></i><span><b>ink-soft</b><em>#5A6486</em></span></div>
-    <div class="sw"><i style="background:#8492b2"></i><span><b>ink-faint</b><em>#8492B2</em></span></div>
-    <div class="sw"><i style="background:#e2e8f4"></i><span><b>border</b><em>#E2E8F4</em></span></div>
-    <div class="sw"><i style="background:#f2f5fc"></i><span><b>surface-sunk</b><em>#F2F5FC</em></span></div>
-    <div class="sw"><i style="background:#0e8a4f"></i><span><b>success</b><em>#0E8A4F</em></span></div>
-    <div class="sw"><i style="background:#b5892c"></i><span><b>warning</b><em>#B5892C</em></span></div>
-    <div class="sw"><i style="background:#c0392b"></i><span><b>danger</b><em>#C0392B</em></span></div>
-    <div class="sw"><i style="background:#3c6fe0"></i><span><b>info · foco</b><em>#3C6FE0</em></span></div>
+    <div class="sw"><i style="background:#0e8a4f"></i><span><b>success</b><em>#0E8A4F · ícone</em></span></div>
+    <div class="sw"><i style="background:#0a6b3d"></i><span><b>success-strong</b><em>#0A6B3D · texto (6,6:1)</em></span></div>
+    <div class="sw"><i style="background:#b5892c"></i><span><b>warning</b><em>#B5892C · ícone</em></span></div>
+    <div class="sw"><i style="background:#866521"></i><span><b>warning-strong</b><em>#866521 · texto (5,4:1)</em></span></div>
+    <div class="sw"><i style="background:#c0392b"></i><span><b>danger</b><em>#C0392B · só erro</em></span></div>
+    <div class="sw"><i style="background:#bb372a"></i><span><b>danger-strong</b><em>#BB372A · texto</em></span></div>
+    <div class="sw"><i style="background:#5e5775"></i><span><b>neutral</b><em>#5E5775 · desligado</em></span></div>
+    <div class="sw"><i style="background:#e9e4ee"></i><span><b>neutral-soft</b><em>#E9E4EE</em></span></div>
   </div>
 
-  <h3>Gradientes — lista fechada</h3>
+  <h3>A noite</h3>
+  <p>
+    O tema escuro é de <strong>primeira classe</strong>: vale no shell inteiro, por
+    <code>prefers-color-scheme</code> ou por <code>data-theme</code> no <code>&lt;html&gt;</code>. O
+    roxo <code>#8100FF</code> não atinge AA como texto sobre a noite, então o escuro usa o lilás
+    como primário (texto tinta por cima, 6,6:1) e o lilás-suave para links (9,3:1). A sidebar é
+    sempre noite e não participa da troca.
+  </p>
   <div class="sw-grid">
-    <div class="sw"><i style="background:var(--ppl-grad-nav)"></i><span><b>grad-nav</b><em>navegação</em></span></div>
-    <div class="sw"><i style="background:var(--ppl-grad-primary)"></i><span><b>grad-primary</b><em>CTA de destaque</em></span></div>
-    <div class="sw"><i style="background:var(--ppl-grad-gold)"></i><span><b>grad-gold</b><em>marca</em></span></div>
-    <div class="sw"><i style="background:var(--ppl-grad-seal)"></i><span><b>grad-seal</b><em>conquista</em></span></div>
+    <div class="sw"><i style="background:#130d22"></i><span><b>surface-app</b><em>#130D22 · o fundo</em></span></div>
+    <div class="sw"><i style="background:#1c1530"></i><span><b>surface</b><em>#1C1530 · card</em></span></div>
+    <div class="sw"><i style="background:#241b3c"></i><span><b>surface-subtle · primary-soft</b><em>#241B3C</em></span></div>
+    <div class="sw"><i style="background:#2a2044"></i><span><b>surface-muted</b><em>#2A2044</em></span></div>
+    <div class="sw"><i style="background:#342a4f"></i><span><b>border</b><em>#342A4F · strong #4A3D6B</em></span></div>
+    <div class="sw"><i style="background:#f3eff8"></i><span><b>ink</b><em>#F3EFF8 · body #CFC7DC</em></span></div>
+    <div class="sw"><i style="background:#b48aff"></i><span><b>primary</b><em>#B48AFF · lilás, fg tinta</em></span></div>
+    <div class="sw"><i style="background:#cdaeff"></i><span><b>link · strong</b><em>#CDAEFF</em></span></div>
+    <div class="sw"><i style="background:#7ed9a9"></i><span><b>success-strong</b><em>#7ED9A9</em></span></div>
+    <div class="sw"><i style="background:#e3b85a"></i><span><b>warning-strong</b><em>#E3B85A</em></span></div>
+    <div class="sw"><i style="background:#f08a7e"></i><span><b>danger-strong</b><em>#F08A7E</em></span></div>
+    <div class="sw"><i style="background:#ffb899"></i><span><b>punch-bg · tab-active</b><em>o pêssego, só aqui</em></span></div>
+  </div>
+
+  <h3>Luz — degradês, lista fechada</h3>
+  <p>
+    Só onde há céu. <strong>Nunca em botão, texto, tabela ou card.</strong> Os cinco abaixo são todos
+    os degradês do sistema; a <a href="#/luz">página Luz</a> mostra cada um no lugar dele.
+  </p>
+  <div class="sw-grid">
+    <div class="sw"><i style="background:var(--ppl-grad-sky)"></i><span><b>grad-sky</b><em>ciclorama: login, porta do app</em></span></div>
+    <div class="sw"><i style="background:var(--ppl-grad-nav)"></i><span><b>grad-nav</b><em>sidebar, sempre noite</em></span></div>
+    <div class="sw"><i style="background:var(--ppl-grad-seal)"></i><span><b>grad-seal</b><em>selo de conquista</em></span></div>
+    <div class="sw"><i style="background:var(--ppl-grad-night)"></i><span><b>grad-night</b><em>app à noite: o horizonte</em></span></div>
+    <div class="sw"><i style="background:var(--ppl-grad-day)"></i><span><b>grad-day</b><em>o dia, com uma névoa no canto</em></span></div>
   </div>
 
   <h3>Contraste</h3>
   <p>
-    A meta é <strong>WCAG 2.1 AA</strong>, e o CI recalcula 16 pares a partir do
-    <code>tokens.css</code> de hoje, em claro e escuro — anotação em documento não segura ninguém,
-    porque quem troca o token deixa a anotação para trás.
+    A meta é <strong>WCAG 2.1 AA</strong>, e o CI recalcula <strong>38 pares</strong> a partir do
+    <code>tokens.css</code> de hoje, nos dois temas — anotação em documento não segura ninguém,
+    porque quem troca o token deixa a anotação para trás. O tema escuro é conferido montando a
+    paleta clara e sobrepondo o bloco <code>[data-theme="dark"]</code>, que é o que o navegador faz.
   </p>
   <p>
-    Três pares herdados da paleta do console <strong>não atingem AA</strong> e estão nomeados como
-    dívida: <code>--ppl-ink-faint</code> (3,12:1), <code>--ppl-warning</code> (3,19:1) e
-    <code>--ppl-success</code> (4,41:1). A checagem mede os três a cada execução e reprova se algum
-    <strong>piorar</strong>. Pagá-los é decisão de identidade: <code>--ppl-ink-faint</code>
-    precisaria escurecer até encostar em <code>--ppl-ink-soft</code>, e a hierarquia de três níveis
-    do texto viraria dois.
+    A dívida nomeada são dois semânticos de base: <code>--ppl-success</code> (4,19:1 sobre o dia) e
+    <code>--ppl-warning</code> (3,19:1). Os dois ficam para <strong>ícone e ponto</strong>, onde o
+    mínimo é 3:1 (WCAG 1.4.11); <strong>texto usa a <code>-strong</code></strong>, que mede AA. A
+    checagem mede os dois a cada execução e reprova se algum <strong>piorar</strong>.
   </p>
 
   <h3>Tipografia</h3>
+  <p>
+    <strong>Sora</strong> nos títulos (600–700): saudação, título de página, de card, de sucesso,
+    headline — sem itálico, sem serifa; o calor vem de tamanho, peso e espaço. <strong>Manrope</strong>
+    em tudo o mais: corpo, rótulos, botões, tabelas, cromo. <strong>JetBrains Mono</strong> em todo
+    dado de folha e ponto, com <code>tabular-nums</code>.
+  </p>
   <div class="ppl-table-wrap">
     <table class="ppl-table">
       <thead><tr><th>Token</th><th>Valor</th><th>Onde</th></tr></thead>
       <tbody>
-        <tr><td><code>--ppl-font-sans</code></td><td class="ppl-td-data">Urbanist</td><td>tudo, por padrão</td></tr>
-        <tr><td><code>--ppl-font-display</code></td><td class="ppl-td-data">Playfair Display itálica</td><td>só saudação, sucesso e hero</td></tr>
+        <tr><td><code>--ppl-font-display</code></td><td class="ppl-td-data">Sora</td><td>títulos, 600–700</td></tr>
+        <tr><td><code>--ppl-font-sans</code></td><td class="ppl-td-data">Manrope</td><td>a interface</td></tr>
         <tr><td><code>--ppl-font-data</code></td><td class="ppl-td-data">JetBrains Mono</td><td>obrigatório em folha e ponto</td></tr>
-        <tr><td><code>--ppl-text-eyebrow</code></td><td class="ppl-td-data">11px</td><td>rótulo de contexto</td></tr>
-        <tr><td><code>--ppl-text-xs</code> · <code>--ppl-text-sm</code></td><td class="ppl-td-data">12px · 12,5px</td><td>metadado, linha de apoio</td></tr>
-        <tr><td><code>--ppl-text-base</code></td><td class="ppl-td-data">14px</td><td>corpo</td></tr>
-        <tr><td><code>--ppl-text-md</code> · <code>--ppl-text-lg</code></td><td class="ppl-td-data">15px · 18px</td><td>título de card · título de drawer</td></tr>
-        <tr><td><code>--ppl-text-h1</code> · <code>--ppl-text-display</code></td><td class="ppl-td-data">24px · 28px</td><td>título de página · saudação</td></tr>
+        <tr><td><code>--ppl-text-2xs</code> · <code>--ppl-text-xs</code></td><td class="ppl-td-data">11px · 12px</td><td>rótulo de grupo, badge · caption, metadado</td></tr>
+        <tr><td><code>--ppl-text-sm</code> · <code>--ppl-text-base</code></td><td class="ppl-td-data">12,5px · 14px</td><td>linha de apoio · corpo</td></tr>
+        <tr><td><code>--ppl-text-md</code> · <code>--ppl-text-lg</code></td><td class="ppl-td-data">15px · 18px</td><td>título de card · título de seção e de drawer</td></tr>
+        <tr><td><code>--ppl-text-h1</code> · <code>--ppl-text-display</code></td><td class="ppl-td-data">24px · 32px</td><td>título de página · headline, uma por tela</td></tr>
+        <tr><td><code>--ppl-text-hero-number</code></td><td class="ppl-td-data">40px</td><td>relógio e saldo do app, em mono</td></tr>
       </tbody>
     </table>
   </div>
 
   <h3>Forma, espaço e movimento</h3>
+  <p>
+    Cantos de ferramenta — DP é operação. Uma sombra só, e só em flutuante. Mudança de estado é
+    mudança de luz, nunca deslocamento; o único momento autoral é o Raise.
+  </p>
   <div class="ppl-table-wrap">
     <table class="ppl-table">
       <thead><tr><th>Grupo</th><th>Tokens</th></tr></thead>
       <tbody>
-        <tr><td>Raio</td><td class="ppl-td-data">sm 4 · md 8 · control 12 · card 16 · card-lg 18 · pill 999</td></tr>
-        <tr><td>Espaço</td><td class="ppl-td-data">1→4 · 2→8 · 3→12 · 4→16 · 5→20 · 6→24 · 8→32</td></tr>
-        <tr><td>Sombra</td><td class="ppl-td-data">--ppl-shadow-sm · --ppl-shadow-lg</td></tr>
-        <tr><td>Duração</td><td class="ppl-td-data">fast 120ms · base 180ms · slow 300ms</td></tr>
+        <tr><td>Raio</td><td class="ppl-td-data">sm 4 · md 8 · control 8 · card 12 · pill 999</td></tr>
+        <tr><td>Espaço</td><td class="ppl-td-data">1→4 · 2→8 · 3→12 · 4→16 · 5→20 · 6→24 · 8→32 · 12→48</td></tr>
+        <tr><td>Sombra</td><td class="ppl-td-data">--ppl-shadow-float — só em FAB, toast, modal, dropdown, card do login</td></tr>
+        <tr><td>Duração</td><td class="ppl-td-data">fast 120ms · base 200ms · slow 300ms · raise 900ms</td></tr>
         <tr><td>Camada</td><td class="ppl-td-data">bar 40 · overlay 50 · drawer 150 · toast 200</td></tr>
-        <tr><td>Medida</td><td class="ppl-td-data">--ppl-touch 44px · --ppl-nav-w 238px · --ppl-content-max 1152px</td></tr>
+        <tr><td>Medida</td><td class="ppl-td-data">--ppl-touch 44px · --ppl-nav-w 242px · --ppl-content-max 1200px</td></tr>
       </tbody>
     </table>
   </div>
@@ -730,7 +869,7 @@
 
 <!-- ═════════════════════════════════════════════ SUPERFÍCIES E TEXTO ═══ -->
 <section class="doc-pagina" id="p-superficies">
-  <h2>Superfícies e texto <span class="doc-tag">.ppl-card .ppl-display .ppl-data</span></h2>
+  <h2>Superfícies e texto <span class="doc-tag">.ppl-card .ppl-display .ppl-caption .ppl-data</span></h2>
   <p>
     O <code>.ppl-card</code> é o componente mais usado do sistema — 233 ocorrências no console. As
     outras superfícies são a barra fixa de topo e o fundo da página.
@@ -738,47 +877,73 @@
 
   <h3>Card</h3>
   <p>
-    Só levanta no hover o que é <strong>clicável</strong>. Painel estático que sobe mente sobre ser
-    interativo, então o efeito exige um <code>&lt;a&gt;</code>, um <code>&lt;button&gt;</code> ou a
-    classe <code>--interactive</code>.
+    Em repouso: linha de 1px e <strong>nenhuma sombra</strong>. Sombra é sinal de algo solto da
+    página, e um card não está. Só reage ao hover o que é <strong>clicável</strong> — um
+    <code>&lt;a&gt;</code>, um <code>&lt;button&gt;</code> ou a classe <code>--interactive</code> —, e
+    a reação é <strong>luz</strong>: fundo e borda mudam, a posição não.
   </p>
   <div class="exemplo">
     <template>
-      <div class="ppl-card ppl-panel" style="max-width:260px">Card estático — não sobe no hover.</div>
+      <div class="ppl-card ppl-panel" style="max-width:260px">Card estático — não reage ao hover.</div>
       <a class="ppl-card ppl-panel ppl-card--interactive" href="#/superficies" style="max-width:260px">Card clicável — passe o mouse.</a>
     </template>
   </div>
 
   <h3>Tipografia de papel</h3>
   <p>
-    Três classes, e cada uma tem uma regra de uso que não é estética:
-    <code>.ppl-display</code> só aparece em superfície emocional — saudação, sucesso, hero — e
-    <strong>nunca</strong> em formulário, tabela ou cromo. <code>.ppl-data</code> é
+    <code>.ppl-display</code> é Sora 600 e só aparece em superfície emocional — saudação, sucesso,
+    hero —, <strong>nunca</strong> em formulário, tabela ou cromo; <code>--hero</code> é a headline,
+    uma por tela. <code>.ppl-caption</code> é o contexto <strong>abaixo</strong> do título, 12px suave
+    — o eyebrow em caixa alta acima do título foi abolido. <code>.ppl-data</code> é
     <strong>obrigatório</strong> em matrícula, CPF/CNPJ, NSR, competência e todo valor em tabela: o
     <code>tabular-nums</code> impede a coluna de dançar.
   </p>
   <div class="exemplo">
     <template>
       <div class="ppl-stack">
-        <p class="ppl-eyebrow">Competência 2026-08 · Gestão Hospitalar Ltda</p>
-        <p class="ppl-display ppl-display--hero">Boa tarde, Ana</p>
-        <p>Corpo · 14 / 400 — o padrão de leitura.</p>
+        <div>
+          <p class="ppl-display ppl-display--hero">Boa tarde, Ana</p>
+          <p class="ppl-caption">Competência 2026-08 · Gestão Hospitalar Ltda</p>
+        </div>
+        <p>Corpo · Manrope 14 / 400 — o padrão de leitura.</p>
         <p class="ppl-data">2026-0042 · 111.222.333-44 · R$ 4.812,37</p>
+      </div>
+    </template>
+  </div>
+
+  <h3>Número-herói, chip de código e link</h3>
+  <p>
+    <code>.ppl-hero-number</code> é o relógio e o saldo do app do Colaborador: mono, 40px, apertado —
+    dentro de um card, nunca sobre degradê. <code>.ppl-chip-code</code> é a matrícula, o NSR, o ID
+    de evento em pílula. <code>.ppl-link</code> é o link em texto corrido, no roxo escuro que mede
+    7,7:1 sobre o dia.
+  </p>
+  <div class="exemplo">
+    <template>
+      <div class="ppl-stack" style="width:100%;max-width:420px">
+        <div class="ppl-card ppl-panel">
+          <p class="ppl-caption">Banco de horas · 2026-08</p>
+          <p class="ppl-hero-number">+12h 30min</p>
+          <p class="ppl-caption">Fechamento em 05/09</p>
+        </div>
+        <p>Evento <span class="ppl-chip-code">S-2200</span> da matrícula <span class="ppl-chip-code">2026-0042</span>,
+           conferido em <a class="ppl-link" href="#/superficies">Folha da competência</a>.</p>
       </div>
     </template>
   </div>
 
   <h3>Barra e fundo</h3>
   <p>
-    <code>.ppl-bar</code> é a superfície fixa de topo: branco a 92% com hairline e
-    <code>backdrop-filter</code>. <code>.ppl-canvas</code> é o fundo do shell autenticado — três
-    gradientes radiais azuis muito diluídos sobre o cinza-azulado.
+    <code>.ppl-bar</code> é a superfície fixa de topo: <strong>sólida</strong>, com hairline — o vidro
+    saiu, era decoração numa barra sob a qual nada rola. O chip tonal diz o grupo econômico ativo.
+    <code>.ppl-canvas</code> é o fundo do shell autenticado: o dia, com uma névoa roxa quase invisível
+    no canto; à noite é <strong>plano</strong>, porque o horizonte é do app, não da operação.
   </p>
   <div class="exemplo">
     <template>
       <div class="ppl-canvas" style="border-radius:var(--ppl-radius-card);padding:0;overflow:hidden;width:100%">
         <div class="ppl-bar ppl-topbar__row">
-          <span class="ppl-eyebrow">Grupo Boas Novas</span>
+          <span class="ppl-topbar__chip">Grupo Boas Novas</span>
           <span class="ppl-topbar__crumb"><i data-ppl-icon="wallet" data-ppl-size="15"></i>Folha</span>
         </div>
         <div style="padding:24px"><p class="ppl-muted">O conteúdo da tela vive sobre o canvas.</p></div>
@@ -788,8 +953,8 @@
 
   <h3>Entrada</h3>
   <p>
-    <code>.ppl-enter</code> é a única animação de entrada — sobe 10px e revela. Respeita
-    <code>prefers-reduced-motion</code>: com a preferência ligada, ela simplesmente não roda.
+    <code>.ppl-enter</code> é a única animação de entrada — revela por opacidade, sem deslocar.
+    Respeita <code>prefers-reduced-motion</code>: com a preferência ligada, ela simplesmente não roda.
   </p>
 </section>
 
@@ -837,16 +1002,190 @@ PplCompassIcons.nomes()         // a lista dos 136
   <div class="icones" id="doc-catalogo-icones"></div>
 </section>
 
+<!-- ═════════════════════════════════════════════════════════════ LUZ ═══ -->
+<section class="doc-pagina" id="p-luz">
+  <h2>Luz — céu, selo e horizonte <span class="doc-tag">.ppl-sky .ppl-seal .ppl-horizon</span></h2>
+  <p>
+    Na v6B, <strong>cor é luz, não tinta</strong>. O roxo <code>#8100FF</code> é a luz que vai da
+    noite ao dia, e o pêssego é a luz do horizonte — a que só se vê contra o escuro. Os degradês
+    do sistema existem <strong>só onde há céu</strong>, e esta página é a lista inteira: quatro
+    dispositivos e uma animação. Fora daqui, tudo é plano.
+  </p>
+
+  <h3>A dosagem por superfície</h3>
+  <p>
+    A mesma luz em quantidades diferentes, e a quantidade é decisão de superfície, não de tela:
+  </p>
+  <div class="ppl-table-wrap">
+    <table class="ppl-table">
+      <thead><tr><th>Superfície</th><th>Quanto céu</th><th>Receita</th></tr></thead>
+      <tbody>
+        <tr><td>Login, porta de entrada</td><td>o ciclorama inteiro</td><td><code>.ppl-sky</code> + <code>.ppl-sky__card</code></td></tr>
+        <tr><td>Sidebar do console</td><td>o ciclorama em pé, sempre noite</td><td><code>.ppl-nav</code> (<code>--ppl-grad-nav</code>)</td></tr>
+        <tr><td>Console, de dia</td><td>dia pleno — uma névoa no canto</td><td><code>.ppl-canvas</code> (<code>--ppl-grad-day</code>)</td></tr>
+        <tr><td>App do colaborador, de dia</td><td>névoa</td><td><code>.ppl-app</code> (<code>--ppl-grad-day</code>)</td></tr>
+        <tr><td>App à noite</td><td>o horizonte sobe do rodapé</td><td><code>.ppl-app</code> no escuro (<code>--ppl-grad-night</code>)</td></tr>
+        <tr><td>Tela de sucesso</td><td>um raio de alvorada — o resto não muda</td><td><code>.ppl-seal</code></td></tr>
+        <tr><td>Portal externo</td><td>dia frio; o céu só na faixa da marca</td><td><code>.ppl-landing</code> + <code>.ppl-landing__bar</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>A faixa de céu</h3>
+  <p>
+    <code>.ppl-sky--band</code> é a versão curta do ciclorama: o topo de uma página externa ou do
+    celular. Logo branca, título Sora branco, linha de apoio em lilás-suave. A logo entra por
+    <code>data-ppl-logo</code> — o <code>init()</code> hidrata com o SVG oficial, e a arte nunca é
+    colada à mão.
+  </p>
+  <div class="exemplo">
+    <template>
+      <div class="ppl-sky ppl-sky--band" style="width:100%;border-radius:var(--ppl-radius-card)">
+        <span class="ppl-sky__logo" data-ppl-logo></span>
+        <div class="ppl-sky__head" style="padding-top:20px">
+          <p class="ppl-sky__title" style="font-size:24px">Bem-vinda de volta, Ana</p>
+          <p class="ppl-sky__sub">Competência 2026-08 aberta · 1.240 contratos</p>
+        </div>
+      </div>
+    </template>
+  </div>
+
+  <h3>O ciclorama inteiro — a porta de entrada</h3>
+  <p>
+    A tela de login: <code>.ppl-sky</code> ocupa a tela, o brilho do horizonte
+    (<code>.ppl-sky__glow</code>) sobe uma vez ao carregar, a headline fica na <strong>metade
+    superior</strong> — sobre madrugada e base, nunca sobre o roxo claro — e o card branco se apoia
+    no horizonte. Aqui a sombra é legítima: o card flutua sobre o céu. Dentro dele tudo volta a ser
+    dia, em qualquer tema.
+  </p>
+  <div class="moldura moldura--alta" style="height:600px">
+    <div class="ppl-sky" style="width:100%">
+      <div class="ppl-sky__glow"></div>
+      <span class="ppl-sky__logo" data-ppl-logo></span>
+      <div class="ppl-sky__head">
+        <p class="ppl-sky__title">A folha fecha no prazo porque o dado nasce certo.</p>
+        <p class="ppl-sky__sub">Entre com a conta do Grupo Boas Novas.</p>
+      </div>
+      <form class="ppl-sky__card ppl-stack" data-ppl-submit="Bem-vinda, Ana.">
+        <label class="ppl-field">
+          <span class="ppl-field__label">E-mail</span>
+          <input class="ppl-input" type="email" value="ana.ribeiro@gestaohospitalar.com.br" autocomplete="username">
+        </label>
+        <label class="ppl-field">
+          <span class="ppl-field__label">Senha</span>
+          <input class="ppl-input" type="password" value="alvorada" autocomplete="current-password">
+        </label>
+        <button type="submit" class="ppl-btn ppl-btn--primary ppl-btn--touch" style="justify-content:center">Entrar</button>
+      </form>
+    </div>
+  </div>
+  <div class="exemplo">
+    <template data-so-codigo>
+&lt;div class="ppl-sky"&gt;
+  &lt;div class="ppl-sky__glow"&gt;&lt;/div&gt;                       &lt;!-- o Raise --&gt;
+  &lt;span class="ppl-sky__logo" data-ppl-logo&gt;&lt;/span&gt;
+  &lt;div class="ppl-sky__head"&gt;
+    &lt;p class="ppl-sky__title"&gt;A folha fecha no prazo porque o dado nasce certo.&lt;/p&gt;
+    &lt;p class="ppl-sky__sub"&gt;Entre com a conta do Grupo Boas Novas.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;form class="ppl-sky__card ppl-stack" data-ppl-submit="Bem-vinda, Ana."&gt;
+    &lt;label class="ppl-field"&gt;&lt;span class="ppl-field__label"&gt;E-mail&lt;/span&gt;&lt;input class="ppl-input" type="email"&gt;&lt;/label&gt;
+    &lt;label class="ppl-field"&gt;&lt;span class="ppl-field__label"&gt;Senha&lt;/span&gt;&lt;input class="ppl-input" type="password"&gt;&lt;/label&gt;
+    &lt;button type="submit" class="ppl-btn ppl-btn--primary ppl-btn--touch"&gt;Entrar&lt;/button&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+    </template>
+  </div>
+  <p class="ppl-muted" style="font-size:12.5px">
+    No desktop, <code>.ppl-sky--split</code> põe o card à direita e o texto à esquerda, os dois sobre
+    a metade de cima. O template <a href="templates/login.html"><code>login.html</code></a> é este bloco
+    inteiro.
+  </p>
+
+  <h3>O selo de alvorada</h3>
+  <p>
+    Conquista, sucesso, boas-vindas. Um círculo com o degradê do selo, check em tinta, anel roxo de
+    1px — <strong>um raio de alvorada numa tela de dia</strong>: o resto da tela não muda de luz. É
+    o que a conclusão do wizard usa. A lista diz o que ficou pronto e o que ainda falta, e a tela
+    traz uma ação primária e uma secundária, nunca quatro.
+  </p>
+  <div class="exemplo">
+    <template>
+      <div class="ppl-card ppl-panel ppl-stack" style="width:100%;max-width:520px;align-items:flex-start">
+        <span class="ppl-seal ppl-seal--lg"><i data-ppl-icon="check" data-ppl-size="30"></i></span>
+        <div>
+          <p class="ppl-display ppl-display--hero">Colaborador admitido</p>
+          <p class="ppl-caption">Mariana Souza · matrícula <span class="ppl-data">2026-0042</span> · 01/09/2026</p>
+        </div>
+        <ul class="ppl-stack ppl-stack--tight" style="list-style:none;margin:0">
+          <li class="ppl-row"><i data-ppl-icon="circle-check" data-ppl-size="16" style="color:var(--ppl-success)"></i>S-2200 na fila do eSocial</li>
+          <li class="ppl-row"><i data-ppl-icon="circle-check" data-ppl-size="16" style="color:var(--ppl-success)"></i>Jornada 44h vinculada ao ponto</li>
+          <li class="ppl-row"><i data-ppl-icon="triangle-alert" data-ppl-size="16" style="color:var(--ppl-warning)"></i>Exame admissional ainda sem laudo</li>
+        </ul>
+        <div class="ppl-row">
+          <button class="ppl-btn ppl-btn--primary">Anexar laudo</button>
+          <button class="ppl-btn ppl-btn--secondary">Admitir outro</button>
+        </div>
+      </div>
+    </template>
+  </div>
+
+  <h3>O Horizonte do dia</h3>
+  <p>
+    A fila consolidada de pendências, lida por <strong>consequência</strong>. Quatro segmentos de
+    larguras iguais, da madrugada ao dia: escuro é urgência, branco é pronto. Rótulo e contagem são
+    <strong>obrigatórios</strong> — a cor só ordena. Cada segmento é clicável e filtra a fila. No
+    tema escuro a faixa sobe uma parada na rampa, e a clara continua sendo a que está pronta.
+  </p>
+  <div class="exemplo">
+    <template>
+      <nav class="ppl-horizon" aria-label="Pendências por consequência" style="width:100%">
+        <a class="ppl-horizon__seg ppl-horizon__seg--1" href="#/luz"><span class="ppl-horizon__label">Bloqueiam a folha</span><span class="ppl-horizon__count">1.284</span></a>
+        <a class="ppl-horizon__seg ppl-horizon__seg--2" href="#/luz"><span class="ppl-horizon__label">Bloqueiam o eSocial</span><span class="ppl-horizon__count">312</span></a>
+        <a class="ppl-horizon__seg ppl-horizon__seg--3" href="#/luz"><span class="ppl-horizon__label">Bloqueiam cessão</span><span class="ppl-horizon__count">96</span></a>
+        <a class="ppl-horizon__seg ppl-horizon__seg--4" href="#/luz"><span class="ppl-horizon__label">Não bloqueiam</span><span class="ppl-horizon__count">3.021</span></a>
+      </nav>
+    </template>
+  </div>
+
+  <h3>O Raise</h3>
+  <p>
+    O único momento autoral do sistema: ao carregar um céu, o brilho do horizonte
+    <strong>sobe uma vez</strong> — 900ms, ease de saída longa, escala em y mais opacidade. É um
+    elemento separado (<code>.ppl-sky__glow</code>) para que a animação escale só a luz, não o texto.
+    Com <code>prefers-reduced-motion</code> ele não roda: o brilho já nasce no lugar.
+  </p>
+  <div class="exemplo">
+    <template>
+      <div class="ppl-sky ppl-sky--band" style="width:100%;min-height:150px">
+        <div class="ppl-sky__glow"></div>
+        <p class="ppl-sky__sub">O brilho sobe do rodapé quando este bloco entra na tela.</p>
+        <button type="button" class="ppl-btn ppl-btn--secondary ppl-btn--sm" style="margin-top:12px;align-self:flex-start"
+                onclick="var g=this.parentElement.querySelector('.ppl-sky__glow');g.replaceWith(g.cloneNode())">Subir de novo</button>
+      </div>
+    </template>
+  </div>
+  <p class="ppl-muted" style="font-size:12.5px">
+    O botão troca o elemento do brilho por uma cópia — é só para a demo. Numa tela de verdade o
+    Raise acontece uma vez, na entrada, e nunca em resposta a clique.
+  </p>
+</section>
+
 <!-- ═════════════════════════════════════════════════════════ BOTÕES ═══ -->
 <section class="doc-pagina" id="p-botoes">
-  <h2>Botões <span class="doc-tag">.ppl-btn</span></h2>
+  <h2>Botões <span class="doc-tag">.ppl-btn .ppl-fab</span></h2>
   <p>
-    <strong>Um CTA primário sólido por tela</strong>, com rótulo verbo-primeiro — "Concluir
-    admissão", nunca "OK". A regra vale por superfície: um drawer aberto cobre a página e tem o
-    próprio CTA. O CI reprova dois sólidos na mesma superfície.
+    <strong>Um CTA sólido por tela</strong>, com rótulo verbo-primeiro — "Concluir admissão", nunca
+    "OK". A regra vale por superfície: um drawer aberto cobre a página e tem o próprio CTA. Contam
+    <code>--primary</code>, <code>--punch</code> e o <code>.ppl-fab</code>, e o CI reprova dois na
+    mesma superfície. Botões são <strong>planos</strong>: raio 8, sem degradê, sem sombra.
   </p>
 
   <h3>Hierarquia</h3>
+  <p>
+    O primário é o roxo cheio. O secundário é <strong>vazado</strong>: borda forte, texto roxo — é
+    o par do primário ("Admitir outro"). O ghost é só texto, para o que não decide nada.
+  </p>
   <div class="exemplo">
     <template>
       <button class="ppl-btn ppl-btn--primary">Concluir admissão</button>
@@ -855,17 +1194,17 @@ PplCompassIcons.nomes()         // a lista dos 136
     </template>
   </div>
 
-  <h3>Destaque e destruição</h3>
+  <h3>Destruição e bater ponto</h3>
   <p>
-    <code>--hero</code> é o CTA de destaque, o único com gradiente. <code>--danger</code> é
-    <strong>só</strong> erro e ação destrutiva — nunca "chamar atenção". <code>--gold</code> é o
-    acento quente, no máximo um por tela.
+    <code>--danger</code> é <strong>só</strong> erro e ação destrutiva — nunca "chamar atenção".
+    <code>--punch</code> é a ação do app do Colaborador: <strong>roxo cheio de dia e pêssego à
+    noite</strong>, com texto tinta (10,5:1). Uma classe só; a luz muda com o tema — alterne o tema
+    no rodapé da navegação e veja. Ele conta como CTA sólido e como o único pêssego da tela.
   </p>
   <div class="exemplo">
     <template>
-      <button class="ppl-btn ppl-btn--hero">Entrar no console</button>
       <button class="ppl-btn ppl-btn--danger">Rescindir contrato</button>
-      <button class="ppl-btn ppl-btn--gold">Destacar</button>
+      <button class="ppl-btn ppl-btn--punch ppl-btn--touch"><i data-ppl-icon="fingerprint-pattern" data-ppl-size="18"></i>Bater ponto</button>
     </template>
   </div>
 
@@ -904,17 +1243,55 @@ PplCompassIcons.nomes()         // a lista dos 136
       <button class="ppl-btn ppl-btn--secondary ppl-btn--sm" aria-pressed="false">Vazio</button>
     </template>
   </div>
+
+  <h3>FAB — a ação-destaque flutuante</h3>
+  <p>
+    "+ Admitir" no canto inferior direito de uma lista sem ação primária no cabeçalho. Pílula roxa
+    cheia com a única sombra que um botão pode ter — porque ele flutua de verdade. Um por contexto,
+    e conta como o CTA sólido da tela. <strong>Não é pêssego:</strong> o pêssego não vive sobre o dia.
+  </p>
+  <div class="exemplo">
+    <template>
+      <button class="ppl-fab" style="position:static"><i data-ppl-icon="plus" data-ppl-size="18"></i>Admitir</button>
+    </template>
+  </div>
+  <p class="ppl-muted" style="font-size:12.5px">
+    O <code>position:static</code> é só da demo, para ele não flutuar sobre a documentação. Na tela
+    ele é <code>fixed</code> por receita.
+  </p>
 </section>
 
 <!-- ═══════════════════════════════════════════════ BADGES E TILES ═══ -->
 <section class="doc-pagina" id="p-badges">
   <h2>Badges e tiles <span class="doc-tag">.ppl-badge .ppl-icon-tile</span></h2>
   <p>
-    <strong>Estado nunca só por cor.</strong> Um badge de situação leva ícone <em>e</em> texto — quem
-    não distingue as cores continua lendo o estado, e quem imprime em preto e branco também.
+    <strong>Estado nunca só por cor.</strong> Em tabelas de DP com centenas de linhas, matizes novos
+    competem com âmbar, vermelho e verde — então o estado de vínculo é <strong>monocromático mais
+    forma</strong>: a fase do dia dá a intensidade, o ponto dá a forma, e o texto está sempre lá.
+    Caixa baixa, 11 / 600.
   </p>
 
-  <h3>Situação</h3>
+  <h3>As fases do dia — o estado do vínculo</h3>
+  <p>
+    <code>--dawn</code> é o admitido: primeira luz, tonal, ponto <strong>vazado</strong>.
+    <code>--day</code> é o ativo: branco, borda e texto roxos, ponto <strong>cheio</strong> — o
+    branco do dia é o estado "pronto". <code>--transit</code> é o transferido ou a cessão agendada:
+    lilás, ponto <strong>tracejado</strong>. <code>--muted</code> é o desligado, apagado.
+  </p>
+  <div class="exemplo">
+    <template>
+      <span class="ppl-badge ppl-badge--dawn"><span class="ppl-badge__dot ppl-badge__dot--hollow"></span>Admitido</span>
+      <span class="ppl-badge ppl-badge--day"><span class="ppl-badge__dot"></span>Ativo</span>
+      <span class="ppl-badge ppl-badge--transit"><span class="ppl-badge__dot ppl-badge__dot--dashed"></span>Transferido</span>
+      <span class="ppl-badge ppl-badge--muted"><span class="ppl-badge__dot ppl-badge__dot--hollow"></span>Desligado</span>
+    </template>
+  </div>
+
+  <h3>Situação de um registro</h3>
+  <p>
+    Os semânticos continuam para o que é conferência, não vínculo: um badge de situação leva ícone
+    <em>e</em> texto. <code>--info</code> é o mesmo par do <code>--dawn</code>.
+  </p>
   <div class="exemplo">
     <template>
       <span class="ppl-badge ppl-badge--success"><i data-ppl-icon="check" data-ppl-size="12"></i>Conferida</span>
@@ -927,25 +1304,32 @@ PplCompassIcons.nomes()         // a lista dos 136
 
   <h3>Contador</h3>
   <p>
-    O número <strong>real</strong>, com separador de milhar — nunca <code>"99+"</code>. Truncar o
-    contador esconde a ordem de grandeza justamente onde ela decide se a fila é de hoje ou do
-    trimestre. A <a href="#/navegacao">navegação</a> recusa um contador que não seja número.
+    O número <strong>real</strong>, com separador de milhar em mono — nunca <code>"99+"</code>.
+    Truncar o contador esconde a ordem de grandeza justamente onde ela decide se a fila é de hoje ou
+    do trimestre. A <a href="#/navegacao">navegação</a> recusa um contador que não seja número — e
+    lá, sobre a sidebar, ele vira a pílula pêssego.
   </p>
   <div class="exemplo">
     <template>
-      <span class="ppl-badge ppl-badge--gold ppl-badge--count">184.368</span>
+      <span class="ppl-badge ppl-badge--dawn ppl-badge--count">184.368</span>
       <span class="ppl-badge ppl-badge--count">42</span>
     </template>
   </div>
 
   <h3>Tile de ícone</h3>
-  <p>O quadrado arredondado antes do título, em quatro tamanhos e dois tons.</p>
+  <p>
+    O quadrado arredondado antes do título: tonal roxo por padrão, <code>--warn</code> em âmbar para
+    o card de atenção, <code>--dark</code> para viver sobre a noite. Três tamanhos.
+  </p>
   <div class="exemplo">
     <template>
       <span class="ppl-icon-tile ppl-icon-tile--sm"><i data-ppl-icon="list" data-ppl-size="15"></i></span>
       <span class="ppl-icon-tile"><i data-ppl-icon="users" data-ppl-size="18"></i></span>
       <span class="ppl-icon-tile ppl-icon-tile--lg"><i data-ppl-icon="wallet" data-ppl-size="20"></i></span>
-      <span class="ppl-icon-tile ppl-icon-tile--lg ppl-icon-tile--gold"><i data-ppl-icon="user" data-ppl-size="20"></i></span>
+      <span class="ppl-icon-tile ppl-icon-tile--lg ppl-icon-tile--warn"><i data-ppl-icon="triangle-alert" data-ppl-size="20"></i></span>
+      <span style="display:inline-flex;padding:8px;border-radius:var(--ppl-radius-control);background:var(--ppl-surface-dark)">
+        <span class="ppl-icon-tile ppl-icon-tile--lg ppl-icon-tile--dark"><i data-ppl-icon="user" data-ppl-size="20"></i></span>
+      </span>
     </template>
   </div>
 </section>
@@ -962,8 +1346,10 @@ PplCompassIcons.nomes()         // a lista dos 136
 
   <h3>Campos</h3>
   <p>
+    Rótulo 13 / 600 em caixa baixa; campo de 40px com raio 8, borda forte em repouso e foco roxo.
     <code>.ppl-input--data</code> marca o campo que recebe identificador — CPF, CNPJ, matrícula,
-    competência, valor.
+    competência, valor. <code>.ppl-input--touch</code> leva o campo a 44px no app. O erro é texto
+    em <code>--ppl-danger-strong</code>, nunca só a borda.
   </p>
   <div class="exemplo">
     <template>
@@ -989,7 +1375,7 @@ PplCompassIcons.nomes()         // a lista dos 136
         </label>
         <label class="ppl-field">
           <span class="ppl-field__label">Competência</span>
-          <input class="ppl-input ppl-input--data" value="2026-13">
+          <input class="ppl-input ppl-input--data" value="2026-13" aria-invalid="true">
           <span class="ppl-field__error" role="alert">Competência inválida — o mês vai de 01 a 12.</span>
         </label>
       </div>
@@ -1018,7 +1404,8 @@ PplCompassIcons.nomes()         // a lista dos 136
     O <code>&lt;select&gt;</code> nativo não aceita busca, e em lista paginada na origem o item
     simplesmente não está lá. Este é o padrão ARIA combobox + listbox: setas navegam,
     <code>Enter</code> escolhe, <code>Esc</code> fecha <strong>só o popup</strong> — sem isso, um
-    único <code>Esc</code> fecharia o drawer inteiro e perderia o formulário.
+    único <code>Esc</code> fecharia o drawer inteiro e perderia o formulário. A lista é um flutuante
+    de verdade: aqui a sombra é legítima.
   </p>
   <div class="exemplo">
     <template>
@@ -1043,13 +1430,13 @@ PplCompassIcons.nomes()         // a lista dos 136
   <h3>Envio sem persistência</h3>
   <p>
     O protótipo não guarda nada. <code>data-ppl-submit</code> intercepta o envio, fecha o painel que
-    contém o formulário e anuncia o resultado — é o que mantém sete dos oito templates com zero
+    contém o formulário e anuncia o resultado — é o que mantém oito dos nove templates com zero
     JavaScript.
   </p>
   <div class="exemplo">
     <template>
       <form class="ppl-row" data-ppl-submit="Rubrica 1042 criada na competência 2026-08.">
-        <input class="ppl-input ppl-input--data" value="1042" style="width:110px">
+        <input class="ppl-input ppl-input--data" value="1042" style="width:110px" aria-label="Código">
         <button type="submit" class="ppl-btn ppl-btn--primary">Criar rubrica</button>
       </form>
     </template>
@@ -1065,6 +1452,7 @@ PplCompassIcons.nomes()         // a lista dos 136
   <h2>Alert, toast e estados <span class="doc-tag">.ppl-alert .ppl-toast .ppl-state</span></h2>
 
   <h3>Alert — o aviso que fica na página</h3>
+  <p>Tonal por token: o fundo é a <code>-soft</code> e o texto é a <code>-strong</code>, que mede AA.</p>
   <div class="exemplo">
     <template>
       <div class="ppl-stack" style="width:100%">
@@ -1078,9 +1466,10 @@ PplCompassIcons.nomes()         // a lista dos 136
 
   <h3>Toast — o aviso que passa</h3>
   <p>
-    Região <code>aria-live="polite"</code>, montada pelo próprio pacote. Sucesso e informação somem
-    sozinhos; <strong>erro é persistente e traz ação de recuperação</strong> — é o requisito do
-    design system, e é o que o console ainda não faz, onde tudo some em 4,2 s.
+    Região <code>aria-live="polite"</code>, montada pelo próprio pacote. O toast é <strong>sempre
+    sobre a madrugada</strong>, nos dois temas: a variante colore o ícone, não o fundo. Sucesso e
+    informação somem sozinhos; <strong>erro é persistente e traz ação de recuperação</strong> — é o
+    requisito do design system, e é o que o console ainda não faz, onde tudo some em 4,2 s.
   </p>
   <div class="exemplo">
     <template>
@@ -1222,12 +1611,13 @@ PplCompass.painel('painel-folha', 'carregando');
   </p>
 </section>
 
+
 <!-- ═════════════════════════════════ PAINEL, CHOICE E STAT ═══ -->
 <section class="doc-pagina" id="p-conteudo">
   <h2>Painel, choice e stat <span class="doc-tag">.ppl-panel .ppl-choice .ppl-stat</span></h2>
 
   <h3>Painel — a moldura de ~25 telas</h3>
-  <p>Anatomia fixa: tile, título e linha de apoio à esquerda; ação à direita.</p>
+  <p>Anatomia fixa: tile, título em Sora e linha de apoio à esquerda; ação à direita.</p>
   <div class="exemplo">
     <template>
       <div class="ppl-card ppl-panel" style="width:100%">
@@ -1248,14 +1638,15 @@ PplCompass.painel('painel-folha', 'carregando');
   <h3>Cabeçalho de página</h3>
   <p>
     O contexto que decide — quem, qual CNPJ, qual competência — fica visível do início ao fim do
-    fluxo. Ele mora aqui, não numa tela anterior.
+    fluxo. Ele mora aqui, em <strong>caption abaixo do título</strong>, não numa tela anterior e não
+    num eyebrow. O título é Sora 24 / 700.
   </p>
   <div class="exemplo">
     <template>
       <div class="ppl-page-head" style="width:100%;margin-bottom:0">
         <div class="ppl-page-head__id">
-          <div class="ppl-page-head__meta ppl-eyebrow">Competência 2026-08 · Gestão Hospitalar Ltda</div>
           <h1 class="ppl-page-head__title">Folha da competência</h1>
+          <div class="ppl-page-head__meta">Competência 2026-08 · Gestão Hospitalar Ltda</div>
           <p class="ppl-page-head__desc">Apuração, conferência e fechamento por CNPJ.</p>
         </div>
         <div class="ppl-page-head__actions">
@@ -1268,37 +1659,43 @@ PplCompass.painel('painel-folha', 'carregando');
 
   <h3>Choice — decisão de caminho</h3>
   <p>
-    Cards grandes, alvo ≥ 160px, e <strong>não</strong> um dropdown escondido: escolher processo é a
-    decisão mais frequente do dia, e ela não pode custar dois cliques e uma lista. Só um card por
-    tela recebe o dourado.
+    Cards grandes, alvo ≥ 150px, e <strong>não</strong> um dropdown escondido: escolher processo é a
+    decisão mais frequente do dia, e ela não pode custar dois cliques e uma lista. Nenhum card é
+    "dourado": o destaque é <strong>ordem e tamanho</strong> (<code>--wide</code>), não cor. O tile
+    <code>--warn</code> fica para o card que pede atenção.
   </p>
   <div class="exemplo">
     <template>
       <div class="ppl-choice-grid" style="width:100%">
         <a class="ppl-card ppl-choice ppl-card--interactive" href="#/conteudo">
-          <span class="ppl-icon-tile ppl-icon-tile--gold ppl-icon-tile--lg"><i data-ppl-icon="user" data-ppl-size="20"></i></span>
+          <span class="ppl-icon-tile ppl-icon-tile--lg"><i data-ppl-icon="user" data-ppl-size="20"></i></span>
           <span class="ppl-choice__title">Admitir colaborador</span>
           <span class="ppl-choice__line">Dados pessoais, contrato, jornada e o S-2200 do eSocial.</span>
           <span class="ppl-choice__foot">7 admissões em agosto</span>
         </a>
         <a class="ppl-card ppl-choice ppl-card--interactive" href="#/conteudo">
-          <span class="ppl-icon-tile ppl-icon-tile--lg"><i data-ppl-icon="wallet" data-ppl-size="20"></i></span>
-          <span class="ppl-choice__title">Fechar folha da competência</span>
-          <span class="ppl-choice__line">Apurar, conferir divergências e fechar por CNPJ.</span>
+          <span class="ppl-icon-tile ppl-icon-tile--lg ppl-icon-tile--warn"><i data-ppl-icon="triangle-alert" data-ppl-size="20"></i></span>
+          <span class="ppl-choice__title">Tratar pendências</span>
+          <span class="ppl-choice__line">184.368 aguardam — 1.284 bloqueiam a folha.</span>
           <span class="ppl-choice__foot">2026-08 · em apuração</span>
         </a>
       </div>
     </template>
   </div>
 
-  <h3>Stat — número grande</h3>
-  <p>Todo valor em <code>--ppl-font-data</code> com <code>tabular-nums</code>.</p>
+  <h3>Stat — número grande, plano</h3>
+  <p>
+    Todo valor em <code>--ppl-font-data</code> com <code>tabular-nums</code>. O número-herói é
+    <code>.ppl-hero-number</code> <strong>dentro de um card</strong> — sem degradê em card, nunca; no
+    app à noite o card leva <code>--veil</code> e fica translúcido sobre o horizonte.
+  </p>
   <div class="exemplo">
     <template>
       <div class="ppl-stack" style="width:100%">
-        <div class="ppl-stat-hero">
-          <span class="ppl-stat-hero__label">Líquido de 2026-08</span>
-          <span class="ppl-stat-hero__value">R$ 1.284.930,55</span>
+        <div class="ppl-card ppl-panel">
+          <p class="ppl-caption">Líquido de 2026-08</p>
+          <p class="ppl-hero-number">R$ 1.284.930,55</p>
+          <p class="ppl-caption">1.240 contratos · apurado em 25/08</p>
         </div>
         <div class="ppl-stat-grid">
           <div class="ppl-card ppl-stat"><span class="ppl-stat__value">R$ 1.610.220,10</span><span class="ppl-stat__label">Proventos</span></div>
@@ -1359,13 +1756,18 @@ PplCompass.painel('painel-folha', 'carregando');
   </p>
 
   <h3>Declarativa — é a que os templates usam</h3>
+  <p>
+    <code>"marca"</code> com <code>"logo": "people"</code> desenha o logotipo horizontal branco
+    (150px) e a legenda em caixa baixa abaixo dele — nunca ao lado. Sem <code>logo</code>, o nome
+    em Sora.
+  </p>
   <div class="exemplo">
     <template data-so-codigo>
 &lt;aside class="ppl-nav" data-ppl-nav&gt;
   &lt;script type="application/json"&gt;
   {
     "rotaAtiva": "/folha",
-    "marca":  { "sigla": "b", "nome": "BNG People", "tag": "Depto. Pessoal" },
+    "marca":  { "logo": "people", "nome": "BNG People", "tag": "Depto. Pessoal", "href": "/" },
     "itens": [
       { "label": "Início",     "icone": "house",         "href": "/" },
       { "label": "Pendências", "icone": "circle-alert", "href": "/pendencias", "contador": 184368 },
@@ -1386,7 +1788,7 @@ PplCompass.painel('painel-folha', 'carregando');
       <script type="application/json">
       {
         "rotaAtiva": "/folha",
-        "marca":  { "sigla": "b", "nome": "BNG People", "tag": "Depto. Pessoal" },
+        "marca":  { "logo": "people", "nome": "BNG People", "tag": "Depto. Pessoal", "href": "/" },
         "itens": [
           { "label": "Início",     "icone": "house",         "href": "/" },
           { "label": "Pendências", "icone": "circle-alert", "href": "/pendencias", "contador": 184368 },
@@ -1406,10 +1808,16 @@ PplCompass.painel('painel-folha', 'carregando');
       </script>
     </aside>
     <div class="ppl-shell__col ppl-canvas" style="padding:24px">
-      <p class="ppl-muted">Os grupos nascem <strong>recolhidos</strong>, menos o que contém a rota
-      ativa. Recolher é gesto momentâneo de foco, não configuração: não persiste.</p>
+      <p class="ppl-muted">A sidebar é o ciclorama em pé — <strong>sempre noite</strong>, nos dois
+      temas, com o brilho pêssego sob o rodapé. Os grupos nascem <strong>recolhidos</strong>, menos
+      o que contém a rota ativa; recolher é gesto momentâneo de foco, não configuração.</p>
       <p class="ppl-muted" style="margin-top:12px">O item ativo carrega <code>aria-current="page"</code>
-      e ganha a barra dourada — o único dourado permanente do shell.</p>
+      e vira a <strong>pílula do dia</strong>: fundo branco, texto e ícone roxos, sem barra — o
+      branco do dia é o estado ativo.</p>
+      <p class="ppl-muted" style="margin-top:12px">O contador é a <strong>pílula pêssego</strong>
+      (<code>.ppl-nav__count</code>), número mono em tinta: o único pêssego do console, então o JSON
+      tem <strong>um</strong> contador só. O rótulo de grupo é a única caixa alta rastreada do
+      sistema (<code>.ppl-group-label</code>: 11 / 700 / .14em, lilás-suave).</p>
     </div>
   </div>
 
@@ -1443,7 +1851,8 @@ PplCompass.painel('painel-folha', 'carregando');
   <h3>A mesma chamada desenha a tabbar</h3>
   <p>
     <code>"variante": "tabbar"</code>, o mesmo objeto: um produto não mantém duas listas de rotas.
-    O alvo de toque é o <strong>link inteiro</strong>, ≥ 44px — nunca a pílula de 36px.
+    O alvo de toque é o <strong>link inteiro</strong>, ≥ 44px — nunca a pílula de 36px. De dia a aba
+    ativa é roxa; <strong>à noite, pêssego</strong>.
   </p>
   <div class="exemplo">
     <template>
@@ -1466,12 +1875,16 @@ PplCompass.painel('painel-folha', 'carregando');
   </div>
 
   <h3>Topo — só cromo</h3>
-  <p>A navegação <strong>não</strong> mora aqui. O eyebrow diz o grupo econômico ativo; a migalha diz a tela.</p>
+  <p>
+    A navegação <strong>não</strong> mora aqui. A barra é sólida, com hairline. O chip tonal
+    (<code>.ppl-topbar__chip</code>, com o ponto roxo) diz o grupo econômico ativo; a migalha diz a
+    tela. O botão de tema pode morar aqui — o tema vale no shell inteiro.
+  </p>
   <div class="exemplo">
     <template>
       <div class="ppl-bar" style="width:100%;border-radius:var(--ppl-radius-card)">
         <div class="ppl-topbar__row">
-          <span class="ppl-eyebrow">Grupo Boas Novas</span>
+          <span class="ppl-topbar__chip">Grupo Boas Novas</span>
           <span class="ppl-topbar__crumb"><i data-ppl-icon="wallet" data-ppl-size="15"></i>Folha</span>
           <div class="ppl-topbar__actions">
             <button class="ppl-btn ppl-btn--icon ppl-btn--secondary" aria-label="Produtos"><i data-ppl-icon="layout-grid" data-ppl-size="16"></i></button>
@@ -1706,7 +2119,7 @@ document.addEventListener('ppl:auditoria', (e) =&gt; console.log(e.detail));
   <h2>Wizard <span class="doc-tag">new PplCompass.Wizard()</span></h2>
   <p>
     Uma decisão por etapa. <strong>Avançar sempre valida</strong> a etapa corrente; voltar é direito
-    do operador; saltar para frente burlaria a validação e está bloqueado.
+    do operador; saltar para frente burlaria a validação e está bloqueado. O passo <strong>atual</strong> é invertido — roxo cheio com texto branco: o ativo é o que está aceso; o concluído fica tonal.
   </p>
   <div class="ppl-alert ppl-alert--danger">
     <i data-ppl-icon="shield" data-ppl-size="16"></i>
@@ -1738,7 +2151,7 @@ new PplCompass.Wizard({
   <h3>A conclusão</h3>
   <p>
     Traz o <strong>identificador</strong> e <strong>um</strong> próximo passo. Uma tela de sucesso
-    com quatro botões devolve ao operador a decisão que ela deveria tomar.
+    com quatro botões devolve ao operador a decisão que ela deveria tomar. A conclusão leva o <a href="#/luz">selo de alvorada</a>: um raio de luz numa tela de dia.
   </p>
 
   <h3>O limite</h3>
@@ -1748,60 +2161,82 @@ new PplCompass.Wizard({
   </p>
 </section>
 
+
 <!-- ════════════════════════════════════════════════════════ LANDING ═══ -->
 <section class="doc-pagina" id="p-landing">
-  <h2>Landing <span class="doc-tag">.ppl-landing .ppl-glass .ppl-hero</span></h2>
+  <h2>Landing <span class="doc-tag">.ppl-landing .ppl-landing__bar .ppl-hero</span></h2>
   <p>
-    É a <strong>única</strong> superfície com vidro e tema escuro. No produto, o shell autenticado é
-    claro-only, e espelhar isso é intencional.
+    O portal externo é <strong>dia frio</strong>: plano, sobre o fundo do dia, sem vidro, sem
+    pêssego, sem ciclorama de tela inteira. O céu aparece <strong>só na faixa da marca</strong> — a
+    barra do topo, com a logo branca. Segue o tema do aparelho como o resto do sistema; não tem um
+    tema só dela.
   </p>
 
   <div class="moldura">
-    <div class="ppl-landing ppl-landing__mesh" style="min-height:auto;padding:20px">
-      <nav class="ppl-glass ppl-landing__bar" aria-label="Exemplo">
-        <span class="ppl-row"><span class="ppl-nav__mark">b</span><strong>BNG People</strong></span>
+    <div class="ppl-landing" style="min-height:auto;padding:20px">
+      <nav class="ppl-landing__bar" aria-label="Exemplo">
+        <a class="ppl-landing__logo" href="#/landing" data-ppl-logo aria-label="BNG People"></a>
         <span class="ppl-row">
-          <button class="ppl-btn ppl-btn--icon ppl-btn--secondary" data-ppl-theme-toggle aria-label="Alternar tema">
+          <button class="ppl-btn ppl-btn--icon ppl-btn--ghost" data-ppl-theme-toggle aria-label="Alternar tema">
             <i data-ppl-icon="moon" data-ppl-size="16"></i>
           </button>
           <a href="#/landing" class="ppl-btn ppl-btn--secondary ppl-btn--sm">Entrar</a>
         </span>
       </nav>
       <header class="ppl-hero">
-        <p class="ppl-eyebrow">Departamento pessoal para quem opera saúde</p>
-        <h2 class="ppl-hero__title" style="border:none;padding:0;margin:0">
-          A folha fecha <span class="ppl-grad-text">no prazo</span> porque o dado nasce certo.
+        <h2 class="ppl-hero__title" style="border:none;padding:0;margin:0;display:block">
+          A folha fecha <em>no prazo</em> porque o dado nasce certo.
         </h2>
+        <p class="ppl-caption">Departamento pessoal para quem opera saúde</p>
         <p class="ppl-hero__line">Admissão, ponto, folha e eSocial no mesmo lugar.</p>
-        <div class="ppl-hero__cta"><a class="ppl-btn ppl-btn--hero ppl-btn--touch" href="#/landing">Entrar no console</a></div>
+        <div class="ppl-hero__cta"><a class="ppl-btn ppl-btn--primary ppl-btn--touch" href="#/landing">Entrar no console</a></div>
       </header>
     </div>
   </div>
+  <div class="exemplo">
+    <template data-so-codigo>
+&lt;body class="ppl-landing"&gt;
+  &lt;nav class="ppl-landing__bar"&gt;
+    &lt;a class="ppl-landing__logo" href="/" data-ppl-logo aria-label="BNG People"&gt;&lt;/a&gt;
+    &lt;button class="ppl-btn ppl-btn--icon ppl-btn--ghost" data-ppl-theme-toggle aria-label="Alternar tema"&gt;…&lt;/button&gt;
+  &lt;/nav&gt;
+  &lt;header class="ppl-hero"&gt;
+    &lt;h1 class="ppl-hero__title"&gt;A folha fecha &lt;em&gt;no prazo&lt;/em&gt; porque o dado nasce certo.&lt;/h1&gt;
+    &lt;p class="ppl-caption"&gt;Departamento pessoal para quem opera saúde&lt;/p&gt;
+    &lt;p class="ppl-hero__line"&gt;Admissão, ponto, folha e eSocial no mesmo lugar.&lt;/p&gt;
+    &lt;div class="ppl-hero__cta"&gt;&lt;a class="ppl-btn ppl-btn--primary ppl-btn--touch" href="/login"&gt;Entrar no console&lt;/a&gt;&lt;/div&gt;
+  &lt;/header&gt;
+&lt;/body&gt;
+    </template>
+  </div>
   <p class="ppl-muted" style="font-size:12.5px;margin-top:8px">
-    Clique na lua para alternar o tema — a preferência é gravada em <code>localStorage</code>. É dado
-    de interface anônimo: não é cookie e não depende de consentimento.
+    Clique na lua para alternar o tema — a preferência é gravada em <code>localStorage</code> e vale
+    no shell inteiro, não só aqui. É dado de interface anônimo: não é cookie e não depende de
+    consentimento.
   </p>
 
-  <h3>Toda receita resolve na paleta pública aqui dentro</h3>
+  <h3>O hero é Sora, e o destaque é uma palavra roxa</h3>
   <p>
-    Dentro de <code>.ppl-landing</code>, tinta, borda e superfície são remapeadas para
-    <code>--ppl-lp-*</code>. Sem isso um componente reusado aqui aparece meio certo:
-    <code>.ppl-choice__title</code> pede <code>--ppl-ink</code>, que é o azul-marinho do shell e
-    <strong>não vira no escuro</strong> — título azul-marinho sobre fundo azul-marinho some, e some
-    em silêncio.
-  </p>
-  <p>
-    <code>--ppl-primary</code> fica <strong>de fora</strong> do remapeamento, de propósito: no escuro
-    o azul de marca perde contraste como <em>texto</em>, mas continua sendo o fundo certo para texto
-    branco. Trocar os dois juntos consertaria o link e quebraria o botão sólido.
+    A headline é <code>.ppl-hero__title</code> em Sora 700; o <code>&lt;em&gt;</code> dentro dela fica
+    reto e roxo — <strong>não há texto em degradê</strong>, em lugar nenhum do sistema. O contexto
+    ("para quem opera saúde") é caption <strong>abaixo</strong> da headline, ou some. O CTA é o
+    primário comum: nenhum botão tem degradê.
   </p>
 
-  <h3>Vidro é degradação, nunca requisito</h3>
+  <h3>Por que a barra é a única faixa de céu</h3>
   <p>
-    Com <code>prefers-reduced-transparency</code>, <code>.ppl-glass</code> e os cards viram opacos —
-    sem pedir nada a quem escreveu a página. A folha de consentimento
-    (<code>.ppl-sheet</code>) já é quase opaca de propósito: texto jurídico precisa manter contraste
-    sobre qualquer conteúdo que role por baixo.
+    <code>.ppl-landing__bar</code> leva o mesmo degradê da sidebar e a logo branca: é a marca, e a
+    marca vive sobre a noite. Tudo abaixo dela é dia — os cards são os mesmos <code>.ppl-card</code>
+    do console, sem sombra, e a tinta é a mesma. Nada é remapeado dentro da landing: o tema escuro
+    já resolve cada token no shell inteiro, então um componente reusado aqui aparece inteiro, e não
+    meio certo.
+  </p>
+
+  <h3>A folha de consentimento</h3>
+  <p>
+    <code>.ppl-sheet</code> é <strong>sólida</strong> de propósito: texto jurídico precisa manter
+    contraste sobre qualquer conteúdo que role por baixo. Como flutua sobre a página, é uma das
+    poucas superfícies com sombra.
   </p>
 </section>
 
@@ -1828,6 +2263,7 @@ new PplCompass.Wizard({
   </div>
 
   <h3>O molde do aplicativo</h3>
+  <p>O app tem o próprio céu: névoa de dia, horizonte à noite (<code>--ppl-grad-day</code> muda com o tema), fixo ao viewport para o brilho não rolar com a lista.</p>
   <div class="exemplo">
     <template data-so-codigo>
 &lt;div class="ppl-app"&gt;
@@ -1847,8 +2283,9 @@ new PplCompass.Wizard({
         <tr><td><code>.ppl-row</code></td><td>linha alinhada ao centro · <code>--end</code> empurra para a direita</td></tr>
         <tr><td><code>.ppl-cols-2</code></td><td>duas colunas a partir de 640px, uma abaixo disso</td></tr>
         <tr><td><code>.ppl-spacer</code></td><td>ocupa o vão entre dois blocos</td></tr>
+        <tr><td><code>.ppl-card--veil</code></td><td>no app à noite, o card fica translúcido sobre o horizonte</td></tr>
         <tr><td><code>.ppl-muted</code> · <code>.ppl-faint</code></td><td>texto secundário e metadado</td></tr>
-        <tr><td><code>.ppl-main</code></td><td>coluna de conteúdo com teto de 1152px</td></tr>
+        <tr><td><code>.ppl-main</code></td><td>coluna de conteúdo com teto de 1200px</td></tr>
       </tbody>
     </table>
   </div>
@@ -1861,6 +2298,7 @@ new PplCompass.Wizard({
   </p>
 </section>
 
+
 <!-- ═════════════════════════════════════════════════ API JAVASCRIPT ═══ -->
 <section class="doc-pagina" id="p-api">
   <h2>API JavaScript <span class="doc-tag">window.PplCompass</span></h2>
@@ -1872,7 +2310,7 @@ new PplCompass.Wizard({
   <h3>Ligar</h3>
   <div class="exemplo">
     <template data-so-codigo>
-PplCompass.init();                                  // hidrata ícones e liga todos os comportamentos
+PplCompass.init();                                  // hidrata ícones e logo, liga todos os comportamentos
 PplCompass.init({ acoes: [{ href, label }] });      // sem `acoes`, a busca herda a navegação
     </template>
   </div>
@@ -1886,7 +2324,7 @@ PplCompass.init({ acoes: [{ href, label }] });      // sem `acoes`, a busca herd
     <template data-so-codigo>
 PplCompass.drawer.abrir(id, origem)   ·  .fechar(id)
 PplCompass.busca.abrir(origem)        ·  .fechar()
-PplCompass.tema.alternar()            ·  .aplicar('dark' | 'light')
+PplCompass.tema.alternar()            ·  .aplicar('dark' | 'light')   // vale no shell inteiro
 
 PplCompass.confirmar({ risco, titulo, alvo, corpo, frase, processo, acao,
                        onConfirmar, onCancelar })
@@ -1902,8 +2340,15 @@ PplCompass.nav.acoes()                // o que a navegação compôs, para a bus
 PplCompass.painel('painel-folha', 'carregando')     // dados | carregando | vazio | erro
 
 PplCompass.icon('wallet', 18)         // a string do &lt;svg&gt;
+PplCompass.logo()                     // o SVG do logotipo horizontal branco (currentColor)
     </template>
   </div>
+  <p>
+    <code>logo()</code> é a mesma arte que o <code>init()</code> injeta em todo
+    <code>[data-ppl-logo]</code> e que <code>nav()</code> desenha quando a marca traz
+    <code>"logo": "people"</code>. O SVG usa <code>currentColor</code>: quem decide o branco é o
+    container — e ele é sempre branco, sobre a noite.
+  </p>
 
   <h3>Aviso</h3>
   <div class="exemplo">
@@ -1964,17 +2409,20 @@ new PplCompass.Wizard({ raiz, efeito, rotuloConfirmar, passos,
   <h2>Atributos <span class="doc-tag">data-ppl-*</span></h2>
   <p>
     Quem monta o protótipo <strong>não escreve JavaScript</strong>: marca o HTML e chama
-    <code>init()</code> uma vez. Sete dos oito templates têm exatamente uma linha de script.
+    <code>init()</code> uma vez. Oito dos nove templates têm exatamente uma linha de script.
+    São <strong>21</strong> atributos lidos pelo pacote — mais o <code>data-ppl-when</code>, que é
+    o CSS quem lê.
   </p>
 
-  <h3>Navegação e conteúdo</h3>
+  <h3>Navegação, marca e conteúdo</h3>
   <div class="ppl-table-wrap">
     <table class="ppl-table">
       <thead><tr><th>Atributo</th><th>Onde</th><th>O que faz</th></tr></thead>
       <tbody>
         <tr><td><code>data-ppl-nav</code></td><td>elemento</td><td>hidrata a navegação a partir do <code>&lt;script type="application/json"&gt;</code> dentro dele</td></tr>
+        <tr><td><code>data-ppl-logo</code></td><td>elemento</td><td>recebe o SVG do logotipo horizontal branco — na sidebar, no céu e na barra da landing</td></tr>
         <tr><td><code>data-ppl-state</code></td><td><code>.ppl-data-panel</code></td><td>o estado corrente: <code>dados</code> · <code>carregando</code> · <code>vazio</code> · <code>erro</code></td></tr>
-        <tr><td><code>data-ppl-when</code></td><td>filho do painel</td><td>em que estados este bloco aparece — aceita mais de um</td></tr>
+        <tr><td><code>data-ppl-when</code></td><td>filho do painel</td><td>em que estados este bloco aparece — aceita mais de um (lido pelo CSS)</td></tr>
         <tr><td><code>data-ppl-state-set</code></td><td>botão</td><td><code>"id-do-painel:estado"</code> — troca o estado ao clicar</td></tr>
         <tr><td><code>data-ppl-icon</code> · <code>data-ppl-size</code></td><td><code>&lt;i&gt;</code></td><td>troca o elemento pelo SVG do ícone</td></tr>
       </tbody>
@@ -1989,7 +2437,7 @@ new PplCompass.Wizard({ raiz, efeito, rotuloConfirmar, passos,
         <tr><td><code>data-ppl-drawer-open</code></td><td>botão</td><td>abre o drawer com aquele <code>id</code></td></tr>
         <tr><td><code>data-ppl-drawer-close</code></td><td>botão</td><td>fecha o drawer que o contém</td></tr>
         <tr><td><code>data-ppl-search-open</code></td><td>botão</td><td>abre a busca global</td></tr>
-        <tr><td><code>data-ppl-theme-toggle</code></td><td>botão</td><td>alterna claro e escuro — só faz sentido na landing</td></tr>
+        <tr><td><code>data-ppl-theme-toggle</code></td><td>botão</td><td>alterna claro e escuro — no shell inteiro; a sidebar é sempre noite</td></tr>
       </tbody>
     </table>
   </div>
@@ -2028,6 +2476,7 @@ new PplCompass.Wizard({ raiz, efeito, rotuloConfirmar, passos,
   <div class="exemplo">
     <template data-so-codigo>
 &lt;aside class="ppl-nav" data-ppl-nav&gt;&lt;script type="application/json"&gt;{ … }&lt;/script&gt;&lt;/aside&gt;
+&lt;span class="ppl-sky__logo" data-ppl-logo&gt;&lt;/span&gt;
 
 &lt;div class="ppl-data-panel" id="p" data-ppl-state="dados"&gt;
   &lt;div data-ppl-when="dados"&gt;…&lt;/div&gt;
@@ -2063,7 +2512,7 @@ new PplCompass.Wizard({ raiz, efeito, rotuloConfirmar, passos,
 (function () {
   'use strict';
 
-  var VERSAO = '0.4.2';
+  var VERSAO = '0.5.0';
   var $  = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
 
@@ -2172,7 +2621,7 @@ new PplCompass.Wizard({ raiz, efeito, rotuloConfirmar, passos,
       else a.removeAttribute('aria-current');
     });
     /* Se quem lê fechou um grupo e depois caiu numa rota de dentro dele — por
-       busca, por link, pelo histórico —, a página abre com a marca dourada
+       busca, por link, pelo histórico —, a página abre com a pílula branca
        invisível. Reabrir o grupo do item atual evita "estou aqui" apontando
        para dentro de uma gaveta fechada. Os outros ficam como a pessoa deixou. */
     var atual = $('#doc-nav .ppl-nav__item[aria-current="page"]');
@@ -2291,18 +2740,22 @@ new PplCompass.Wizard({ raiz, efeito, rotuloConfirmar, passos,
             '<label class="ppl-field"><span class="ppl-field__label">CPF</span>' +
             '<input class="ppl-input ppl-input--data" id="doc-w-cpf" value="111.222.333-44"></label></div>';
         } else {
+          /* O contexto da etapa é caption, em caixa baixa — não há eyebrow. */
           corpo.innerHTML =
-            '<p class="ppl-eyebrow" style="margin-bottom:8px">Etapa: ' + passo.label + '</p>' +
+            '<p class="ppl-caption" style="margin-bottom:8px">Etapa: ' + passo.label + '</p>' +
             '<p class="ppl-muted">Uma decisão por etapa. O conteúdo real do passo entra aqui.</p>';
         }
         PplCompass.init();
       },
       onConcluir: function () {
+        /* A conclusão é o selo de alvorada: um raio de luz numa tela de dia.
+           Traz o identificador e UM próximo passo. */
         raizWizard.innerHTML =
           '<div class="ppl-state">' +
-          '<span class="ppl-icon-tile ppl-icon-tile--lg"><i data-ppl-icon="circle-check" data-ppl-size="22"></i></span>' +
+          '<span class="ppl-seal"><i data-ppl-icon="check" data-ppl-size="24"></i></span>' +
           '<p class="ppl-display ppl-display--hero">Admissão concluída</p>' +
           '<p>Matrícula <span class="ppl-data">2026-0042</span> criada. O S-2200 entrou na fila do eSocial.</p>' +
+          '<button class="ppl-btn ppl-btn--secondary ppl-btn--sm" onclick="location.reload()">Admitir outro</button>' +
           '</div>';
         PplCompass.init();
         PplCompass.toast.success('Admissão concluída — matrícula 2026-0042 criada.');
